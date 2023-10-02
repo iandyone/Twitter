@@ -3,10 +3,9 @@ import robotoBold from '@assets/fonts/Roboto/Roboto-Bold.ttf';
 import robotoLight from '@assets/fonts/Roboto/Roboto-Light.ttf';
 import robotoMedium from '@assets/fonts/Roboto/Roboto-Medium.ttf';
 import robotoRegular from '@assets/fonts/Roboto/Roboto-Regular.ttf';
-import { createGlobalStyle } from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyles = createGlobalStyle`
-
 * {
   padding: 0;
   margin: 0;
@@ -137,4 +136,16 @@ input::-webkit-inner-spin-button {
   font-style: normal;
   font-display: auto;
 }
+`;
+
+export const PageWrapper = styled.div`
+  min-height: 100vh;
+`;
+
+export const AppContainer = styled.div`
+  max-width: 1920px;
+  margin: 0 auto;
+  box-sizing: content-box;
+  padding: 0 20px;
+  overflow-x: hidden;
 `;

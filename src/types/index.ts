@@ -21,17 +21,12 @@ export interface IFont {
 
 export interface IColor {
   text?: string;
-  otherDate?: string;
   border?: string;
   active?: string;
-  rangeStart?: string;
-  rangeEnd?: string;
-  inRange?: string;
-  holiday?: string;
-  error?: string;
-  textLight?: string;
   hover?: string;
   bgApp: string;
+  borderHover?: string;
+  link: string;
 }
 
 export interface ISpace {
@@ -46,4 +41,9 @@ export interface ISpace {
 export interface IAnimation {
   transition?: string;
   transformActive?: string;
+}
+
+export interface IFooterLink {
+  text: string;
+  href: string;
 }
