@@ -1,0 +1,49 @@
+{
+  "compilerOptions": {
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "target": "es6",
+    "skipLibCheck": true,
+    "allowJs": true,
+
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+
+    /* Other */
+
+    "paths": {
+      "@components/*": ["./src/components/*"],
+      "@assets/*": ["./src/assets/*"],
+      "@constants/*": ["./src/constants/*"],
+      "@styles": ["./src/styles"],
+      "@utils/*": ["./src/utils/*"],
+      "@hooks/*": ["./src/hooks/*"],
+      "@store/*": ["./src/store/*"],
+      "@reducers/*": ["./src/store/reducers/*"],
+      "@pages/*": ["./src/pages/*"],
+      "@appTypes": ["./src/types"],
+      "@observers/*": ["./src/observers/*"],
+      "@decorators/*": ["./src/decorators/*"],
+      "@services/*": ["./src/services/*"],
+      "@config/*": ["./config/*"],
+
+      "@appTypes/*": ["./src/types/*"],
+      "@styles/*": ["./src/styles/*"],
+      "@": ["./src*"]
+    }
+  },
+  "include": ["src", "./src/**/*.ts", "./src/**/*.tsx", "./global.d.tsx"],
+  "references": [{ "path": "./tsconfig.node.json" }]
+}
