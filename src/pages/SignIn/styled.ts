@@ -1,3 +1,4 @@
+import { Icon, LinkTemplate, TitleTemplate } from '@styles';
 import styled from 'styled-components';
 
 export const Body = styled.div`
@@ -55,22 +56,14 @@ export const Content = styled.div`
   }
 `;
 
-export const TwitterIcon = styled.img`
+export const TwitterIcon = styled(Icon)`
   white-space: nowrap;
   width: 50px;
   height: 40px;
   margin-bottom: 58px;
-
-  @media (max-width: 1400px) {
-    margin-bottom: 0px;
-  }
-
-  @media (max-width: 992px) {
-    align-self: center;
-  }
 `;
 
-export const Title = styled.h1`
+export const Title = styled(TitleTemplate)`
   color: ${({ theme }) => theme.colors.text};
   font-family: ${({ theme }) => theme.font.family};
   font-weight: ${({ theme }) => theme.font.bold};
@@ -167,7 +160,7 @@ export const Links = styled.div`
   row-gap: 20px;
 `;
 
-export const Link = styled.a.attrs(({ href }) => ({
+export const Link = styled(LinkTemplate).attrs(({ href }) => ({
   href: href,
   target: '_blank',
 }))`

@@ -1,13 +1,12 @@
 import googleIcon from '@assets/icons/google.svg';
 import twitterIcon from '@assets/icons/twitter.svg';
 import preview from '@assets/images/preview.png';
-import { PageWrapper } from '@styles';
+import { PageBody, PageWrapper } from '@styles';
 import { FC, useMemo } from 'react';
 
 import { data, footerLinks } from './config';
 import {
   Banner,
-  Body,
   Button,
   Buttons,
   Content,
@@ -34,7 +33,7 @@ export const SignInPage: FC = () => {
 
   return (
     <PageWrapper>
-      <Body>
+      <PageBody>
         <Main>
           <Banner>
             <Image src={preview}></Image>
@@ -68,7 +67,7 @@ export const SignInPage: FC = () => {
             </FooterLink>
           ))}
         </Footer>
-      </Body>
+      </PageBody>
     </PageWrapper>
   );
 };

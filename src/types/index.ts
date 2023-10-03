@@ -10,6 +10,26 @@ export interface IThemeStyles {
   animation?: IAnimation;
 }
 
+export interface IColor {
+  text: string;
+  border: string;
+  link: string;
+
+  borderHover: string;
+
+  bgApp: string;
+
+  buttonBg: string;
+  buttonText: string;
+
+  error: string;
+
+  inputFocus: string;
+  inputHover: string;
+  inputError: string;
+  inputValid: string;
+}
+
 export interface IFont {
   size: string;
   bold: number;
@@ -17,16 +37,6 @@ export interface IFont {
   medium: number;
   light: number;
   family: string;
-}
-
-export interface IColor {
-  text?: string;
-  border?: string;
-  active?: string;
-  hover?: string;
-  bgApp: string;
-  borderHover?: string;
-  link: string;
 }
 
 export interface ISpace {
