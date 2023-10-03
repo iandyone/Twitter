@@ -1,4 +1,12 @@
-import { ButtonTemplate, Icon, InputTemplate, LinkTemplate, PageBody, TitleTemplate } from '@styles';
+import {
+  ButtonTemplate,
+  FormTemplate,
+  Icon,
+  InputTemplate,
+  LinkTemplate,
+  PageBody,
+  TitleTemplate,
+} from '@styles';
 import styled from 'styled-components';
 
 export const Body = styled(PageBody)`
@@ -35,11 +43,7 @@ export const TwitterIcon = styled(Icon)`
   }
 `;
 
-export const Form = styled.form`
-  display: flex;
-  row-gap: 16px;
-  flex-direction: column;
-  width: 100%;
+export const Form = styled(FormTemplate)`
   margin-bottom: 24px;
 
   @media (max-width: 480px) {

@@ -173,6 +173,12 @@ export const TitleTemplate = styled.h1`
   font-weight: ${({ theme }) => theme.font.bold};
 `;
 
+export const SubtitleTemplate = styled.h2`
+  color: ${({ theme }) => theme.colors.text};
+  font-family: ${({ theme }) => theme.font.family};
+  font-weight: ${({ theme }) => theme.font.bold};
+`;
+
 export const ButtonTemplate = styled.button`
   display: flex;
   justify-content: center;
@@ -236,4 +242,12 @@ export const InputTemplate = styled.input<{ $error?: boolean; $isNotEmpty: boole
     css`
       border-color: ${({ theme }) => theme.colors.inputValid};
     `}
+`;
+
+export const FormTemplate = styled.form`
+  display: flex;
+  row-gap: 16px;
+  flex-direction: column;
+  width: 100%;
+}
 `;

@@ -1,4 +1,4 @@
-import { LoginPage } from '@pages/Login';
+import { SignUpPage } from '@pages/SignUp';
 import { GlobalStyles } from '@styles';
 import { theme } from '@styles/theme';
 import { FC } from 'react';
@@ -8,8 +8,9 @@ export const App: FC = () => {
   return (
     <ThemeProvider theme={theme.light}>
       <GlobalStyles />
+      <SignUpPage />
+      {/* <LoginPage /> */}
       {/* <SignInPage /> */}
-      <LoginPage />
     </ThemeProvider>
   );
 };

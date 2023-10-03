@@ -1,0 +1,40 @@
+import { handler, handlerChange, inputTypes } from '@appTypes/types';
+import { forwardRef, Ref } from 'react';
+
+import { Input, InputContainer, Label } from './styled';
+
+interface IInputAuthProps {
+  type: inputTypes;
+  label: string;
+  value: string;
+  placeholder: string;
+  onChange: handlerChange;
+  onBlur: handler;
+  $error: boolean;
+  $isNotEmpty: boolean;
+  required?: boolean;
+}
+
+export const InputAuth = forwardRef(
+  (
+    { type, value, label, placeholder, onBlur, onChange, $error, $isNotEmpty, required }: IInputAuthProps,
+    ref: Ref<HTMLInputElement>,
+  ) => {
+    return (
+      <InputContainer>
+        <Label>{label}</Label>
+        <Input
+          type={type}
+          value={value}
+          placeholder={placeholder}
+          onChange={onChange}
+          onBlur={onBlur}
+          $error={$error}
+          $isNotEmpty={$isNotEmpty}
+          ref={ref}
+          required={required}
+        />
+      </InputContainer>
+    );
+  },
+);
