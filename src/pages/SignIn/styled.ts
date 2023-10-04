@@ -1,4 +1,5 @@
 import { Icon, LinkTemplate, TitleTemplate } from '@styles';
+import { Link as LinkLRouterLink } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const Body = styled.div`
@@ -107,9 +108,7 @@ export const Buttons = styled.div`
   row-gap: 20px;
 `;
 
-export const Button = styled.a.attrs(() => ({
-  href: '/',
-}))`
+export const Button = styled(LinkLRouterLink)`
   border-radius: 42px;
   border: 1px solid ${({ theme }) => theme.colors.border};
   opacity: 0.8;
@@ -160,10 +159,7 @@ export const Links = styled.div`
   row-gap: 20px;
 `;
 
-export const Link = styled(LinkTemplate).attrs(({ href }) => ({
-  href: href,
-  target: '_blank',
-}))`
+export const Link = styled(LinkTemplate)`
   color: ${({ theme }) => theme.colors.link};
 
   &:hover {
@@ -187,10 +183,7 @@ export const Footer = styled.footer`
   }
 `;
 
-export const FooterLink = styled.a.attrs(({ href }) => ({
-  href: href,
-  target: '_blank',
-}))`
+export const FooterLink = styled(LinkLRouterLink)`
   color: ${({ theme }) => theme.colors.text};
 
   &:hover {

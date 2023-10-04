@@ -3,7 +3,7 @@ export const data = {
   subtitle: 'Date of birth',
   link: 'Use email',
   phonePlaceholder: 'Phone number',
-  phoneErrorMessage: 'Invalide phone number',
+  phoneErrorMessage: 'Invalid phone number',
   passwordPlaceholder: 'Password',
   passwordErrorMessage: 'The password must be at least 6 characters long and contain a digit',
   emailPlaceholder: 'Email address',

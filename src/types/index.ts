@@ -1,3 +1,5 @@
+import { AppRoutes } from './enums';
+
 export interface ITheme {
   dark: IThemeStyles;
   light: IThemeStyles;
@@ -55,5 +57,5 @@ export interface IAnimation {
 
 export interface IFooterLink {
   text: string;
-  href: string;
+  to: AppRoutes;
 }

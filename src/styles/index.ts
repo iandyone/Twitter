@@ -3,6 +3,7 @@ import robotoBold from '@assets/fonts/Roboto/Roboto-Bold.ttf';
 import robotoLight from '@assets/fonts/Roboto/Roboto-Light.ttf';
 import robotoMedium from '@assets/fonts/Roboto/Roboto-Medium.ttf';
 import robotoRegular from '@assets/fonts/Roboto/Roboto-Regular.ttf';
+import { Link } from 'react-router-dom';
 import styled, { createGlobalStyle, css } from 'styled-components';
 
 export const GlobalStyles = createGlobalStyle`
@@ -201,10 +202,7 @@ export const ButtonTemplate = styled.button`
   }
 `;
 
-export const LinkTemplate = styled.a.attrs(({ href }) => ({
-  href: href,
-  target: '_blank',
-}))`
+export const LinkTemplate = styled(Link)`
   color: ${({ theme }) => theme.colors.link};
 
   &:hover {

@@ -1,4 +1,4 @@
-import { Months } from '@appTypes/enums';
+import { AppRoutes, Months } from '@appTypes/enums';
 import twitterIcon from '@assets/icons/twitter.svg';
 import { InputAuth } from '@components/InputAuth';
 import { SelectComponent } from '@components/Select';
@@ -263,7 +263,7 @@ export const SignUpPage: FC = () => {
               required={true}
               ref={passwordRef}
             />
-            <Link href='/'>{link}</Link>
+            <Link to={AppRoutes.HOME}>{link}</Link>
             <Subtitle>{subtitle}</Subtitle>
             <Text>{description}</Text>
             <Container>

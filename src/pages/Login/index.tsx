@@ -1,3 +1,4 @@
+import { AppRoutes } from '@appTypes/enums';
 import twitterIcon from '@assets/icons/twitter.svg';
 import { InputAuth } from '@components/InputAuth';
 import { AppContainer, PageWrapper } from '@styles';
@@ -131,7 +132,7 @@ export const LoginPage: FC = () => {
             />
             <Button ref={buttonRef}>{button}</Button>
           </Form>
-          <Link href='/'>{link}</Link>
+          <Link to={AppRoutes.REGISTRATION}>{link}</Link>
         </Body>
       </AppContainer>
     </PageWrapper>

@@ -1,4 +1,5 @@
 import { IFooterLink } from '@appTypes';
+import { AppRoutes } from '@appTypes/enums';
 
 export const data = {
   title: 'Happening now',
@@ -8,21 +9,21 @@ export const data = {
 };
 
 export const footerLinks: IFooterLink[] = [
-  { text: 'About', href: '/' },
-  { text: 'Help Center', href: '/' },
-  { text: 'Terms of Service', href: '/' },
-  { text: 'Privacy Policy', href: '/' },
-  { text: 'Cookie Policy', href: '/' },
-  { text: 'Ads info', href: '/' },
-  { text: 'Blog', href: '/' },
-  { text: 'Status', href: '/' },
-  { text: 'Carrres', href: '/' },
-  { text: 'Brand Resources', href: '/' },
-  { text: 'Advertsing', href: '/' },
-  { text: 'Marketing', href: '/' },
-  { text: 'Twitter for Business', href: '/' },
-  { text: 'Developers', href: '/' },
-  { text: 'Directory', href: '/' },
-  { text: 'Settings', href: '/' },
-  { text: '© 2021 Twitter, Inc.', href: '/' },
+  { text: 'About', to: AppRoutes.HOME },
+  { text: 'Help Center', to: AppRoutes.HOME },
+  { text: 'Terms of Service', to: AppRoutes.HOME },
+  { text: 'Privacy Policy', to: AppRoutes.HOME },
+  { text: 'Cookie Policy', to: AppRoutes.HOME },
+  { text: 'Ads info', to: AppRoutes.HOME },
+  { text: 'Blog', to: AppRoutes.HOME },
+  { text: 'Status', to: AppRoutes.HOME },
+  { text: 'Carrres', to: AppRoutes.HOME },
+  { text: 'Brand Resources', to: AppRoutes.HOME },
+  { text: 'Advertsing', to: AppRoutes.HOME },
+  { text: 'Marketing', to: AppRoutes.HOME },
+  { text: 'Twitter for Business', to: AppRoutes.HOME },
+  { text: 'Developers', to: AppRoutes.HOME },
+  { text: 'Directory', to: AppRoutes.HOME },
+  { text: 'Settings', to: AppRoutes.HOME },
+  { text: '© 2021 Twitter, Inc.', to: AppRoutes.HOME },
 ];
