@@ -3,10 +3,10 @@ import robotoBold from '@assets/fonts/Roboto/Roboto-Bold.ttf';
 import robotoLight from '@assets/fonts/Roboto/Roboto-Light.ttf';
 import robotoMedium from '@assets/fonts/Roboto/Roboto-Medium.ttf';
 import robotoRegular from '@assets/fonts/Roboto/Roboto-Regular.ttf';
-import { createGlobalStyle } from 'styled-components';
+import { Link } from 'react-router-dom';
+import styled, { createGlobalStyle, css } from 'styled-components';
 
 export const GlobalStyles = createGlobalStyle`
-
 * {
   padding: 0;
   margin: 0;
@@ -136,5 +136,116 @@ input::-webkit-inner-spin-button {
   font-weight: ${({ theme }) => theme.font.regular};
   font-style: normal;
   font-display: auto;
+}
+`;
+
+export const AppContainer = styled.div`
+  max-width: 1920px;
+  margin: 0 auto;
+  box-sizing: content-box;
+  padding: 0 20px;
+  overflow-x: hidden;
+`;
+
+export const PageWrapper = styled.div`
+  min-height: 100vh;
+`;
+
+export const Icon = styled.img`
+  @media (max-width: 1400px) {
+    margin-bottom: 0px;
+  }
+
+  @media (max-width: 992px) {
+    align-self: center;
+  }
+`;
+
+export const PageBody = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  height: 100vh;
+`;
+
+export const TitleTemplate = styled.h1`
+  color: ${({ theme }) => theme.colors.text};
+  font-family: ${({ theme }) => theme.font.family};
+  font-weight: ${({ theme }) => theme.font.bold};
+`;
+
+export const SubtitleTemplate = styled.h2`
+  color: ${({ theme }) => theme.colors.text};
+  font-family: ${({ theme }) => theme.font.family};
+  font-weight: ${({ theme }) => theme.font.bold};
+`;
+
+export const ButtonTemplate = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 76px;
+  width: 100%;
+  color: ${({ theme }) => theme.colors.buttonText};
+  font-size: ${({ theme }) => theme.font.size};
+  background: ${({ theme }) => theme.colors.buttonBg};
+
+  &:hover {
+    cursor: pointer;
+    transition: ${({ theme }) => theme.animation.transition};
+    border-color: ${({ theme }) => theme.colors.link};
+  }
+
+  &:active {
+    transition: ${({ theme }) => theme.animation.transition};
+    transform: ${({ theme }) => theme.animation.transformActive};
+  }
+`;
+
+export const LinkTemplate = styled(Link)`
+  color: ${({ theme }) => theme.colors.link};
+
+  &:hover {
+    cursor: pointer;
+    text-decoration: underline;
+  }
+`;
+
+export const InputTemplate = styled.input<{ $error?: boolean; $isNotEmpty: boolean }>`
+  border-radius: 6px;
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  color: ${({ theme }) => theme.colors.text};
+  font-size: ${({ theme }) => theme.font.size};
+  transition: ${({ theme }) => theme.animation.transition};
+
+  &:focus {
+    border-color: ${({ theme }) => theme.colors.inputFocus};
+  }
+
+  &:hover {
+    transition: ${({ theme }) => theme.animation.transition};
+    border-color: ${({ theme }) => theme.colors.inputHover};
+  }
+
+  ${({ $error, $isNotEmpty }) =>
+    $error &&
+    $isNotEmpty &&
+    css`
+      border-color: ${({ theme }) => theme.colors.error};
+    `}
+
+  ${({ $error, $isNotEmpty }) =>
+    !$error &&
+    $isNotEmpty &&
+    css`
+      border-color: ${({ theme }) => theme.colors.inputValid};
+    `}
+`;
+
+export const FormTemplate = styled.form`
+  display: flex;
+  row-gap: 16px;
+  flex-direction: column;
+  width: 100%;
 }
 `;

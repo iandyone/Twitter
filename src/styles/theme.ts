@@ -1,9 +1,7 @@
 import { IFont, ITheme } from '@appTypes';
+import { colors } from '@constants/variables';
 
-const colors = {
-  black: '#000',
-  white: '#fff',
-};
+const { black, blue, gray, white, red, green } = colors;
 
 const font: IFont = {
   bold: 700,
@@ -18,8 +16,19 @@ export const theme: ITheme = {
   light: {
     font,
     colors: {
-      text: colors.black,
-      bgApp: colors.white,
+      text: black,
+      link: blue,
+      bgApp: white,
+      border: gray,
+      borderHover: blue,
+      buttonBg: blue,
+      buttonText: white,
+      error: red,
+
+      inputFocus: blue,
+      inputError: red,
+      inputHover: blue,
+      inputValid: green,
     },
     animation: {
       transformActive: 'scale(0.95)',
@@ -30,8 +39,19 @@ export const theme: ITheme = {
   dark: {
     font,
     colors: {
-      text: colors.black,
-      bgApp: colors.white,
+      text: blue,
+      link: blue,
+      bgApp: white,
+      border: gray,
+      borderHover: blue,
+      buttonBg: blue,
+      buttonText: white,
+      error: red,
+
+      inputFocus: blue,
+      inputError: red,
+      inputHover: blue,
+      inputValid: green,
     },
   },
 };

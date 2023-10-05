@@ -36,8 +36,9 @@
     "import/first": "error",
     "import/newline-after-import": "error",
     "import/no-duplicates": "error",
-    "import/no-named-as-default": 0,
-    "import/no-unresolved": "off"
+    "import/no-named-as-default": "off",
+    "import/no-unresolved": "off",
+    "import/named": "off"
   },
   "settings": {
     "import/resolver": {

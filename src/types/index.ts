@@ -1,3 +1,5 @@
+import { AppRoutes } from './enums';
+
 export interface ITheme {
   dark: IThemeStyles;
   light: IThemeStyles;
@@ -10,6 +12,26 @@ export interface IThemeStyles {
   animation?: IAnimation;
 }
 
+export interface IColor {
+  text: string;
+  border: string;
+  link: string;
+
+  borderHover: string;
+
+  bgApp: string;
+
+  buttonBg: string;
+  buttonText: string;
+
+  error: string;
+
+  inputFocus: string;
+  inputHover: string;
+  inputError: string;
+  inputValid: string;
+}
+
 export interface IFont {
   size: string;
   bold: number;
@@ -17,21 +39,6 @@ export interface IFont {
   medium: number;
   light: number;
   family: string;
-}
-
-export interface IColor {
-  text?: string;
-  otherDate?: string;
-  border?: string;
-  active?: string;
-  rangeStart?: string;
-  rangeEnd?: string;
-  inRange?: string;
-  holiday?: string;
-  error?: string;
-  textLight?: string;
-  hover?: string;
-  bgApp: string;
 }
 
 export interface ISpace {
@@ -46,4 +53,15 @@ export interface ISpace {
 export interface IAnimation {
   transition?: string;
   transformActive?: string;
+}
+
+export interface IFooterLink {
+  text: string;
+  to: AppRoutes;
+}
+
+export interface IUser {
+  email: string;
+  accessToken: string;
+  uid: string;
 }

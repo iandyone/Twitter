@@ -22,7 +22,7 @@
     "noFallthroughCasesInSwitch": true,
 
     /* Other */
-
+    "strictNullChecks": false,
     "paths": {
       "@components/*": ["./src/components/*"],
       "@assets/*": ["./src/assets/*"],
