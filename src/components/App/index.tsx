@@ -1,5 +1,7 @@
 import { AppRoutes } from '@appTypes/enums';
+import { FeedPage } from '@pages/feed';
 import { LoginPage } from '@pages/login';
+import { ProfilePage } from '@pages/profile';
 import { SignInPage } from '@pages/signIn';
 import { SignUpPage } from '@pages/signUp';
 import { GlobalStyles } from '@styles';
@@ -18,6 +20,8 @@ export const App: FC = () => {
       { path: AppRoutes.HOME, element: SignInPage },
       { path: AppRoutes.LOGIN, element: LoginPage },
       { path: AppRoutes.REGISTRATION, element: SignUpPage },
+      { path: AppRoutes.FEED, element: FeedPage },
+      { path: AppRoutes.PROFILE, element: ProfilePage },
     ];
   }
 

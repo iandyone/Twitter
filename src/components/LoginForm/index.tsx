@@ -111,9 +111,9 @@ export const LoginForm: FC = () => {
           const user: IUser = userCredential.user;
           const { uid, email, accessToken } = user;
           dispatch(setUser({ uid, email, accessToken }));
-          navigate(AppRoutes.HOME);
+          navigate(AppRoutes.FEED);
         })
-        .catch((error) => {
+        .catch((error: Error) => {
           setEmailError(error.message);
           setPasswordError(error.message);
           setInputsDisabled(false);

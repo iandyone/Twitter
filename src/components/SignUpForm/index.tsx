@@ -232,7 +232,7 @@ export const SignUpForm: FC = () => {
           const user: IUser = userCredential.user;
           const { uid, email, accessToken } = user;
           dispatchRedux(setUser({ uid, email, accessToken }));
-          navigate(AppRoutes.HOME);
+          navigate(AppRoutes.FEED);
         })
         .catch(() => {
           setInputsDisabled(false);
