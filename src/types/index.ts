@@ -59,3 +59,9 @@ export interface IFooterLink {
   text: string;
   to: AppRoutes;
 }
+
+export interface IUser {
+  email: string;
+  accessToken: string;
+  uid: string;
+}

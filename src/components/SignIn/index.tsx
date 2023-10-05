@@ -24,7 +24,7 @@ import {
   TwitterIcon,
 } from './styled';
 
-export const SignInPage: FC = () => {
+export const SignIn: FC = () => {
   const { title, subtitle, withEmailButton, withGoogleButton } = useMemo(getTextContent, []);
 
   function getTextContent() {

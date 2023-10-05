@@ -1,7 +1,7 @@
 import { AppRoutes } from '@appTypes/enums';
-import { LoginPage } from '@pages/Login';
-import { SignInPage } from '@pages/SignIn';
-import { SignUpPage } from '@pages/SignUp';
+import { LoginPage } from '@pages/login';
+import { SignInPage } from '@pages/signIn';
+import { SignUpPage } from '@pages/signUp';
 import { GlobalStyles } from '@styles';
 import { theme } from '@styles/theme';
 import { FC, useMemo } from 'react';

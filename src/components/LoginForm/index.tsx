@@ -1,18 +1,25 @@
+import { IUser } from '@appTypes';
 import { AppRoutes } from '@appTypes/enums';
 import twitterIcon from '@assets/icons/twitter.svg';
 import { InputAuth } from '@components/InputAuth';
+import { useDispatchTyped } from '@hooks/redux';
+import { setUser } from '@store/reducers/user';
 import { AppContainer, PageWrapper } from '@styles';
 import { getEmailValidation, getPasswordValidation } from '@utils/helpers/validators';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { ChangeEvent, FC, FormEvent, useEffect, useMemo, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { data } from './config';
 import { Body, Button, Form, Link, Title, TwitterIcon } from './styled';
 
-export const LoginPage: FC = () => {
+export const LoginForm: FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState<string>(null);
   const [passwordError, setPasswordError] = useState<string>(null);
+  const dispatch = useDispatchTyped();
+  const navigate = useNavigate();
 
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
@@ -77,6 +84,12 @@ export const LoginPage: FC = () => {
     setPasswordError(password && !isPasswordValid ? passwordErrorMessage : null);
   }
 
+  function setInputsDisabled(status: boolean = true) {
+    emailRef.current.disabled = status;
+    passwordRef.current.disabled = status;
+    buttonRef.current.disabled = status;
+  }
+
   function handlerOnSubmit(e: FormEvent) {
     const isEmailValid = getEmailValidation(email);
     const isPasswordValid = getPasswordValidation(password);
@@ -90,10 +103,21 @@ export const LoginPage: FC = () => {
     }
 
     if (isEmailValid && isPasswordValid) {
-      alert('Success');
-      emailRef.current.disabled = true;
-      passwordRef.current.disabled = true;
-      buttonRef.current.disabled = true;
+      setInputsDisabled();
+      const auth = getAuth();
+
+      signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          const user: IUser = userCredential.user;
+          const { uid, email, accessToken } = user;
+          dispatch(setUser({ uid, email, accessToken }));
+          navigate(AppRoutes.HOME);
+        })
+        .catch((error) => {
+          setEmailError(error.message);
+          setPasswordError(error.message);
+          setInputsDisabled(false);
+        });
     }
 
     e.preventDefault();

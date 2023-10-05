@@ -1,17 +1,22 @@
+import { IUser } from '@appTypes';
 import { AppRoutes, Months } from '@appTypes/enums';
 import twitterIcon from '@assets/icons/twitter.svg';
 import { InputAuth } from '@components/InputAuth';
 import { SelectComponent } from '@components/Select';
+import { useDispatchTyped } from '@hooks/redux';
+import { logoutUser, setUser } from '@store/reducers/user';
 import { AppContainer, PageWrapper } from '@styles';
 import { getDaysAmountInAMonth } from '@utils/helpers/date';
 import { getEmailValidation, getPasswordValidation, getPhoneValidation } from '@utils/helpers/validators';
+import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
 import { ChangeEvent, FC, FormEvent, useEffect, useMemo, useReducer, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { data } from './config';
 import { Body, Button, Container, Form, Link, Subtitle, Text, Title, TwitterIcon } from './styled';
 import { Action, ActionsTypes, IReducerState } from './types';
 
-export const SignUpPage: FC = () => {
+export const SignUpForm: FC = () => {
   const {
     title,
     subtitle,
@@ -30,6 +35,8 @@ export const SignUpPage: FC = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { day, month, year, email, emailError, password, passwordError, phone, phoneError } = state;
   const { daysList, monthList, yearList } = useMemo(getSelectLists, [month]);
+  const dispatchRedux = useDispatchTyped();
+  const navigate = useNavigate();
 
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
@@ -193,6 +200,13 @@ export const SignUpPage: FC = () => {
     dispatch({ type: ActionsTypes.SET_YEAR, payload: year });
   }
 
+  function setInputsDisabled(status: boolean = true) {
+    if (emailRef) emailRef.current.disabled = status;
+    if (passwordRef) passwordRef.current.disabled = status;
+    if (buttonRef) buttonRef.current.disabled = status;
+    if (phoneRef) phoneRef.current.disabled = status;
+  }
+
   function handlerOnSubmit(e: FormEvent) {
     const isEmailValid = getEmailValidation(email);
     const isPhoneValid = getPhoneValidation(phone);
@@ -210,11 +224,20 @@ export const SignUpPage: FC = () => {
     }
 
     if (isEmailValid && isPasswordValid && isPhoneValid) {
-      alert('Success');
-      emailRef.current.disabled = true;
-      passwordRef.current.disabled = true;
-      phoneRef.current.disabled = true;
-      buttonRef.current.disabled = true;
+      const auth = getAuth();
+      setInputsDisabled();
+
+      createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          const user: IUser = userCredential.user;
+          const { uid, email, accessToken } = user;
+          dispatchRedux(setUser({ uid, email, accessToken }));
+          navigate(AppRoutes.HOME);
+        })
+        .catch(() => {
+          setInputsDisabled(false);
+          dispatchRedux(logoutUser());
+        });
     }
 
     e.preventDefault();

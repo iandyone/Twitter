@@ -7,3 +7,4 @@ global.d.tsx
 **/types.ts
 global.d.tsx
 types
+env.d.ts
