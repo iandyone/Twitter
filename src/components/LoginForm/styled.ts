@@ -76,7 +76,7 @@ export const Button = styled(ButtonTemplate)`
   transition: ${({ theme }) => theme.animation.transition};
 
   &:hover {
-    opacity: 0.7;
+    opacity: ${({ theme }) => theme.animation.buttonHoverOpacity};
     transition: ${({ theme }) => theme.animation.transition};
   }
 
@@ -91,6 +91,7 @@ export const Link = styled(LinkTemplate)`
 
 export const Label = styled.label`
   color: ${({ theme }) => theme.colors.error};
+  transition: ${({ theme }) => theme.animation.transition};
   font-size: 14px;
   line-height: 120%;
   height: 14px;

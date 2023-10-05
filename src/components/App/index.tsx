@@ -1,37 +1,33 @@
-import { AppRoutes } from '@appTypes/enums';
+import { Layout } from '@components/Layout';
+import { AppRoutes } from '@constants/variables';
+import { useSelectorTyped } from '@hooks/redux';
 import { FeedPage } from '@pages/feed';
+import { HomePage } from '@pages/home';
 import { LoginPage } from '@pages/login';
 import { ProfilePage } from '@pages/profile';
 import { SignInPage } from '@pages/signIn';
 import { SignUpPage } from '@pages/signUp';
 import { GlobalStyles } from '@styles';
 import { theme } from '@styles/theme';
-import { FC, useMemo } from 'react';
+import { FC } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
-import { IRoute } from './types';
-
 export const App: FC = () => {
-  const RoutesList: IRoute[] = useMemo(getRoutesList, []);
-
-  function getRoutesList() {
-    return [
-      { path: AppRoutes.HOME, element: SignInPage },
-      { path: AppRoutes.LOGIN, element: LoginPage },
-      { path: AppRoutes.REGISTRATION, element: SignUpPage },
-      { path: AppRoutes.FEED, element: FeedPage },
-      { path: AppRoutes.PROFILE, element: ProfilePage },
-    ];
-  }
+  const { theme: currentTheme } = useSelectorTyped((store) => store.app);
 
   return (
-    <ThemeProvider theme={theme.light}>
+    <ThemeProvider theme={theme[currentTheme]}>
       <GlobalStyles />
       <Routes>
-        {RoutesList.map(({ path, element: Element }) => (
-          <Route path={path} element={<Element />} key={path} />
-        ))}
+        <Route path={AppRoutes.HOME} element={<HomePage />} />
+        <Route path={AppRoutes.SIGNIN} element={<SignInPage />} />
+        <Route path={AppRoutes.LOGIN} element={<LoginPage />} />
+        <Route path={AppRoutes.REGISTRATION} element={<SignUpPage />} />
+        <Route path='/page' element={<Layout />}>
+          <Route path={AppRoutes.page.FEED} element={<FeedPage />} />
+          <Route path={AppRoutes.page.PROFILE} element={<ProfilePage />} />
+        </Route>
       </Routes>
     </ThemeProvider>
   );

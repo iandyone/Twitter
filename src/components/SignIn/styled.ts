@@ -1,3 +1,4 @@
+import { TABLET_VIEW } from '@constants/variables';
 import { Icon, LinkTemplate, TitleTemplate } from '@styles';
 import { Link as LinkLRouterLink } from 'react-router-dom';
 import styled from 'styled-components';
@@ -17,12 +18,12 @@ export const Main = styled.main`
 
 export const Banner = styled.div`
   flex: 0 1 60%;
+  user-select: none;
 
-  @media (max-width: 992px) {
+  @media (max-width: ${TABLET_VIEW}px) {
     position: absolute;
     opacity: 0.25;
     width: 100%;
-    user-event: none;
   }
 
   @media (max-width: 500px) {
@@ -47,13 +48,15 @@ export const Content = styled.div`
   @media (max-width: 1400px) {
     padding-top: 5%;
   }
-  @media (max-width: 992px) {
+  @media (max-width: ${TABLET_VIEW}px) {
     flex: 1 1 auto;
     padding: 20px;
+    row-gap: 50px;
   }
   @media (max-width: 500px) {
     justify-content: center;
     padding: 20px 10px;
+    row-gap: 50px;
   }
 `;
 
@@ -62,18 +65,24 @@ export const TwitterIcon = styled(Icon)`
   width: 50px;
   height: 40px;
   margin-bottom: 58px;
+
+  @media (max-width: ${TABLET_VIEW}px) {
+    align-self: center;
+    margin-bottom: 0px;
+  }
 `;
 
 export const Title = styled(TitleTemplate)`
   color: ${({ theme }) => theme.colors.text};
   font-family: ${({ theme }) => theme.font.family};
   font-weight: ${({ theme }) => theme.font.bold};
+  transition: ${({ theme }) => theme.animation.transition};
   font-size: 84px;
 
   @media (max-width: 1400px) {
     font-size: 40px;
   }
-  @media (max-width: 992px) {
+  @media (max-width: ${TABLET_VIEW}px) {
     font-size: 60px;
     text-align: center;
   }
@@ -85,15 +94,16 @@ export const Title = styled(TitleTemplate)`
 export const Subtitle = styled.p`
   color: ${({ theme }) => theme.colors.text};
   font-weight: ${({ theme }) => theme.font.bold};
+  transition: ${({ theme }) => theme.animation.transition};
   font-size: 42px;
 
   @media (max-width: 1400px) {
     font-size: 30px;
   }
-  @media (max-width: 992px) {
+  @media (max-width: ${TABLET_VIEW}px) {
     font-size: 40px;
     text-align: center;
-    margin-bottom: 50px;
+    margin-bottom: 0px;
   }
   @media (max-width: 500px) {
     font-size: 30px;
@@ -111,13 +121,13 @@ export const Buttons = styled.div`
 export const Button = styled(LinkLRouterLink)`
   border-radius: 42px;
   border: 1px solid ${({ theme }) => theme.colors.border};
-  opacity: 0.8;
+  opacity: ${({ theme }) => theme.animation.buttonHoverOpacity};
   background: transparent;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 62px;
-  color: ${({ theme }) => theme.colors.text};
+  ${({ theme }) => theme.colors.text};
   font-weight: ${({ theme }) => theme.font.medium};
   font-size: 20px;
   display: flex;
@@ -140,14 +150,19 @@ export const Button = styled(LinkLRouterLink)`
     height: 40px;
   }
 
-  @media (max-width: 992px) {
+  @media (max-width: ${TABLET_VIEW}px) {
     flex: 1 1 auto;
     border-color: ${({ theme }) => theme.colors.text};
+    transition: ${({ theme }) => theme.animation.transition};
+    align-self: center;
+    width: 100%;
+    max-width: 300px;
   }
 
   @media (max-width: 500px) {
     flex: 1 1 auto;
     border-color: ${({ theme }) => theme.colors.border};
+    transition: ${({ theme }) => theme.animation.transition};
   }
 `;
 
@@ -161,6 +176,7 @@ export const Links = styled.div`
 
 export const Link = styled(LinkTemplate)`
   color: ${({ theme }) => theme.colors.link};
+  transition: ${({ theme }) => theme.animation.transition};
 
   &:hover {
     text-decoration: underline;
@@ -170,7 +186,7 @@ export const Link = styled(LinkTemplate)`
 export const Text = styled.p`
   line-height: 140%;
 
-  @media (max-width: 480px) {
+  @media (max-width: ${TABLET_VIEW}px) {
     text-align: center;
   }
 `;
@@ -189,6 +205,7 @@ export const Footer = styled.footer`
 
 export const FooterLink = styled(LinkLRouterLink)`
   color: ${({ theme }) => theme.colors.text};
+  transition: ${({ theme }) => theme.animation.transition};
 
   &:hover {
     text-decoration: underline;

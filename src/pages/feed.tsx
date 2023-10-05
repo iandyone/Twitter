@@ -1,7 +1,14 @@
-import { AppRoutes } from '@appTypes/enums';
+import { BurgerMenu } from '@components/BurgerMenu';
+import { Header } from '@components/Header';
+import { AppRoutes } from '@constants/variables';
 import { useSelectorTyped } from '@hooks/redux';
 import { FC, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+
+export const Container = styled.div`
+  width: 100%;
+`;
 
 export const FeedPage: FC = () => {
   const { isAuthorized } = useSelectorTyped((store) => store.user);
@@ -9,16 +16,15 @@ export const FeedPage: FC = () => {
 
   useEffect(() => {
     if (!isAuthorized) {
-      alert('Not Authorized');
       navigate(AppRoutes.HOME);
     }
   });
 
   return (
-    <>
+    <Container>
+      <Header title='Home' />
       <div>Feed Page</div>
-      <Link to={AppRoutes.HOME}>Home</Link>
-      <Link to={AppRoutes.PROFILE}>Profile</Link>
-    </>
+      <BurgerMenu />
+    </Container>
   );
 };

@@ -10,8 +10,8 @@ export const OptionElement = styled.li`
 
   &:hover {
     cursor: pointer;
-    opacity: 0.7;
     transition: ${({ theme }) => theme.animation.transition};
+    opacity: ${({ theme }) => theme.animation.buttonHoverOpacity};
     color: ${({ theme }) => theme.colors.borderHover};
   }
 

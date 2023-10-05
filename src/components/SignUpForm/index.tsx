@@ -1,9 +1,9 @@
 import { IUser } from '@appTypes';
-import { AppRoutes, Months } from '@appTypes/enums';
+import { Months } from '@appTypes/enums';
 import twitterIcon from '@assets/icons/twitter.svg';
 import { InputAuth } from '@components/InputAuth';
 import { SelectComponent } from '@components/Select';
-import { PHONE_MASK } from '@constants/variables';
+import { AppRoutes, PHONE_MASK } from '@constants/variables';
 import { useDispatchTyped } from '@hooks/redux';
 import { logoutUser, setUser } from '@store/reducers/user';
 import { AppContainer, PageWrapper } from '@styles';
@@ -260,7 +260,7 @@ export const SignUpForm: FC = () => {
         .then((userCredential) => {
           const { uid, email }: IUser = userCredential.user;
           dispatchRedux(setUser({ uid, email }));
-          navigate(AppRoutes.FEED);
+          navigate(AppRoutes.page.FEED);
         })
         .catch(() => {
           setInputsDisabled(false);

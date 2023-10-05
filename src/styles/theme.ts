@@ -1,7 +1,7 @@
 import { IFont, ITheme } from '@appTypes';
 import { colors } from '@constants/variables';
 
-const { black, blue, gray, white, red, green } = colors;
+const { black, blue, gray, gray2, gray3, gray4, white, red, green } = colors;
 
 const font: IFont = {
   bold: 700,
@@ -22,6 +22,7 @@ export const theme: ITheme = {
       border: gray,
       borderHover: blue,
       buttonBg: blue,
+      buttonBg2: gray2,
       buttonText: white,
       error: red,
 
@@ -29,10 +30,20 @@ export const theme: ITheme = {
       inputError: red,
       inputHover: blue,
       inputValid: green,
+
+      searchBg: gray3,
+      searchLink: gray4,
+
+      themeButtonBorder: gray,
+      themeButtonBg: blue,
+
+      burgerLine: black,
+      burgerBg: white,
     },
     animation: {
       transformActive: 'scale(0.95)',
       transition: 'all .3s ease',
+      buttonHoverOpacity: '0.7',
     },
   },
 
@@ -45,6 +56,7 @@ export const theme: ITheme = {
       border: gray,
       borderHover: blue,
       buttonBg: blue,
+      buttonBg2: gray2,
       buttonText: white,
       error: red,
 
@@ -52,6 +64,20 @@ export const theme: ITheme = {
       inputError: red,
       inputHover: blue,
       inputValid: green,
+
+      searchBg: gray3,
+      searchLink: gray4,
+
+      themeButtonBorder: blue,
+      themeButtonBg: gray,
+
+      burgerLine: black,
+      burgerBg: white,
+    },
+    animation: {
+      transformActive: 'scale(0.95)',
+      transition: 'all .3s ease',
+      buttonHoverOpacity: '0.7',
     },
   },
 };

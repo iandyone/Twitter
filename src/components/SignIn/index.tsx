@@ -1,8 +1,8 @@
 import { IUser } from '@appTypes';
-import { AppRoutes } from '@appTypes/enums';
 import googleIcon from '@assets/icons/google.svg';
 import twitterIcon from '@assets/icons/twitter.svg';
 import preview from '@assets/images/preview.png';
+import { AppRoutes } from '@constants/variables';
 import { useDispatchTyped } from '@hooks/redux';
 import { logoutUser, setUser } from '@store/reducers/user';
 import { PageBody, PageWrapper } from '@styles';
@@ -54,7 +54,7 @@ export const SignIn: FC = () => {
           email: email,
         };
         dispatch(setUser(userData));
-        navigate(AppRoutes.FEED);
+        navigate(AppRoutes.page.FEED);
       })
       .catch(() => {
         dispatch(logoutUser());

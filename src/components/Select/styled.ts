@@ -12,7 +12,6 @@ export const Select = styled.h3<{ $isActive?: boolean; $isValid?: boolean }>`
   padding: 24px 20px;
   border-radius: 6px;
   position: relative;
-  color: ${({ theme }) => theme.colors.text};
   font-size: ${({ theme }) => theme.font.size};
   border: 1px solid ${({ theme }) => theme.colors.border};
   color: ${({ theme }) => theme.colors.text};

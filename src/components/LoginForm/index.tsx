@@ -1,7 +1,7 @@
 import { IUser } from '@appTypes';
-import { AppRoutes } from '@appTypes/enums';
 import twitterIcon from '@assets/icons/twitter.svg';
 import { InputAuth } from '@components/InputAuth';
+import { AppRoutes } from '@constants/variables';
 import { useDispatchTyped } from '@hooks/redux';
 import { setUser } from '@store/reducers/user';
 import { AppContainer, PageWrapper } from '@styles';
@@ -110,7 +110,7 @@ export const LoginForm: FC = () => {
         .then((userCredential) => {
           const { uid, email }: IUser = userCredential.user;
           dispatch(setUser({ uid, email }));
-          navigate(AppRoutes.FEED);
+          navigate(AppRoutes.page.FEED);
         })
         .catch((error: Error) => {
           setPasswordError(error.message);

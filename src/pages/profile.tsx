@@ -1,4 +1,4 @@
-import { AppRoutes } from '@appTypes/enums';
+import { AppRoutes } from '@constants/variables';
 import { useSelectorTyped } from '@hooks/redux';
 import { FC, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
@@ -9,7 +9,6 @@ export const ProfilePage: FC = () => {
 
   useEffect(() => {
     if (!isAuthorized) {
-      alert('Not Authorized');
       navigate(AppRoutes.HOME);
     }
   });
@@ -18,7 +17,7 @@ export const ProfilePage: FC = () => {
     <>
       <div>Profile</div>
       <Link to={AppRoutes.HOME}>Home</Link>
-      <Link to={AppRoutes.FEED}>Feed</Link>
+      <Link to={AppRoutes.page.FEED}>Feed</Link>
     </>
   );
 };

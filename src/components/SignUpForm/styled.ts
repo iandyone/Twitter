@@ -67,7 +67,7 @@ export const Text = styled.p`
   font-size: 16px;
   font-weight: 400;
   line-height: 150%;
-  opacity: 0.6;
+  opacity: ${({ theme }) => theme.animation.buttonHoverOpacity};
   margin-bottom: ${marginBottom};
 
   @media (max-width: 768px) {
@@ -95,7 +95,7 @@ export const Button = styled(ButtonTemplate)`
   transition: ${({ theme }) => theme.animation.transition};
 
   &:hover {
-    opacity: 0.7;
+    opacity: ${({ theme }) => theme.animation.buttonHoverOpacity};
     transition: ${({ theme }) => theme.animation.transition};
   }
 

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 export const Label = styled.label`
   color: ${({ theme }) => theme.colors.error};
+  transition: ${({ theme }) => theme.animation.transition};
   font-size: 14px;
   line-height: 120%;
   height: 14px;

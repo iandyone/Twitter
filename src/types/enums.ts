@@ -12,11 +12,3 @@ export enum Months {
   NOVEMBER,
   DECEMBER,
 }
-
-export enum AppRoutes {
-  HOME = '/',
-  LOGIN = '/login',
-  REGISTRATION = '/registration',
-  FEED = '/feed',
-  PROFILE = '/profile',
-}
