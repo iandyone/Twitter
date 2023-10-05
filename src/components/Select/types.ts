@@ -4,4 +4,5 @@ export interface ISelectComponentProps {
   title: string;
   data: string[];
   handler: handlerString;
+  isValid: boolean;
 }

@@ -3,6 +3,7 @@ import { AppRoutes, Months } from '@appTypes/enums';
 import twitterIcon from '@assets/icons/twitter.svg';
 import { InputAuth } from '@components/InputAuth';
 import { SelectComponent } from '@components/Select';
+import { PHONE_MASK } from '@constants/variables';
 import { useDispatchTyped } from '@hooks/redux';
 import { logoutUser, setUser } from '@store/reducers/user';
 import { AppContainer, PageWrapper } from '@styles';
@@ -33,7 +34,20 @@ export const SignUpForm: FC = () => {
 
   const initialState: IReducerState = useMemo(getInitialState, []);
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { day, month, year, email, emailError, password, passwordError, phone, phoneError } = state;
+  const {
+    day,
+    month,
+    year,
+    email,
+    dayError,
+    monthError,
+    yearError,
+    emailError,
+    password,
+    passwordError,
+    phone,
+    phoneError,
+  } = state;
   const { daysList, monthList, yearList } = useMemo(getSelectLists, [month]);
   const dispatchRedux = useDispatchTyped();
   const navigate = useNavigate();
@@ -72,19 +86,19 @@ export const SignUpForm: FC = () => {
   }
 
   function getInitialState(): IReducerState {
-    const currentDate = new Date();
-    const legalSignUpBirthdayYear = currentDate.getFullYear() - 18;
-
     const state: IReducerState = {
-      day: '1',
-      year: String(legalSignUpBirthdayYear),
-      month: String(Months[currentDate.getMonth()]),
+      day: null,
+      year: null,
+      month: null,
       email: '',
       password: '',
       phone: '',
       emailError: null,
       passwordError: null,
       phoneError: null,
+      dayError: null,
+      monthError: null,
+      yearError: null,
     };
 
     return state;
@@ -110,6 +124,12 @@ export const SignUpForm: FC = () => {
       return { ...state, passwordError: action.payload };
     case ActionsTypes.SET_PHONE_ERROR:
       return { ...state, phoneError: action.payload };
+    case ActionsTypes.SET_DAY_ERROR:
+      return { ...state, dayError: action.payload };
+    case ActionsTypes.SET_MONTH_ERROR:
+      return { ...state, monthError: action.payload };
+    case ActionsTypes.SET_YEAR_ERROR:
+      return { ...state, yearError: action.payload };
 
     default:
       return state;
@@ -152,7 +172,12 @@ export const SignUpForm: FC = () => {
   }
 
   function handlerOnChangePhone(e: ChangeEvent<HTMLInputElement>) {
-    const value = e.target.value;
+    const value = '+' + e.target.value.replace(/[^0-9]/g, '');
+
+    if (value.length < 4) {
+      dispatch({ type: ActionsTypes.SET_PHONE, payload: PHONE_MASK });
+      return;
+    }
 
     if (value.length <= 13) {
       dispatch({ type: ActionsTypes.SET_PHONE, payload: value });
@@ -165,6 +190,10 @@ export const SignUpForm: FC = () => {
 
     dispatch({ type: ActionsTypes.SET_PASSWORD, payload: value });
     dispatch({ type: ActionsTypes.SET_PASSWORD_ERROR, payload: null });
+  }
+
+  function handlerOnFocusPhone() {
+    if (!phone) dispatch({ type: ActionsTypes.SET_PHONE, payload: PHONE_MASK });
   }
 
   function handlerOnBlurEmail() {
@@ -188,16 +217,19 @@ export const SignUpForm: FC = () => {
     dispatch({ type: ActionsTypes.SET_PASSWORD_ERROR, payload: errorValue });
   }
 
-  function setUserMonth(month: string) {
-    dispatch({ type: ActionsTypes.SET_MONTH, payload: month });
-  }
-
   function setUserDate(date: string) {
     dispatch({ type: ActionsTypes.SET_DAY, payload: date });
+    dispatch({ type: ActionsTypes.SET_DAY_ERROR, payload: false });
+  }
+
+  function setUserMonth(month: string) {
+    dispatch({ type: ActionsTypes.SET_MONTH, payload: month });
+    dispatch({ type: ActionsTypes.SET_MONTH_ERROR, payload: false });
   }
 
   function setUserYear(year: string) {
     dispatch({ type: ActionsTypes.SET_YEAR, payload: year });
+    dispatch({ type: ActionsTypes.SET_YEAR_ERROR, payload: false });
   }
 
   function setInputsDisabled(status: boolean = true) {
@@ -211,27 +243,23 @@ export const SignUpForm: FC = () => {
     const isEmailValid = getEmailValidation(email);
     const isPhoneValid = getPhoneValidation(phone);
     const isPasswordValid = getPasswordValidation(password);
+    const isValidForm = isEmailValid && isPasswordValid && isPhoneValid && day && month && year;
 
-    if (!isEmailValid) {
-      dispatch({ type: ActionsTypes.SET_EMAIL_ERROR, payload: emailErrorMessage });
-    }
+    if (!day) dispatch({ type: ActionsTypes.SET_DAY_ERROR, payload: true });
+    if (!month) dispatch({ type: ActionsTypes.SET_MONTH_ERROR, payload: true });
+    if (!year) dispatch({ type: ActionsTypes.SET_YEAR_ERROR, payload: true });
+    if (!isEmailValid) dispatch({ type: ActionsTypes.SET_EMAIL_ERROR, payload: emailErrorMessage });
+    if (!isPhoneValid) dispatch({ type: ActionsTypes.SET_PHONE_ERROR, payload: phoneErrorMessage });
+    if (!isPasswordValid) dispatch({ type: ActionsTypes.SET_PASSWORD_ERROR, payload: passwordErrorMessage });
 
-    if (!isPhoneValid) {
-      dispatch({ type: ActionsTypes.SET_PHONE_ERROR, payload: phoneErrorMessage });
-    }
-    if (!isPasswordValid) {
-      dispatch({ type: ActionsTypes.SET_PASSWORD_ERROR, payload: passwordErrorMessage });
-    }
-
-    if (isEmailValid && isPasswordValid && isPhoneValid) {
+    if (isValidForm) {
       const auth = getAuth();
       setInputsDisabled();
 
       createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-          const user: IUser = userCredential.user;
-          const { uid, email, accessToken } = user;
-          dispatchRedux(setUser({ uid, email, accessToken }));
+          const { uid, email }: IUser = userCredential.user;
+          dispatchRedux(setUser({ uid, email }));
           navigate(AppRoutes.FEED);
         })
         .catch(() => {
@@ -239,7 +267,6 @@ export const SignUpForm: FC = () => {
           dispatchRedux(logoutUser());
         });
     }
-
     e.preventDefault();
   }
 
@@ -269,6 +296,7 @@ export const SignUpForm: FC = () => {
               placeholder={phonePlaceholder}
               onChange={handlerOnChangePhone}
               onBlur={handlerOnBlurPhone}
+              onFocus={handlerOnFocusPhone}
               $error={Boolean(phoneError)}
               $isNotEmpty={Boolean(phone)}
               required={true}
@@ -290,9 +318,24 @@ export const SignUpForm: FC = () => {
             <Subtitle>{subtitle}</Subtitle>
             <Text>{description}</Text>
             <Container>
-              <SelectComponent title={month} data={monthList} handler={setUserMonth} />
-              <SelectComponent title={day} data={daysList} handler={setUserDate} />
-              <SelectComponent title={year} data={yearList} handler={setUserYear} />
+              <SelectComponent
+                title={month ?? 'Month'}
+                isValid={monthError}
+                data={monthList}
+                handler={setUserMonth}
+              />
+              <SelectComponent
+                title={day ?? 'Day'}
+                isValid={dayError}
+                data={daysList}
+                handler={setUserDate}
+              />
+              <SelectComponent
+                title={year ?? 'Year'}
+                isValid={yearError}
+                data={yearList}
+                handler={setUserYear}
+              />
             </Container>
             <Button type='submit' ref={buttonRef}>
               {button}

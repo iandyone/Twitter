@@ -5,9 +5,12 @@ export interface IReducerState {
   emailError: string;
   passwordError: string;
   phoneError: string;
-  month: string;
   day: string;
+  month: string;
   year: string;
+  dayError: boolean;
+  monthError: boolean;
+  yearError: boolean;
 }
 
 export enum ActionsTypes {
@@ -20,6 +23,9 @@ export enum ActionsTypes {
   SET_DAY = 'SET_DAY',
   SET_MONTH = 'SET_MONTH',
   SET_YEAR = 'SET_YEAR',
+  SET_DAY_ERROR = 'SET_DAY_ERROR',
+  SET_MONTH_ERROR = 'SET_MONTH_ERROR',
+  SET_YEAR_ERROR = 'SET_YEAR_ERROR',
 }
 
 interface SetEmailAction {
@@ -58,6 +64,18 @@ interface SetYearAction {
   type: ActionsTypes.SET_YEAR;
   payload: string;
 }
+interface SetDayError {
+  type: ActionsTypes.SET_DAY_ERROR;
+  payload: boolean;
+}
+interface SetMonthError {
+  type: ActionsTypes.SET_MONTH_ERROR;
+  payload: boolean;
+}
+interface SetYearError {
+  type: ActionsTypes.SET_YEAR_ERROR;
+  payload: boolean;
+}
 
 export type Action =
   | SetEmailAction
@@ -68,4 +86,7 @@ export type Action =
   | SetPhoneErrorAction
   | SetDayAction
   | SetMonthAction
-  | SetYearAction;
+  | SetYearAction
+  | SetDayError
+  | SetMonthError
+  | SetYearError;

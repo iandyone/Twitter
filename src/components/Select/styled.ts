@@ -7,7 +7,7 @@ export const Container = styled.div`
   z-index: 10;
 `;
 
-export const Title = styled.h3<{ $isActive?: boolean }>`
+export const Select = styled.h3<{ $isActive?: boolean; $isValid?: boolean }>`
   width: 100%;
   padding: 24px 20px;
   border-radius: 6px;
@@ -18,6 +18,13 @@ export const Title = styled.h3<{ $isActive?: boolean }>`
   color: ${({ theme }) => theme.colors.text};
   font-size: ${({ theme }) => theme.font.size};
   transition: ${({ theme }) => theme.animation.transition};
+
+  ${({ $isValid }) =>
+    $isValid &&
+    css`
+      border: 1px solid ${({ theme }) => theme.colors.error};
+      transition: ${({ theme }) => theme.animation.transition};
+    `}
 
   &:hover {
     cursor: pointer;

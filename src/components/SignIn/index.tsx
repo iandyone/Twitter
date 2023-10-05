@@ -47,13 +47,11 @@ export const SignIn: FC = () => {
 
     signInWithPopup(auth, provider)
       .then((result) => {
-        const credential = GoogleAuthProvider.credentialFromResult(result);
         const { uid, email } = result.user;
 
         const userData: IUser = {
           uid: uid,
           email: email,
-          accessToken: credential.accessToken,
         };
         dispatch(setUser(userData));
         navigate(AppRoutes.FEED);
@@ -85,7 +83,7 @@ export const SignIn: FC = () => {
               <Text>
                 By singing up you agree to the <Link to={AppRoutes.HOME}>Terms of Service</Link> and
                 <Link to={AppRoutes.HOME}> Privacy Policy</Link>, including
-                <Link to={AppRoutes.HOME}>Cookie Use</Link>.
+                <Link to={AppRoutes.HOME}> Cookie Use</Link>.
               </Text>
               <Text>
                 Already have an account? <Link to={AppRoutes.LOGIN}>Log in</Link>

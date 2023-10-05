@@ -6,3 +6,5 @@ export const colors = {
   red: 'red',
   green: 'green',
 };
+
+export const PHONE_MASK = '+375';

@@ -169,6 +169,10 @@ export const Link = styled(LinkTemplate)`
 
 export const Text = styled.p`
   line-height: 140%;
+
+  @media (max-width: 480px) {
+    text-align: center;
+  }
 `;
 
 export const Footer = styled.footer`

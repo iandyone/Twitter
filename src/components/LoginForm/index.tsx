@@ -108,13 +108,11 @@ export const LoginForm: FC = () => {
 
       signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-          const user: IUser = userCredential.user;
-          const { uid, email, accessToken } = user;
-          dispatch(setUser({ uid, email, accessToken }));
+          const { uid, email }: IUser = userCredential.user;
+          dispatch(setUser({ uid, email }));
           navigate(AppRoutes.FEED);
         })
         .catch((error: Error) => {
-          setEmailError(error.message);
           setPasswordError(error.message);
           setInputsDisabled(false);
         });

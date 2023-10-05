@@ -11,7 +11,7 @@
     "lint:fix": "eslint \"**/*.{ts,tsx}\" --fix",
     "prettier": "npx prettier --write **/*.{ts,tsx,json}",
     "prepare": "husky install",
-    "predeploy": "yarn build:prod",
+    "predeploy": "yarn build",
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {

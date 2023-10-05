@@ -8,7 +8,6 @@ interface IUSerState extends IUser {
 const initialState: IUSerState = {
   uid: null,
   email: null,
-  accessToken: null,
   isAuthorized: false,
 };
 
@@ -17,18 +16,16 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     setUser(state, action: PayloadAction<IUser>) {
-      const { uid, email, accessToken } = action.payload;
+      const { uid, email } = action.payload;
 
       state.uid = uid;
       state.email = email;
-      state.accessToken = accessToken;
       state.isAuthorized = true;
     },
 
     logoutUser(state) {
       state.uid = null;
       state.email = null;
-      state.accessToken = null;
       state.isAuthorized = false;
     },
   },

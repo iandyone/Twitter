@@ -10,6 +10,7 @@ interface IInputAuthProps {
   placeholder: string;
   onChange: handlerChange;
   onBlur: handler;
+  onFocus?: handler;
   $error: boolean;
   $isNotEmpty: boolean;
   required?: boolean;
@@ -17,7 +18,18 @@ interface IInputAuthProps {
 
 export const InputAuth = forwardRef(
   (
-    { type, value, label, placeholder, onBlur, onChange, $error, $isNotEmpty, required }: IInputAuthProps,
+    {
+      type,
+      value,
+      label,
+      placeholder,
+      onBlur,
+      onChange,
+      onFocus,
+      $error,
+      $isNotEmpty,
+      required,
+    }: IInputAuthProps,
     ref: Ref<HTMLInputElement>,
   ) => {
     return (
@@ -33,6 +45,7 @@ export const InputAuth = forwardRef(
           $isNotEmpty={$isNotEmpty}
           ref={ref}
           required={required}
+          onFocus={onFocus}
         />
       </InputContainer>
     );

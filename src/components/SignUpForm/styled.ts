@@ -9,6 +9,8 @@ import {
 } from '@styles';
 import styled from 'styled-components';
 
+const marginBottom = '32px';
+
 export const Body = styled(PageBody)`
   padding-top: 60px;
   display: flex;
@@ -18,7 +20,7 @@ export const Body = styled(PageBody)`
   max-width: 680px;
 
   @media (max-width: 480px) {
-    row-gap: 28px;
+    row-gap: 20px;
   }
 `;
 
@@ -45,12 +47,20 @@ export const Form = styled(FormTemplate)`
 export const Link = styled(LinkTemplate)`
   align-self: flex-start;
   margin-bottom: 18px;
+
+  @media (max-width: 480px) {
+    margin-bottom: 0px;
+  }
 `;
 
 export const Subtitle = styled(SubtitleTemplate)`
   font-size: ${({ theme }) => theme.font.size};
   align-self: flex-start;
-  margin-bottom: 32px;
+  margin-bottom: ${marginBottom};
+
+  @media (max-width: 768px) {
+    margin-bottom: 0px;
+  }
 `;
 
 export const Text = styled.p`
@@ -58,12 +68,16 @@ export const Text = styled.p`
   font-weight: 400;
   line-height: 150%;
   opacity: 0.6;
-  margin-bottom: 32px;
+  margin-bottom: ${marginBottom};
+
+  @media (max-width: 768px) {
+    margin-bottom: 0px;
+  }
 `;
 
 export const Container = styled.div`
   width: 100%;
-  margin-bottom: 32px;
+  margin-bottom: ${marginBottom};
   display: grid;
   grid-template-columns: 2fr 1fr 1fr;
   column-gap: 22px;

@@ -18,7 +18,7 @@ export const Body = styled(PageBody)`
   max-width: 480px;
 
   @media (max-width: 480px) {
-    row-gap: 28px;
+    row-gap: 20px;
   }
 `;
 
@@ -56,7 +56,7 @@ export const InputContainer = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  row-gap: 10px;
+  row-gap: 5px;
 `;
 
 export const Input = styled(InputTemplate).attrs(({ type }) => ({
