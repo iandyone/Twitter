@@ -2,7 +2,7 @@ import { IUser } from '@appTypes';
 import { Months } from '@appTypes/enums';
 import twitterIcon from '@assets/icons/twitter.svg';
 import { InputAuth } from '@components/InputAuth';
-import { SelectComponent } from '@components/Select';
+import { Select } from '@components/Select';
 import { AppRoutes, PHONE_MASK } from '@constants/variables';
 import { useDispatchTyped } from '@hooks/redux';
 import { logoutUser, setUser } from '@store/reducers/user';
@@ -318,24 +318,9 @@ export const SignUpForm: FC = () => {
             <Subtitle>{subtitle}</Subtitle>
             <Text>{description}</Text>
             <Container>
-              <SelectComponent
-                title={month ?? 'Month'}
-                isValid={monthError}
-                data={monthList}
-                handler={setUserMonth}
-              />
-              <SelectComponent
-                title={day ?? 'Day'}
-                isValid={dayError}
-                data={daysList}
-                handler={setUserDate}
-              />
-              <SelectComponent
-                title={year ?? 'Year'}
-                isValid={yearError}
-                data={yearList}
-                handler={setUserYear}
-              />
+              <Select title={month ?? 'Month'} isValid={monthError} data={monthList} handler={setUserMonth} />
+              <Select title={day ?? 'Day'} isValid={dayError} data={daysList} handler={setUserDate} />
+              <Select title={year ?? 'Year'} isValid={yearError} data={yearList} handler={setUserYear} />
             </Container>
             <Button type='submit' ref={buttonRef}>
               {button}

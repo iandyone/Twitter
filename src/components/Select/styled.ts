@@ -7,7 +7,7 @@ export const Container = styled.div`
   z-index: 10;
 `;
 
-export const Select = styled.h3<{ $isActive?: boolean; $isValid?: boolean }>`
+export const Title = styled.h3<{ $isActive?: boolean; $isValid?: boolean }>`
   width: 100%;
   padding: 24px 20px;
   border-radius: 6px;

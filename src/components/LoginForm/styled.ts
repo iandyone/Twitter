@@ -1,3 +1,4 @@
+import { MOBILE_VIEW } from '@constants/variables';
 import {
   ButtonTemplate,
   FormTemplate,
@@ -17,7 +18,7 @@ export const Body = styled(PageBody)`
   width: 100%;
   max-width: 480px;
 
-  @media (max-width: 480px) {
+  @media (max-width: ${MOBILE_VIEW}px) {
     row-gap: 20px;
   }
 `;
@@ -26,7 +27,7 @@ export const Title = styled(TitleTemplate)`
   font-size: 42px;
   margin-bottom: 36px;
 
-  @media (max-width: 480px) {
+  @media (max-width: ${MOBILE_VIEW}px) {
     font-size: 36px;
     margin-bottom: 0px;
   }
@@ -38,7 +39,7 @@ export const TwitterIcon = styled(Icon)`
   height: 40px;
   margin-bottom: 36px;
 
-  @media (max-width: 480px) {
+  @media (max-width: ${MOBILE_VIEW}px) {
     margin-bottom: 0px;
   }
 `;
@@ -46,7 +47,7 @@ export const TwitterIcon = styled(Icon)`
 export const Form = styled(FormTemplate)`
   margin-bottom: 24px;
 
-  @media (max-width: 480px) {
+  @media (max-width: ${MOBILE_VIEW}px) {
     margin-bottom: 0px;
   }
 }
@@ -65,7 +66,7 @@ export const Input = styled(InputTemplate).attrs(({ type }) => ({
   width: 100%;
   padding: 24px 20px;
 
-  @media (max-width: 480px) {
+  @media (max-width: ${MOBILE_VIEW}px) {
     padding: 12px 10px;
   }
 `;
@@ -80,7 +81,7 @@ export const Button = styled(ButtonTemplate)`
     transition: ${({ theme }) => theme.animation.transition};
   }
 
-  @media (max-width: 480px) {
+  @media (max-width: ${MOBILE_VIEW}px) {
     margin-bottom: 0px;
   }
 `;

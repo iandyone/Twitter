@@ -10,7 +10,7 @@ import { useSelectorTyped } from '@hooks/redux';
 import { FC } from 'react';
 
 import { Option } from './Option';
-import { Container, Menu, Navigation, TweetButton, TwitterIcon, User } from './styled';
+import { Container, Menu, Navigation, TweetButton, TwitterIcon, User, Wrapper } from './styled';
 
 export const SideMenu: FC = () => {
   const { uid, email } = useSelectorTyped((store) => store.user);
@@ -23,21 +23,23 @@ export const SideMenu: FC = () => {
   ];
 
   return (
-    <Container>
-      <Navigation>
-        <TwitterIcon src={twitterIcon} />
-        <Menu>
-          {sideMenuOptions.map((option) => (
-            <Option {...option} key={option.title} />
-          ))}
-        </Menu>
-        <TweetButton>Tweet</TweetButton>
-      </Navigation>
-      {!isMobileView && (
-        <User>
-          <Account userName={uid} userEmail={email} />
-        </User>
-      )}
-    </Container>
+    <Wrapper>
+      <Container>
+        <Navigation>
+          <TwitterIcon src={twitterIcon} />
+          <Menu>
+            {sideMenuOptions.map((option) => (
+              <Option {...option} key={option.title} />
+            ))}
+          </Menu>
+          <TweetButton>Tweet</TweetButton>
+        </Navigation>
+        {!isMobileView && (
+          <User>
+            <Account userName={uid} userEmail={email} />
+          </User>
+        )}
+      </Container>
+    </Wrapper>
   );
 };

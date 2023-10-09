@@ -1,7 +1,7 @@
 import { IUser } from '@appTypes';
 import googleIcon from '@assets/icons/google.svg';
 import twitterIcon from '@assets/icons/twitter.svg';
-import preview from '@assets/images/preview.png';
+import preview from '@assets/images/preview.webp';
 import { AppRoutes } from '@constants/variables';
 import { useDispatchTyped } from '@hooks/redux';
 import { logoutUser, setUser } from '@store/reducers/user';

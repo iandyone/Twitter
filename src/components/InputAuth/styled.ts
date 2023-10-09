@@ -1,3 +1,4 @@
+import { MOBILE_VIEW } from '@constants/variables';
 import { InputTemplate } from '@styles';
 import styled from 'styled-components';
 
@@ -22,7 +23,7 @@ export const Input = styled(InputTemplate).attrs(({ type }) => ({
   width: 100%;
   padding: 24px 20px;
 
-  @media (max-width: 480px) {
+  @media (max-width: ${MOBILE_VIEW}px) {
     padding: 12px 10px;
   }
 `;

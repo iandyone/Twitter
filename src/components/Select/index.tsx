@@ -1,10 +1,10 @@
-import { FC, useState } from 'react';
+import { FC, memo, useState } from 'react';
 
 import { Option } from './Option';
-import { Container, Options, Select } from './styled';
+import { Container, Options, Title } from './styled';
 import { ISelectComponentProps } from './types';
 
-export const SelectComponent: FC<ISelectComponentProps> = ({ title, data, handler, isValid }) => {
+const SelectComponent: FC<ISelectComponentProps> = ({ title, data, handler, isValid }) => {
   const [isActive, setActivity] = useState(false);
 
   function handlerOnClick() {
@@ -18,9 +18,9 @@ export const SelectComponent: FC<ISelectComponentProps> = ({ title, data, handle
 
   return (
     <Container>
-      <Select $isActive={isActive} $isValid={isValid} onClick={handlerOnClick}>
+      <Title $isActive={isActive} $isValid={isValid} onClick={handlerOnClick}>
         {title}
-      </Select>
+      </Title>
       {isActive && (
         <Options>
           {data.map((option) => (
@@ -31,3 +31,5 @@ export const SelectComponent: FC<ISelectComponentProps> = ({ title, data, handle
     </Container>
   );
 };
+
+export const Select = memo(SelectComponent);

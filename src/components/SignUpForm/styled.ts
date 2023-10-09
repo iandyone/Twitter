@@ -1,3 +1,4 @@
+import { MOBILE_VIEW } from '@constants/variables';
 import {
   ButtonTemplate,
   FormTemplate,
@@ -19,7 +20,7 @@ export const Body = styled(PageBody)`
   width: 100%;
   max-width: 680px;
 
-  @media (max-width: 480px) {
+  @media (max-width: ${MOBILE_VIEW}px) {
     row-gap: 20px;
   }
 `;
@@ -30,7 +31,7 @@ export const TwitterIcon = styled(Icon)`
   height: 40px;
   margin-bottom: 42px;
 
-  @media (max-width: 480px) {
+  @media (max-width: ${MOBILE_VIEW}px) {
     margin-bottom: 0px;
   }
 `;
@@ -48,7 +49,7 @@ export const Link = styled(LinkTemplate)`
   align-self: flex-start;
   margin-bottom: 18px;
 
-  @media (max-width: 480px) {
+  @media (max-width: ${MOBILE_VIEW}px) {
     margin-bottom: 0px;
   }
 `;
@@ -99,7 +100,7 @@ export const Button = styled(ButtonTemplate)`
     transition: ${({ theme }) => theme.animation.transition};
   }
 
-  @media (max-width: 480px) {
+  @media (max-width: ${MOBILE_VIEW}px) {
     margin-bottom: 0px;
   }
 `;

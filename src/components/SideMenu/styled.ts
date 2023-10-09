@@ -1,30 +1,50 @@
-import { TABLET_VIEW } from '@constants/variables';
+import { MOBILE_VIEW, TABLET_VIEW } from '@constants/variables';
 import { ButtonTemplate, Icon, SidesTemplate } from '@styles';
 import styled from 'styled-components';
 
 const elementHeight = '55px';
 
+export const Wrapper = styled.aside`
+  position: relative;
+  max-width: 300px;
+  display: flex;
+  justify-content: flex-end;
+
+  @media (max-width: 1200px) {
+    width: 100%;
+    max-width: none;
+  }
+`;
+
 export const Container = styled(SidesTemplate)`
   display: flex;
   flex-direction: column;
-  max-width: 300px;
+  width: 300px;
   justify-content: space-between;
-  min-height: auto;
   padding: 20px 20px 20px 0;
+  height: 100vh;
+  position: fixed;
 
   @media (max-width: 1400px) {
     max-width: none;
+    width: 250px;
     align-items: flex-start;
   }
+  @media (max-width: 1200px) {
+    width: 200px;
+  }
   @media (max-width: ${TABLET_VIEW}px) {
+    position: static;
+    height: auto;
     justify-content: initial;
     align-items: center;
+    width: 200px;
     row-gap: 30px;
     padding-right: 10px;
+    width: 100%;
   }
-
-  @media (max-width: 480px) {
-    padding: 20px 0px;
+  @media (max-width: ${MOBILE_VIEW}px) {
+    padding: 0;
   }
 `;
 
@@ -44,7 +64,7 @@ export const TwitterIcon = styled(Icon)`
   width: 50px;
   height: 40px;
 
-  @media (max-width: 480px) {
+  @media (max-width: ${MOBILE_VIEW}px) {
     margin-bottom: 0px;
   }
 `;

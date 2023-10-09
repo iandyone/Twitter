@@ -261,7 +261,7 @@ export const SidesTemplate = styled.div`
   min-height: 100vh;
 
   @media (max-width: 1400px) {
-    padding: 20px 10px;
+    padding: 20px 20px;
   }
 
   @media (max-width: ${TABLET_VIEW}px) {
@@ -303,4 +303,10 @@ export const UserEmail = styled.p`
   white-space: nowrap;
   text-overflow: ellipsis;
   line-height: 120%;
+`;
+
+export const PageContainer = styled.section`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 `;

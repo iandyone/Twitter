@@ -41,6 +41,8 @@ export interface IColor {
   burgerLine: string;
   burgerBg: string;
 
+  like: string;
+
   themeButtonBorder: string;
   themeButtonBg: string;
 }
@@ -83,4 +85,11 @@ export interface ISideMenuOption {
   title: string;
   path: string;
   icon: string;
+}
+
+export interface IPost {
+  user: IUser;
+  date: Date;
+  body: string;
+  likes: number;
 }

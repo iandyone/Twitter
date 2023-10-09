@@ -1,10 +1,10 @@
 import { ISideMenuOption } from '@appTypes';
-import { FC } from 'react';
+import { FC, memo } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { Container, OptionIcon, OptionTitle } from './styled';
 
-export const Option: FC<ISideMenuOption> = ({ icon, path, title }) => {
+const OptionComponent: FC<ISideMenuOption> = ({ icon, path, title }) => {
   const navigate = useNavigate();
 
   function handerOnClick() {
@@ -18,3 +18,5 @@ export const Option: FC<ISideMenuOption> = ({ icon, path, title }) => {
     </Container>
   );
 };
+
+export const Option = memo(OptionComponent);

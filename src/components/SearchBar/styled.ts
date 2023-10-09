@@ -2,22 +2,33 @@ import { TABLET_VIEW } from '@constants/variables';
 import { Icon, InputTemplate, LinkTemplate, SidesTemplate, TitleTemplate } from '@styles';
 import styled from 'styled-components';
 
+export const Wrapper = styled.aside`
+  position: relative;
+`;
+
 export const Container = styled(SidesTemplate)`
+  position: fixed;
   display: flex;
   flex-direction: column;
   row-gap: 60px;
   overflow: hidden;
-  // min-width: 300px;
+  width: 300px;
 
+  @media (max-width: 1400px) {
+    width: 270px;
+  }
   @media (max-width: 1200px) {
     max-width: none;
     min-width: none;
+    width: 270px;
     align-items: flex-start;
   }
 
   @media (max-width: ${TABLET_VIEW}px) {
     row-gap: 20px;
     padding: 20px 0px;
+    position: static;
+    width: 100%;
   }
 `;
 

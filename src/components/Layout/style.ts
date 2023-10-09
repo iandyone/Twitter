@@ -24,7 +24,7 @@ export const Main = styled.main`
   border: 1px solid ${({ theme }) => theme.colors.border};
   border-top: none;
   border-bottom: none;
-  padding: 20px;
+  padding: 20px 0px;
 
   @media (max-width: ${TABLET_VIEW}px) {
     display: flex;

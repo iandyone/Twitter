@@ -1,3 +1,4 @@
+import { MOBILE_VIEW } from '@constants/variables';
 import styled, { css } from 'styled-components';
 
 export const MenuContent = styled.div<{ $isOpen: boolean }>`
@@ -15,7 +16,7 @@ export const MenuContent = styled.div<{ $isOpen: boolean }>`
   align-items: flex-start;
   border-left: 1px solid ${({ theme }) => theme.colors.border};
 
-  @media (max-width: 480px) {
+  @media (max-width: ${MOBILE_VIEW}px) {
     width: 100%;
     display: block;
   }
@@ -33,7 +34,11 @@ export const MenuOption = styled.div`
   align-items: center;
   column-gap: 10px;
   row-gap: 20px;
-  padding: 0px 10px;
+  padding: 20px;
+
+  @media (max-width: ${MOBILE_VIEW}px) {
+    align-items: initial;
+  }
 `;
 
 export const AccountContainer = styled.div`
