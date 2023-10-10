@@ -1,4 +1,5 @@
-import { TABLET_VIEW } from '@constants/variables';
+import { Viewposts } from '@appTypes/enums';
+import { DEFAULT_GAP } from '@constants/variables';
 import { Icon, InputTemplate, LinkTemplate, SidesTemplate, TitleTemplate } from '@styles';
 import styled from 'styled-components';
 
@@ -14,19 +15,19 @@ export const Container = styled(SidesTemplate)`
   overflow: hidden;
   width: 300px;
 
-  @media (max-width: 1400px) {
+  @media (max-width: ${Viewposts.DESKTOP}px) {
     width: 270px;
   }
-  @media (max-width: 1200px) {
+  @media (max-width: ${Viewposts.DESKTOP_MEDIUM}px) {
     max-width: none;
     min-width: none;
     width: 270px;
     align-items: flex-start;
   }
 
-  @media (max-width: ${TABLET_VIEW}px) {
-    row-gap: 20px;
-    padding: 20px 0px;
+  @media (max-width: ${Viewposts.TABLET}px) {
+    row-gap: ${DEFAULT_GAP};
+    padding: ${DEFAULT_GAP} 0px;
     position: static;
     width: 100%;
   }
@@ -35,7 +36,7 @@ export const Container = styled(SidesTemplate)`
 export const Search = styled.div`
   position: relative;
 
-  @media (max-width: ${TABLET_VIEW}px) {
+  @media (max-width: ${Viewposts.TABLET}px) {
     max-width: none;
     width: 100%;
   }
@@ -56,7 +57,7 @@ export const Input = styled(InputTemplate)`
 export const SearchIcon = styled(Icon)`
   position: absolute;
   top: 50%;
-  left: 20px;
+  left: ${DEFAULT_GAP};
   transform: translateY(-50%);
 `;
 
@@ -65,7 +66,7 @@ export const Results = styled.div`
   flex-direction: column;
   row-gap: 32px;
   background: ${({ theme }) => theme.colors.searchBg};
-  padding: 20px;
+  padding: ${DEFAULT_GAP};
   border-radius: 10px;
   width: 100%;
 `;
@@ -80,7 +81,7 @@ export const Footer = styled.div`
   justify-content: space-between;
   gap: 10px;
 
-  @media (max-width: 1400px) {
+  @media (max-width: ${Viewposts.DESKTOP}px) {
     flex-direction: column;
   }
 `;

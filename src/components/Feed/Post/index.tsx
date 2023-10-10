@@ -1,20 +1,10 @@
 import userAvatar from '@assets/icons/avatar.svg';
 import { LikeIcon } from '@components/SVG/Like';
+import { UserContact } from '@styles';
 import { getDateData } from '@utils/helpers/date';
 import { FC, memo, useMemo, useState } from 'react';
 
-import {
-  Avatar,
-  Body,
-  Container,
-  Content,
-  Header,
-  LikeCounter,
-  Likes,
-  PostDate,
-  User,
-  UserContact,
-} from './styled';
+import { Avatar, Body, Container, Content, Header, LikeCounter, Likes, PostDate, User } from './styled';
 import { IPostProps } from './types';
 
 const PostComponent: FC<IPostProps> = ({ post }) => {

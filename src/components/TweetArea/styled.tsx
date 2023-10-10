@@ -1,14 +1,16 @@
-import { TABLET_VIEW } from '@constants/variables';
+import { Viewposts } from '@appTypes/enums';
+import { DEFAULT_GAP } from '@constants/variables';
 import { ButtonTemplate, Icon, UserAvatar } from '@styles';
 import styled from 'styled-components';
 
 export const Container = styled.form`
   display: flex;
   position: relative;
-  padding: 20px;
+  padding: ${DEFAULT_GAP} 0px;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.border};
 
-  @media (max-width: ${TABLET_VIEW}px) {
-    padding: 20px 0px;
+  @media (min-width: ${Viewposts.TABLET}px) {
+    padding: ${DEFAULT_GAP};
   }
 `;
 
@@ -54,7 +56,7 @@ export const SubmitButton = styled(ButtonTemplate)`
 
   &:hover {
     transition: ${({ theme }) => theme.animation.transition};
-    opacity: ${({ theme }) => theme.animation.buttonHoverOpacity};
+    opacity: ${({ theme }) => theme.animation.opacity};
   }
 
   &:active {

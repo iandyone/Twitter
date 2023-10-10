@@ -1,9 +1,10 @@
+import { Viewposts } from '@appTypes/enums';
 import robotoBlack from '@assets/fonts/Roboto/Roboto-Black.ttf';
 import robotoBold from '@assets/fonts/Roboto/Roboto-Bold.ttf';
 import robotoLight from '@assets/fonts/Roboto/Roboto-Light.ttf';
 import robotoMedium from '@assets/fonts/Roboto/Roboto-Medium.ttf';
 import robotoRegular from '@assets/fonts/Roboto/Roboto-Regular.ttf';
-import { TABLET_VIEW, USER_ELEMENT_HEIGHT } from '@constants/variables';
+import { DEFAULT_GAP, USER_ELEMENT_HEIGHT } from '@constants/variables';
 import { Link } from 'react-router-dom';
 import styled, { createGlobalStyle, css } from 'styled-components';
 
@@ -142,10 +143,10 @@ input::-webkit-inner-spin-button {
 `;
 
 export const AppContainer = styled.div`
-  max-width: 1920px;
+  max-width: 19 ${DEFAULT_GAP};
   margin: 0 auto;
   box-sizing: content-box;
-  padding: 0 20px;
+  padding: 0 ${DEFAULT_GAP};
   overflow-x: hidden;
   min-height: 100vh;
 `;
@@ -155,7 +156,7 @@ export const PageWrapper = styled.div`
 `;
 
 export const Icon = styled.img`
-  @media (max-width: 1400px) {
+  @media (max-width: ${Viewposts.DESKTOP}px) {
     margin-bottom: 0px;
   }
 `;
@@ -255,16 +256,16 @@ export const FormTemplate = styled.form`
 `;
 
 export const SidesTemplate = styled.div`
-  padding: 20px;
+  padding: ${DEFAULT_GAP};
   width: 100%;
   margin: 0 auto;
   min-height: 100vh;
 
-  @media (max-width: 1400px) {
-    padding: 20px 20px;
+  @media (max-width: ${Viewposts.DESKTOP}px) {
+    padding: ${DEFAULT_GAP} ${DEFAULT_GAP};
   }
 
-  @media (max-width: ${TABLET_VIEW}px) {
+  @media (max-width: ${Viewposts.TABLET}px) {
     min-height: auto;
   }
 `;
@@ -298,7 +299,7 @@ export const UserName = styled(TitleTemplate)`
 `;
 
 export const UserEmail = styled.p`
-  opacity: ${({ theme }) => theme.animation.buttonHoverOpacity};
+  opacity: ${({ theme }) => theme.animation.opacity};
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -309,4 +310,20 @@ export const PageContainer = styled.section`
   width: 100%;
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
+  padding: ${DEFAULT_GAP} 0px;
+`;
+
+export const UserContact = styled.span`
+  font-size: ${({ theme }) => theme.font.size};
+  font-weight: ${({ theme }) => theme.font.regular};
+  opacity: ${({ theme }) => theme.animation.opacity};
+`;
+
+export const SubHeader = styled(TitleTemplate)`
+  padding: ${DEFAULT_GAP} 90px;
+  font-size: ${({ theme }) => theme.font.size};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.border};
+  align-self: flex-start;
+  margin-bottom: 40px;
 `;

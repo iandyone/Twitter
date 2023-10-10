@@ -1,7 +1,13 @@
-import { AppRoutes } from '@constants/variables';
+import { BurgerMenu } from '@components/BurgerMenu';
+import { Feed } from '@components/Feed';
+import { Header } from '@components/Header';
+import { ProfileHeader } from '@components/ProfileHeader';
+import { TweetArea } from '@components/TweetArea';
+import { AppRoutes, mockPosts } from '@constants/variables';
 import { useSelectorTyped } from '@hooks/redux';
+import { PageContainer, SubHeader } from '@styles';
 import { FC, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export const ProfilePage: FC = () => {
   const { isAuthorized } = useSelectorTyped((store) => store.user);
@@ -14,10 +20,13 @@ export const ProfilePage: FC = () => {
   });
 
   return (
-    <>
-      <div>Profile</div>
-      <Link to={AppRoutes.HOME}>Home</Link>
-      <Link to={AppRoutes.page.FEED}>Feed</Link>
-    </>
+    <PageContainer>
+      <Header title='Profile' />
+      <BurgerMenu />
+      <ProfileHeader />
+      <TweetArea />
+      <SubHeader>Tweets</SubHeader>
+      <Feed posts={mockPosts} />
+    </PageContainer>
   );
 };

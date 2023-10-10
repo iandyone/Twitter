@@ -1,22 +1,21 @@
-import { Title } from '@components/SignIn/styled';
-import { Icon } from '@styles';
+import { DEFAULT_GAP } from '@constants/variables';
+import { Icon, TitleTemplate } from '@styles';
 import styled from 'styled-components';
 
 export const Container = styled.div`
   display: flex;
   align-items: center;
-  column-gap: 20px;
+  column-gap: ${DEFAULT_GAP};
 
   &:hover {
     cursor: pointer;
     color: ${({ theme }) => theme.colors.link};
-    transition: ${({ theme }) => theme.animation.transition};
   }
 `;
 
 export const OptionIcon = styled(Icon)``;
 
-export const OptionTitle = styled(Title)`
+export const OptionTitle = styled(TitleTemplate)`
   font-size: ${({ theme }) => theme.font.size};
   font-weight: ${({ theme }) => theme.font.medium};
   transition: ${({ theme }) => theme.animation.transition};

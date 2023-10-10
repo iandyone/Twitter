@@ -45,7 +45,7 @@ export const theme: ITheme = {
     animation: {
       transformActive: 'scale(0.95)',
       transition: 'all .3s ease',
-      buttonHoverOpacity: '0.7',
+      opacity: '0.7',
     },
   },
 
@@ -81,7 +81,7 @@ export const theme: ITheme = {
     animation: {
       transformActive: 'scale(0.95)',
       transition: 'all .3s ease',
-      buttonHoverOpacity: '0.7',
+      opacity: '0.7',
     },
   },
 };

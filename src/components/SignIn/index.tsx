@@ -35,8 +35,7 @@ export const SignIn: FC = () => {
   const navigate = useNavigate();
 
   function getTextContent() {
-    const { title, subtitle, withEmailButton, withGoogleButton } = data;
-    return { title, subtitle, withEmailButton, withGoogleButton };
+    return { ...data };
   }
 
   async function handlerOnClickGoogle(e: MouseEvent<HTMLElement>) {

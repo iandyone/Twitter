@@ -7,7 +7,7 @@ import { AppRoutes, PHONE_MASK } from '@constants/variables';
 import { useDispatchTyped } from '@hooks/redux';
 import { logoutUser, setUser } from '@store/reducers/user';
 import { AppContainer, PageWrapper } from '@styles';
-import { getDaysAmountInAMonth } from '@utils/helpers/date';
+import { getDateData, getDaysAmountInAMonth } from '@utils/helpers/date';
 import { getEmailValidation, getPasswordValidation, getPhoneValidation } from '@utils/helpers/validators';
 import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
 import { ChangeEvent, FC, FormEvent, useEffect, useMemo, useReducer, useRef } from 'react';
@@ -34,6 +34,7 @@ export const SignUpForm: FC = () => {
 
   const initialState: IReducerState = useMemo(getInitialState, []);
   const [state, dispatch] = useReducer(reducer, initialState);
+  const { month: currentMonth, year: currentYear } = getDateData(new Date());
   const {
     day,
     month,
@@ -48,7 +49,8 @@ export const SignUpForm: FC = () => {
     phone,
     phoneError,
   } = state;
-  const { daysList, monthList, yearList } = useMemo(getSelectLists, [month]);
+
+  const { daysList, monthList, yearList } = useMemo(getSelectLists, [currentMonth, currentYear]);
   const dispatchRedux = useDispatchTyped();
   const navigate = useNavigate();
 
@@ -63,46 +65,6 @@ export const SignUpForm: FC = () => {
     if (buttonRef) buttonRef.current.disabled = false;
     if (phoneRef) phoneRef.current.disabled = false;
   }, [emailRef, passwordRef, buttonRef, phoneRef]);
-
-  function getSelectLists() {
-    const currentDate = new Date();
-    const currentYear = currentDate.getFullYear();
-
-    const daysList = [];
-    const yearList = [];
-    const monthList = Object.keys(Months).filter((month) => month.length > 2);
-
-    const daysInAMonth = getDaysAmountInAMonth(new Date(currentYear, Months[month as keyof typeof Months]));
-
-    for (let day = 1; day <= daysInAMonth; ++day) {
-      daysList.push(String(day));
-    }
-
-    for (let year = currentYear - 18; year >= 1950; --year) {
-      yearList.push(String(year));
-    }
-
-    return { daysList, monthList, yearList };
-  }
-
-  function getInitialState(): IReducerState {
-    const state: IReducerState = {
-      day: null,
-      year: null,
-      month: null,
-      email: '',
-      password: '',
-      phone: '',
-      emailError: null,
-      passwordError: null,
-      phoneError: null,
-      dayError: null,
-      monthError: null,
-      yearError: null,
-    };
-
-    return state;
-  }
 
   function reducer(state = initialState, action: Action) {
     switch (action.type) {
@@ -136,33 +98,46 @@ export const SignUpForm: FC = () => {
     }
   }
 
-  function getTextContent() {
-    const {
-      title,
-      subtitle,
-      link,
-      button,
-      description,
-      emailPlaceholder,
-      phonePlaceholder,
-      passwordPlaceholder,
-      emailErrorMessage,
-      phoneErrorMessage,
-      passwordErrorMessage,
-    } = data;
-    return {
-      title,
-      subtitle,
-      link,
-      button,
-      description,
-      emailPlaceholder,
-      phonePlaceholder,
-      passwordPlaceholder,
-      emailErrorMessage,
-      phoneErrorMessage,
-      passwordErrorMessage,
+  function getSelectLists() {
+    const legalAge = 18;
+
+    const daysList = [];
+    const yearList = [];
+    const monthList = Object.keys(Months).filter((month) => month.length > 2);
+    const daysInAMonth = getDaysAmountInAMonth(new Date(currentYear, currentMonth));
+
+    for (let day = 1; day <= daysInAMonth; ++day) {
+      daysList.push(String(day));
+    }
+
+    for (let year = currentYear - legalAge; year >= 1950; --year) {
+      yearList.push(String(year));
+    }
+
+    return { daysList, monthList, yearList };
+  }
+
+  function getInitialState(): IReducerState {
+    const state: IReducerState = {
+      day: null,
+      year: null,
+      month: null,
+      email: '',
+      password: '',
+      phone: '',
+      emailError: null,
+      passwordError: null,
+      phoneError: null,
+      dayError: null,
+      monthError: null,
+      yearError: null,
     };
+
+    return state;
+  }
+
+  function getTextContent() {
+    return { ...data };
   }
 
   function handlerOnChangeEmail(e: ChangeEvent<HTMLInputElement>) {

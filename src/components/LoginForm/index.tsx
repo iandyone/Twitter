@@ -42,24 +42,7 @@ export const LoginForm: FC = () => {
   }, [emailRef, passwordRef, buttonRef]);
 
   function getTextContent() {
-    const {
-      title,
-      button,
-      link,
-      emailErrorMessage,
-      passwordErrorMessage,
-      emailPlaceholder,
-      passwordPlaceholder,
-    } = data;
-    return {
-      title,
-      button,
-      link,
-      emailErrorMessage,
-      passwordErrorMessage,
-      emailPlaceholder,
-      passwordPlaceholder,
-    };
+    return { ...data };
   }
 
   function handlerOnChangeEmail(e: ChangeEvent<HTMLInputElement>) {

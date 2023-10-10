@@ -1,4 +1,5 @@
-import { TABLET_VIEW } from '@constants/variables';
+import { Viewposts } from '@appTypes/enums';
+import { DEFAULT_GAP } from '@constants/variables';
 import { TitleTemplate } from '@styles';
 import styled from 'styled-components';
 
@@ -6,12 +7,13 @@ export const Container = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 20px;
 
-  @media (max-width: ${TABLET_VIEW}px) {
-    padding-right: 40px;
+  @media (min-width: ${Viewposts.TABLET}px) {
+    padding: 0px ${DEFAULT_GAP};
   }
-  @media (max-width: ${TABLET_VIEW}px) {
+
+  @media (max-width: ${Viewposts.TABLET}px) {
+    padding-right: 40px;
     padding-left: 0px;
   }
 `;

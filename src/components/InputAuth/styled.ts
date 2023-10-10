@@ -1,4 +1,5 @@
-import { MOBILE_VIEW } from '@constants/variables';
+import { Viewposts } from '@appTypes/enums';
+import { DEFAULT_GAP } from '@constants/variables';
 import { InputTemplate } from '@styles';
 import styled from 'styled-components';
 
@@ -21,9 +22,9 @@ export const Input = styled(InputTemplate).attrs(({ type }) => ({
   type,
 }))`
   width: 100%;
-  padding: 24px 20px;
+  padding: 24px ${DEFAULT_GAP};
 
-  @media (max-width: ${MOBILE_VIEW}px) {
+  @media (max-width: ${Viewposts.MOBILE}px) {
     padding: 12px 10px;
   }
 `;

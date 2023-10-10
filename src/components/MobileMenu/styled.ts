@@ -1,4 +1,5 @@
-import { MOBILE_VIEW } from '@constants/variables';
+import { Viewposts } from '@appTypes/enums';
+import { DEFAULT_GAP } from '@constants/variables';
 import styled, { css } from 'styled-components';
 
 export const MenuContent = styled.div<{ $isOpen: boolean }>`
@@ -16,7 +17,7 @@ export const MenuContent = styled.div<{ $isOpen: boolean }>`
   align-items: flex-start;
   border-left: 1px solid ${({ theme }) => theme.colors.border};
 
-  @media (max-width: ${MOBILE_VIEW}px) {
+  @media (max-width: ${Viewposts.MOBILE}px) {
     width: 100%;
     display: block;
   }
@@ -33,10 +34,10 @@ export const MenuOption = styled.div`
   flex-direction: column;
   align-items: center;
   column-gap: 10px;
-  row-gap: 20px;
-  padding: 20px;
+  row-gap: ${DEFAULT_GAP};
+  padding: ${DEFAULT_GAP};
 
-  @media (max-width: ${MOBILE_VIEW}px) {
+  @media (max-width: ${Viewposts.MOBILE}px) {
     align-items: initial;
   }
 `;

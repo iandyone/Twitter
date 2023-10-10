@@ -1,4 +1,5 @@
-import { TABLET_VIEW } from '@constants/variables';
+import { Viewposts } from '@appTypes/enums';
+import { DEFAULT_GAP } from '@constants/variables';
 import { Icon, LinkTemplate, TitleTemplate } from '@styles';
 import { Link as LinkLRouterLink } from 'react-router-dom';
 import styled from 'styled-components';
@@ -20,13 +21,13 @@ export const Banner = styled.div`
   flex: 0 1 60%;
   user-select: none;
 
-  @media (max-width: ${TABLET_VIEW}px) {
+  @media (max-width: ${Viewposts.TABLET}px) {
     position: absolute;
     opacity: 0.25;
     width: 100%;
   }
 
-  @media (max-width: 500px) {
+  @media (max-width: ${Viewposts.TABLET_SMALL}px) {
     display: none;
   }
 `;
@@ -45,17 +46,20 @@ export const Content = styled.div`
   row-gap: 30px;
   padding-top: 12vh;
 
-  @media (max-width: 1400px) {
+  @media (max-width: ${Viewposts.DESKTOP}px) {
     padding-top: 5%;
   }
-  @media (max-width: ${TABLET_VIEW}px) {
+  @media (max-width: ${Viewposts.DESKTOP}px), (max-height: 900px) {
+    padding-top: ${DEFAULT_GAP};
+  }
+  @media (max-width: ${Viewposts.TABLET}px) {
     flex: 1 1 auto;
-    padding: 20px;
+    padding: ${DEFAULT_GAP};
     row-gap: 50px;
   }
-  @media (max-width: 500px) {
+  @media (max-width: ${Viewposts.TABLET_SMALL}px) {
     justify-content: center;
-    padding: 20px 10px;
+    padding: ${DEFAULT_GAP} 10px;
     row-gap: 50px;
   }
 `;
@@ -64,9 +68,9 @@ export const TwitterIcon = styled(Icon)`
   white-space: nowrap;
   width: 50px;
   height: 40px;
-  margin-bottom: 58px;
+  margin-bottom: ${DEFAULT_GAP};
 
-  @media (max-width: ${TABLET_VIEW}px) {
+  @media (max-width: ${Viewposts.TABLET}px) {
     align-self: center;
     margin-bottom: 0px;
   }
@@ -79,14 +83,14 @@ export const Title = styled(TitleTemplate)`
   transition: ${({ theme }) => theme.animation.transition};
   font-size: 84px;
 
-  @media (max-width: 1400px) {
+  @media (max-width: ${Viewposts.DESKTOP}px) {
     font-size: 40px;
   }
-  @media (max-width: ${TABLET_VIEW}px) {
+  @media (max-width: ${Viewposts.TABLET}px) {
     font-size: 60px;
     text-align: center;
   }
-  @media (max-width: 500px) {
+  @media (max-width: ${Viewposts.TABLET_SMALL}px) {
     font-size: 40px;
   }
 `;
@@ -97,15 +101,15 @@ export const Subtitle = styled.p`
   transition: ${({ theme }) => theme.animation.transition};
   font-size: 42px;
 
-  @media (max-width: 1400px) {
+  @media (max-width: ${Viewposts.DESKTOP}px) {
     font-size: 30px;
   }
-  @media (max-width: ${TABLET_VIEW}px) {
+  @media (max-width: ${Viewposts.TABLET}px) {
     font-size: 40px;
     text-align: center;
     margin-bottom: 0px;
   }
-  @media (max-width: 500px) {
+  @media (max-width: ${Viewposts.TABLET_SMALL}px) {
     font-size: 30px;
     text-align: center;
     margin-bottom: 0px;
@@ -115,24 +119,23 @@ export const Subtitle = styled.p`
 export const Buttons = styled.div`
   display: flex;
   flex-direction: column;
-  row-gap: 20px;
+  row-gap: ${DEFAULT_GAP};
 `;
 
 export const Button = styled(LinkLRouterLink)`
   border-radius: 42px;
   border: 1px solid ${({ theme }) => theme.colors.border};
-  opacity: ${({ theme }) => theme.animation.buttonHoverOpacity};
+  opacity: ${({ theme }) => theme.animation.opacity};
   background: transparent;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 62px;
-  ${({ theme }) => theme.colors.text};
+  transition: ${({ theme }) => theme.animation.transition};
   font-weight: ${({ theme }) => theme.font.medium};
   font-size: 20px;
   display: flex;
   column-gap: 5px;
-  transition: ${({ theme }) => theme.animation.transition};
 
   &:hover {
     cursor: pointer;
@@ -145,12 +148,12 @@ export const Button = styled(LinkLRouterLink)`
     transform: ${({ theme }) => theme.animation.transformActive};
   }
 
-  @media (max-width: 1400px) {
+  @media (max-width: ${Viewposts.DESKTOP}px) {
     font-size: 16px;
     height: 40px;
   }
 
-  @media (max-width: ${TABLET_VIEW}px) {
+  @media (max-width: ${Viewposts.TABLET}px) {
     flex: 1 1 auto;
     border-color: ${({ theme }) => theme.colors.text};
     transition: ${({ theme }) => theme.animation.transition};
@@ -159,7 +162,7 @@ export const Button = styled(LinkLRouterLink)`
     max-width: 300px;
   }
 
-  @media (max-width: 500px) {
+  @media (max-width: ${Viewposts.TABLET_SMALL}px) {
     flex: 1 1 auto;
     border-color: ${({ theme }) => theme.colors.border};
     transition: ${({ theme }) => theme.animation.transition};
@@ -171,7 +174,7 @@ export const GoogleIcon = styled.img``;
 export const Links = styled.div`
   display: flex;
   flex-direction: column;
-  row-gap: 20px;
+  row-gap: ${DEFAULT_GAP};
 `;
 
 export const Link = styled(LinkTemplate)`
@@ -186,20 +189,20 @@ export const Link = styled(LinkTemplate)`
 export const Text = styled.p`
   line-height: 140%;
 
-  @media (max-width: ${TABLET_VIEW}px) {
+  @media (max-width: ${Viewposts.TABLET}px) {
     text-align: center;
   }
 `;
 
 export const Footer = styled.footer`
-  padding: 20px;
+  padding: ${DEFAULT_GAP};
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 10px;
 
-  @media (max-width: 500px) {
-    padding: 20px 10px;
+  @media (max-width: ${Viewposts.TABLET_SMALL}px) {
+    padding: ${DEFAULT_GAP} 10px;
   }
 `;
 

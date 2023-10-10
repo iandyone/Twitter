@@ -1,4 +1,5 @@
-import { MOBILE_VIEW } from '@constants/variables';
+import { Viewposts } from '@appTypes/enums';
+import { DEFAULT_GAP } from '@constants/variables';
 import {
   ButtonTemplate,
   FormTemplate,
@@ -20,8 +21,8 @@ export const Body = styled(PageBody)`
   width: 100%;
   max-width: 680px;
 
-  @media (max-width: ${MOBILE_VIEW}px) {
-    row-gap: 20px;
+  @media (max-width: ${Viewposts.MOBILE}px) {
+    row-gap: ${DEFAULT_GAP};
   }
 `;
 
@@ -31,7 +32,7 @@ export const TwitterIcon = styled(Icon)`
   height: 40px;
   margin-bottom: 42px;
 
-  @media (max-width: ${MOBILE_VIEW}px) {
+  @media (max-width: ${Viewposts.MOBILE}px) {
     margin-bottom: 0px;
   }
 `;
@@ -49,7 +50,7 @@ export const Link = styled(LinkTemplate)`
   align-self: flex-start;
   margin-bottom: 18px;
 
-  @media (max-width: ${MOBILE_VIEW}px) {
+  @media (max-width: ${Viewposts.MOBILE}px) {
     margin-bottom: 0px;
   }
 `;
@@ -59,7 +60,7 @@ export const Subtitle = styled(SubtitleTemplate)`
   align-self: flex-start;
   margin-bottom: ${marginBottom};
 
-  @media (max-width: 768px) {
+  @media (max-width: ${Viewposts.TABLET_MEDIUM}px) {
     margin-bottom: 0px;
   }
 `;
@@ -68,10 +69,10 @@ export const Text = styled.p`
   font-size: 16px;
   font-weight: 400;
   line-height: 150%;
-  opacity: ${({ theme }) => theme.animation.buttonHoverOpacity};
+  opacity: ${({ theme }) => theme.animation.opacity};
   margin-bottom: ${marginBottom};
 
-  @media (max-width: 768px) {
+  @media (max-width: ${Viewposts.TABLET_MEDIUM}px) {
     margin-bottom: 0px;
   }
 `;
@@ -83,7 +84,7 @@ export const Container = styled.div`
   grid-template-columns: 2fr 1fr 1fr;
   column-gap: 22px;
 
-  @media (max-width: 768px) {
+  @media (max-width: ${Viewposts.TABLET_MEDIUM}px) {
     display: flex;
     flex-direction: column;
     row-gap: 24px;
@@ -96,11 +97,11 @@ export const Button = styled(ButtonTemplate)`
   transition: ${({ theme }) => theme.animation.transition};
 
   &:hover {
-    opacity: ${({ theme }) => theme.animation.buttonHoverOpacity};
+    opacity: ${({ theme }) => theme.animation.opacity};
     transition: ${({ theme }) => theme.animation.transition};
   }
 
-  @media (max-width: ${MOBILE_VIEW}px) {
+  @media (max-width: ${Viewposts.MOBILE}px) {
     margin-bottom: 0px;
   }
 `;

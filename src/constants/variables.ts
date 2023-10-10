@@ -1,5 +1,9 @@
 import { IPost } from '@appTypes';
 
+export const PHONE_MASK = '+375';
+export const USER_ELEMENT_HEIGHT = '55px';
+export const DEFAULT_GAP = '20px';
+
 export const colors = {
   black: '#000',
   white: '#fff',
@@ -11,11 +15,6 @@ export const colors = {
   red: 'red',
   green: 'green',
 };
-
-export const PHONE_MASK = '+375';
-export const USER_ELEMENT_HEIGHT = '55px';
-export const TABLET_VIEW = 992;
-export const MOBILE_VIEW = 480;
 
 export const AppRoutes = {
   HOME: '/',

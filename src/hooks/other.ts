@@ -1,4 +1,4 @@
-import { TABLET_VIEW } from '@constants/variables';
+import { Viewposts } from '@appTypes/enums';
 import { useEffect, useState } from 'react';
 
 export const useMobile = () => {
@@ -14,5 +14,5 @@ export const useMobile = () => {
     };
   }, []);
 
-  return width < TABLET_VIEW;
+  return width < Viewposts.TABLET;
 };

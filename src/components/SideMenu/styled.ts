@@ -1,4 +1,5 @@
-import { MOBILE_VIEW, TABLET_VIEW } from '@constants/variables';
+import { Viewposts } from '@appTypes/enums';
+import { DEFAULT_GAP } from '@constants/variables';
 import { ButtonTemplate, Icon, SidesTemplate } from '@styles';
 import styled from 'styled-components';
 
@@ -10,7 +11,7 @@ export const Wrapper = styled.aside`
   display: flex;
   justify-content: flex-end;
 
-  @media (max-width: 1200px) {
+  @media (max-width: ${Viewposts.DESKTOP_MEDIUM}px) {
     width: 100%;
     max-width: none;
   }
@@ -21,19 +22,19 @@ export const Container = styled(SidesTemplate)`
   flex-direction: column;
   width: 300px;
   justify-content: space-between;
-  padding: 20px 20px 20px 0;
+  padding: ${DEFAULT_GAP} ${DEFAULT_GAP} ${DEFAULT_GAP} 0;
   height: 100vh;
   position: fixed;
 
-  @media (max-width: 1400px) {
+  @media (max-width: ${Viewposts.DESKTOP}px) {
     max-width: none;
     width: 250px;
     align-items: flex-start;
   }
-  @media (max-width: 1200px) {
+  @media (max-width: ${Viewposts.DESKTOP_MEDIUM}px) {
     width: 200px;
   }
-  @media (max-width: ${TABLET_VIEW}px) {
+  @media (max-width: ${Viewposts.TABLET}px) {
     position: static;
     height: auto;
     justify-content: initial;
@@ -43,7 +44,7 @@ export const Container = styled(SidesTemplate)`
     padding-right: 10px;
     width: 100%;
   }
-  @media (max-width: ${MOBILE_VIEW}px) {
+  @media (max-width: ${Viewposts.MOBILE}px) {
     padding: 0;
   }
 `;
@@ -54,8 +55,8 @@ export const Navigation = styled.nav`
   width: 100%;
   row-gap: 36px;
 
-  @media (max-width: ${TABLET_VIEW}px) {
-    row-gap: 20px;
+  @media (max-width: ${Viewposts.TABLET}px) {
+    row-gap: ${DEFAULT_GAP};
   }
 `;
 
@@ -64,7 +65,7 @@ export const TwitterIcon = styled(Icon)`
   width: 50px;
   height: 40px;
 
-  @media (max-width: ${MOBILE_VIEW}px) {
+  @media (max-width: ${Viewposts.MOBILE}px) {
     margin-bottom: 0px;
   }
 `;
@@ -87,7 +88,7 @@ export const TweetButton = styled(ButtonTemplate)`
   transition: ${({ theme }) => theme.animation.transition};
 
   &:hover {
-    opacity: ${({ theme }) => theme.animation.buttonHoverOpacity};
+    opacity: ${({ theme }) => theme.animation.opacity};
   }
 `;
 

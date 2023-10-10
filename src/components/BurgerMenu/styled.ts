@@ -1,10 +1,10 @@
-import { TABLET_VIEW } from '@constants/variables';
+import { Viewposts } from '@appTypes/enums';
 import styled, { css } from 'styled-components';
 
 export const MenuContainer = styled.div`
   display: none;
 
-  @media (max-width: ${TABLET_VIEW}px) {
+  @media (max-width: ${Viewposts.TABLET}px) {
     display: block;
     position: absolute;
     top: 22px;

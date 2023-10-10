@@ -68,7 +68,7 @@ export interface ISpace {
 export interface IAnimation {
   transition?: string;
   transformActive?: string;
-  buttonHoverOpacity: string;
+  opacity: string;
 }
 
 export interface IFooterLink {

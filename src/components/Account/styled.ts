@@ -16,6 +16,6 @@ export const LogOutButton = styled(ButtonTemplate)`
   flex: 1 1 auto;
 
   &:hover {
-    opacity: ${({ theme }) => theme.animation.buttonHoverOpacity};
+    opacity: ${({ theme }) => theme.animation.opacity};
   }
 `;
