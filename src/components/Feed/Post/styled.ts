@@ -55,8 +55,8 @@ export const Body = styled.p`
 
 export const Likes = styled.div`
   display: flex;
+  column-gap: 5px;
   align-items: flex-end;
-  column-gap: 10px;
   align-self: flex-start;
   transition: ${({ theme }) => theme.animation.transition};
 
@@ -72,6 +72,10 @@ export const Likes = styled.div`
 `;
 
 export const LikeCounter = styled.span<{ $isActive: boolean }>`
+  display: inline-block;
+  height: 24px;
+  line-height: 115%;
+
   @media (max-width: ${Viewposts.MOBILE}px) {
     align-self: center;
   }

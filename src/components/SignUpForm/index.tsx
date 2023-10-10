@@ -293,9 +293,27 @@ export const SignUpForm: FC = () => {
             <Subtitle>{subtitle}</Subtitle>
             <Text>{description}</Text>
             <Container>
-              <Select title={month ?? 'Month'} isValid={monthError} data={monthList} handler={setUserMonth} />
-              <Select title={day ?? 'Day'} isValid={dayError} data={daysList} handler={setUserDate} />
-              <Select title={year ?? 'Year'} isValid={yearError} data={yearList} handler={setUserYear} />
+              <Select
+                title={month ?? 'Month'}
+                isValid={monthError}
+                data={monthList}
+                onClick={setUserMonth}
+                type='month'
+              />
+              <Select
+                title={day ?? 'Day'}
+                isValid={dayError}
+                data={daysList}
+                onClick={setUserDate}
+                type='day'
+              />
+              <Select
+                title={year ?? 'Year'}
+                isValid={yearError}
+                data={yearList}
+                onClick={setUserYear}
+                type='year'
+              />
             </Container>
             <Button type='submit' ref={buttonRef}>
               {button}

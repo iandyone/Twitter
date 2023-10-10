@@ -1,8 +1,9 @@
-import { handlerString } from '@appTypes/types';
+import { DataSelect, handlerString } from '@appTypes/types';
 
 export interface ISelectComponentProps {
   title: string;
   data: string[];
-  handler: handlerString;
+  onClick: handlerString;
   isValid: boolean;
+  type: DataSelect;
 }

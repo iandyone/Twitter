@@ -326,4 +326,14 @@ export const SubHeader = styled(TitleTemplate)`
   border-bottom: 1px solid ${({ theme }) => theme.colors.border};
   align-self: flex-start;
   margin-bottom: 40px;
+
+  @media (max-width: ${Viewposts.TABLET}px) {
+    margin-bottom: ${DEFAULT_GAP};
+  }
+  @media (max-width: ${Viewposts.MOBILE}px) {
+    align-self: center;
+    width: 100%;
+    text-align: center;
+    padding: ${DEFAULT_GAP} 0;
+  }
 `;

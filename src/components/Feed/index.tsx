@@ -9,7 +9,7 @@ const FeedComponent: FC<IFeedProps> = ({ posts }) => {
     <Container>
       <List>
         {posts.map((post) => (
-          <Post post={post} />
+          <Post post={post} key={post.body} />
         ))}
       </List>
     </Container>

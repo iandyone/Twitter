@@ -36,8 +36,8 @@ const PostComponent: FC<IPostProps> = ({ post }) => {
           </PostDate>
         </Header>
         <Body>{body}</Body>
-        <Likes onClick={handlerOnLike}>
-          <LikeIcon isActive={isLiked} />
+        <Likes>
+          <LikeIcon isActive={isLiked} onClick={handlerOnLike} />
           {postLikes > 0 && <LikeCounter $isActive={isLiked}>{postLikes}</LikeCounter>}
         </Likes>
       </Content>

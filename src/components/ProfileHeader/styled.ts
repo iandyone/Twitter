@@ -78,6 +78,9 @@ export const EditButton = styled(ButtonTemplate)`
     transition: ${({ theme }) => theme.animation.transition};
   }
 
+  @media (max-width: ${Viewposts.TABLET}px) {
+    align-self: flex-start;
+  }
   @media (max-width: ${Viewposts.MOBILE}px) {
     max-width: none;
   }

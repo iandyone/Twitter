@@ -30,25 +30,25 @@ export const AppRoutes = {
 export const mockPosts: IPost[] = [
   {
     user: { uid: 'Andrei', email: 'iandyone@yahoo.com' },
-    body: 'some post content some post content some post content some post content some post content some post content some post content',
+    body: 'some post content some post content some post content some post content some post content some post content some post ',
     date: new Date(),
     likes: 3,
   },
   {
     user: { uid: 'Julia', email: 'juliait16@gmail.com' },
-    body: 'some post content some post content some post content some post content some post content some post content some post content',
+    body: 'some post content some post content some post content some post content some post content some post content some ',
     date: new Date(),
     likes: 7,
   },
   {
     user: { uid: 'Vladislav', email: 'fidrik.gmail.com' },
-    body: 'some post content some post content some post content some post content some post content some post content some post content',
+    body: 'some post content some post content some post content some post content some post content some post content ',
     date: new Date(),
     likes: 3,
   },
   {
     user: { uid: 'Dasha', email: 'DarioIIIka@mail.ru' },
-    body: 'some post content some post content some post content some post content some post content some post content some post content',
+    body: 'some post content some post content some post content some post content some post content some post',
     date: new Date(),
     likes: 0,
   },
