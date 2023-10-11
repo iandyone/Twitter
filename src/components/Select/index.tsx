@@ -1,27 +1,57 @@
-import { FC, useState } from 'react';
+import { useDispatchTyped, useSelectorTyped } from '@hooks/redux';
+import { setSelectDay, setSelectMonth, setSelectYear } from '@store/reducers/app';
+import { FC, memo, useMemo } from 'react';
 
 import { Option } from './Option';
-import { Container, Options, Select } from './styled';
+import { Container, Options, Title } from './styled';
 import { ISelectComponentProps } from './types';
 
-export const SelectComponent: FC<ISelectComponentProps> = ({ title, data, handler, isValid }) => {
-  const [isActive, setActivity] = useState(false);
+const SelectComponent: FC<ISelectComponentProps> = ({ title, data, onClick, isValid, type }) => {
+  const { selectDay, selectMonth, selectYear } = useSelectorTyped((store) => store.app);
+  const { action, isVisible } = useMemo(getControls, [type, getAction, getControls]);
+  const dispatch = useDispatchTyped();
 
   function handlerOnClick() {
-    setActivity(!isActive);
+    dispatch(action());
+  }
+
+  function getControls() {
+    const action = getAction();
+    const isVisible = getSelectActivity();
+
+    return { action, isVisible };
+  }
+
+  function getAction() {
+    const actions = {
+      day: setSelectDay,
+      month: setSelectMonth,
+      year: setSelectYear,
+    };
+
+    return actions[type];
+  }
+
+  function getSelectActivity() {
+    const selectStatuses = {
+      day: selectDay,
+      month: selectMonth,
+      year: selectYear,
+    };
+
+    return selectStatuses[type];
   }
 
   function handlerOnClickOption(option: string) {
-    handler(option);
-    setActivity(false);
+    onClick(option);
   }
 
   return (
     <Container>
-      <Select $isActive={isActive} $isValid={isValid} onClick={handlerOnClick}>
+      <Title $isActive={isVisible} $isValid={isValid} onClick={handlerOnClick}>
         {title}
-      </Select>
-      {isActive && (
+      </Title>
+      {isVisible && (
         <Options>
           {data.map((option) => (
             <Option option={option} handler={handlerOnClickOption} key={option} />
@@ -31,3 +61,5 @@ export const SelectComponent: FC<ISelectComponentProps> = ({ title, data, handle
     </Container>
   );
 };
+
+export const Select = memo(SelectComponent);

@@ -7,3 +7,9 @@ export type handler = () => void;
 export type handlerString = (value: string) => void;
 
 export type inputTypes = 'text' | 'tel' | 'password' | 'email';
+
+export type Theme = 'light' | 'dark';
+
+export type DataSelect = 'day' | 'month' | 'year';
+
+export type Gender = 'male' | 'female';

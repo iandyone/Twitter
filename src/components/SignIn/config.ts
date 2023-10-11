@@ -1,5 +1,5 @@
 import { IFooterLink } from '@appTypes';
-import { AppRoutes } from '@appTypes/enums';
+import { AppRoutes } from '@constants/variables';
 
 export const data = {
   title: 'Happening now',

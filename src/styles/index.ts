@@ -1,8 +1,10 @@
+import { Viewposts } from '@appTypes/enums';
 import robotoBlack from '@assets/fonts/Roboto/Roboto-Black.ttf';
 import robotoBold from '@assets/fonts/Roboto/Roboto-Bold.ttf';
 import robotoLight from '@assets/fonts/Roboto/Roboto-Light.ttf';
 import robotoMedium from '@assets/fonts/Roboto/Roboto-Medium.ttf';
 import robotoRegular from '@assets/fonts/Roboto/Roboto-Regular.ttf';
+import { colors, DEFAULT_GAP, USER_ELEMENT_HEIGHT } from '@constants/variables';
 import { Link } from 'react-router-dom';
 import styled, { createGlobalStyle, css } from 'styled-components';
 
@@ -41,6 +43,7 @@ body {
   font-family: ${({ theme }) => theme.font.family};
   font-size: ${({ theme }) => theme.font.size};
   color: ${({ theme }) => theme.colors.text};
+  transition: ${({ theme }) => theme.animation.transition};
   background-color: white;
   scroll-behavior: smooth;
 }
@@ -102,6 +105,20 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
 }
 
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: rgba(196, 196, 196, 0.80);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: ${colors.blue};
+  border-radius: 8px;
+}
+
+
 @font-face {
   font-family: 'Roboto Black';
   src: url(${robotoBlack}) format('truetype');
@@ -140,11 +157,12 @@ input::-webkit-inner-spin-button {
 `;
 
 export const AppContainer = styled.div`
-  max-width: 1920px;
+  max-width: 19 ${DEFAULT_GAP};
   margin: 0 auto;
   box-sizing: content-box;
-  padding: 0 20px;
+  padding: 0 ${DEFAULT_GAP};
   overflow-x: hidden;
+  min-height: 100vh;
 `;
 
 export const PageWrapper = styled.div`
@@ -152,12 +170,8 @@ export const PageWrapper = styled.div`
 `;
 
 export const Icon = styled.img`
-  @media (max-width: 1400px) {
+  @media (max-width: ${Viewposts.DESKTOP}px) {
     margin-bottom: 0px;
-  }
-
-  @media (max-width: 992px) {
-    align-self: center;
   }
 `;
 
@@ -172,6 +186,7 @@ export const TitleTemplate = styled.h1`
   color: ${({ theme }) => theme.colors.text};
   font-family: ${({ theme }) => theme.font.family};
   font-weight: ${({ theme }) => theme.font.bold};
+  transition: ${({ theme }) => theme.animation.transition};
 `;
 
 export const SubtitleTemplate = styled.h2`
@@ -189,6 +204,7 @@ export const ButtonTemplate = styled.button`
   color: ${({ theme }) => theme.colors.buttonText};
   font-size: ${({ theme }) => theme.font.size};
   background: ${({ theme }) => theme.colors.buttonBg};
+  transition: ${({ theme }) => theme.animation.transition};
 
   &:hover {
     cursor: pointer;
@@ -204,6 +220,7 @@ export const ButtonTemplate = styled.button`
 
 export const LinkTemplate = styled(Link)`
   color: ${({ theme }) => theme.colors.link};
+  transition: ${({ theme }) => theme.animation.transition};
 
   &:hover {
     cursor: pointer;
@@ -211,7 +228,7 @@ export const LinkTemplate = styled(Link)`
   }
 `;
 
-export const InputTemplate = styled.input<{ $error?: boolean; $isNotEmpty: boolean }>`
+export const InputTemplate = styled.input<{ $error?: boolean; $isNotEmpty?: boolean }>`
   border-radius: 6px;
   border: 1px solid ${({ theme }) => theme.colors.border};
   color: ${({ theme }) => theme.colors.text};
@@ -220,6 +237,7 @@ export const InputTemplate = styled.input<{ $error?: boolean; $isNotEmpty: boole
 
   &:focus {
     border-color: ${({ theme }) => theme.colors.inputFocus};
+    transition: ${({ theme }) => theme.animation.transition};
   }
 
   &:hover {
@@ -239,6 +257,7 @@ export const InputTemplate = styled.input<{ $error?: boolean; $isNotEmpty: boole
     $isNotEmpty &&
     css`
       border-color: ${({ theme }) => theme.colors.inputValid};
+      transition: ${({ theme }) => theme.animation.transition};
     `}
 `;
 
@@ -248,4 +267,93 @@ export const FormTemplate = styled.form`
   flex-direction: column;
   width: 100%;
 }
+`;
+
+export const SidesTemplate = styled.div`
+  padding: ${DEFAULT_GAP};
+  width: 100%;
+  margin: 0 auto;
+  min-height: 100vh;
+
+  @media (max-width: ${Viewposts.DESKTOP}px) {
+    padding: ${DEFAULT_GAP} ${DEFAULT_GAP};
+  }
+
+  @media (max-width: ${Viewposts.TABLET}px) {
+    min-height: auto;
+  }
+`;
+
+export const UserData = styled.div`
+  display: flex;
+  column-gap: 10px;
+  width: 100%;
+`;
+
+export const UserAvatar = styled(Icon)`
+  width: ${USER_ELEMENT_HEIGHT};
+  height: ${USER_ELEMENT_HEIGHT};
+`;
+
+export const UserInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  row-gap: 10px;
+  font-size: 16px;
+  overflow: hidden;
+`;
+
+export const UserName = styled(TitleTemplate)`
+  font-size: 16px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  line-height: 120%;
+`;
+
+export const UserEmail = styled.p`
+  opacity: ${({ theme }) => theme.animation.opacity};
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  line-height: 120%;
+`;
+
+export const PageContainer = styled.section`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding: ${DEFAULT_GAP} 0px;
+`;
+
+export const UserContact = styled.span`
+  font-size: ${({ theme }) => theme.font.size};
+  font-weight: ${({ theme }) => theme.font.regular};
+  opacity: ${({ theme }) => theme.animation.opacity};
+`;
+
+export const SubHeader = styled(TitleTemplate)`
+  padding: ${DEFAULT_GAP} 90px;
+  font-size: ${({ theme }) => theme.font.size};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.border};
+  align-self: flex-start;
+  margin-bottom: 40px;
+
+  @media (max-width: ${Viewposts.TABLET}px) {
+    margin-bottom: ${DEFAULT_GAP};
+  }
+  @media (max-width: ${Viewposts.MOBILE}px) {
+    align-self: center;
+    width: 100%;
+    text-align: center;
+    padding: ${DEFAULT_GAP} 0;
+  }
+`;
+
+export const LabelTemplate = styled.label`
+  color: ${({ theme }) => theme.colors.error};
+  transition: ${({ theme }) => theme.animation.transition};
+  font-size: 14px;
 `;

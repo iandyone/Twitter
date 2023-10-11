@@ -13,10 +13,11 @@ export enum Months {
   DECEMBER,
 }
 
-export enum AppRoutes {
-  HOME = '/',
-  LOGIN = '/login',
-  REGISTRATION = '/registration',
-  FEED = '/feed',
-  PROFILE = '/profile',
-}
+export const Viewposts = {
+  DESKTOP: 1400,
+  DESKTOP_MEDIUM: 1200,
+  TABLET: 992,
+  TABLET_MEDIUM: 768,
+  TABLET_SMALL: 500,
+  MOBILE: 480,
+};

@@ -1,7 +1,8 @@
+import { DEFAULT_GAP } from '@constants/variables';
 import styled from 'styled-components';
 
 export const OptionElement = styled.li`
-  padding: 16px 20px;
+  padding: 16px ${DEFAULT_GAP};
   width: 100%;
   background: ${({ theme }) => theme.colors.bgApp};
   border: 1px solid ${({ theme }) => theme.colors.border};
@@ -10,8 +11,8 @@ export const OptionElement = styled.li`
 
   &:hover {
     cursor: pointer;
-    opacity: 0.7;
     transition: ${({ theme }) => theme.animation.transition};
+    opacity: ${({ theme }) => theme.animation.opacity};
     color: ${({ theme }) => theme.colors.borderHover};
   }
 

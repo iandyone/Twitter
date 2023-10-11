@@ -1,4 +1,6 @@
+import { Viewposts } from '@appTypes/enums';
 import arrow from '@assets/icons/arrow.svg';
+import { DEFAULT_GAP } from '@constants/variables';
 import styled, { css } from 'styled-components';
 
 export const Container = styled.div`
@@ -7,12 +9,11 @@ export const Container = styled.div`
   z-index: 10;
 `;
 
-export const Select = styled.h3<{ $isActive?: boolean; $isValid?: boolean }>`
+export const Title = styled.h3<{ $isActive?: boolean; $isValid?: boolean }>`
   width: 100%;
-  padding: 24px 20px;
+  padding: 24px ${DEFAULT_GAP};
   border-radius: 6px;
   position: relative;
-  color: ${({ theme }) => theme.colors.text};
   font-size: ${({ theme }) => theme.font.size};
   border: 1px solid ${({ theme }) => theme.colors.border};
   color: ${({ theme }) => theme.colors.text};
@@ -35,7 +36,7 @@ export const Select = styled.h3<{ $isActive?: boolean; $isValid?: boolean }>`
   &:before {
     content: '';
     position: absolute;
-    right: 20px;
+    right: ${DEFAULT_GAP};
     top: 30%;
     width: 28px;
     height: 28px;
@@ -58,7 +59,7 @@ export const Options = styled.ul`
   overflow-y: auto;
   position: absolute;
 
-  @media (max-width: 768px) {
+  @media (max-width: ${Viewposts.TABLET_MEDIUM}px) {
     position: static;
   }
 `;

@@ -1,13 +1,13 @@
 import { IUser } from '@appTypes';
-import { AppRoutes } from '@appTypes/enums';
 import twitterIcon from '@assets/icons/twitter.svg';
 import { InputAuth } from '@components/InputAuth';
+import { AppRoutes } from '@constants/variables';
 import { useDispatchTyped } from '@hooks/redux';
 import { setUser } from '@store/reducers/user';
 import { AppContainer, PageWrapper } from '@styles';
 import { getEmailValidation, getPasswordValidation } from '@utils/helpers/validators';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
-import { ChangeEvent, FC, FormEvent, useEffect, useMemo, useRef, useState } from 'react';
+import { ChangeEvent, FC, FormEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { data } from './config';
@@ -42,47 +42,30 @@ export const LoginForm: FC = () => {
   }, [emailRef, passwordRef, buttonRef]);
 
   function getTextContent() {
-    const {
-      title,
-      button,
-      link,
-      emailErrorMessage,
-      passwordErrorMessage,
-      emailPlaceholder,
-      passwordPlaceholder,
-    } = data;
-    return {
-      title,
-      button,
-      link,
-      emailErrorMessage,
-      passwordErrorMessage,
-      emailPlaceholder,
-      passwordPlaceholder,
-    };
+    return { ...data };
   }
 
-  function handlerOnChangeEmail(e: ChangeEvent<HTMLInputElement>) {
+  const handlerOnChangeEmail = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setEmail(value);
     setEmailError(null);
-  }
+  }, []);
 
-  function handlerOnChangePassword(e: ChangeEvent<HTMLInputElement>) {
+  const handlerOnChangePassword = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setPassword(value);
     setPasswordError(null);
-  }
+  }, []);
 
-  function handlerOnBlurEmail() {
+  const handlerOnBlurEmail = useCallback(() => {
     const isEmailValid = getEmailValidation(email);
     setEmailError(email && !isEmailValid ? emailErrorMessage : null);
-  }
+  }, [email, emailErrorMessage]);
 
-  function handlerOnBlurPassword() {
+  const handlerOnBlurPassword = useCallback(() => {
     const isPasswordValid = getPasswordValidation(password);
     setPasswordError(password && !isPasswordValid ? passwordErrorMessage : null);
-  }
+  }, [password, passwordErrorMessage]);
 
   function setInputsDisabled(status: boolean = true) {
     emailRef.current.disabled = status;
@@ -110,7 +93,7 @@ export const LoginForm: FC = () => {
         .then((userCredential) => {
           const { uid, email }: IUser = userCredential.user;
           dispatch(setUser({ uid, email }));
-          navigate(AppRoutes.FEED);
+          navigate(AppRoutes.page.FEED);
         })
         .catch((error: Error) => {
           setPasswordError(error.message);

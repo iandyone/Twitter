@@ -1,4 +1,4 @@
-import { AppRoutes } from './enums';
+import { Gender } from './types';
 
 export interface ITheme {
   dark: IThemeStyles;
@@ -12,6 +12,11 @@ export interface IThemeStyles {
   animation?: IAnimation;
 }
 
+export interface IUserProps {
+  userName: string;
+  userEmail: string;
+}
+
 export interface IColor {
   text: string;
   border: string;
@@ -22,14 +27,29 @@ export interface IColor {
   bgApp: string;
 
   buttonBg: string;
+  buttonBg2: string;
   buttonText: string;
 
   error: string;
+
+  searchBg: string;
+  searchLink: string;
 
   inputFocus: string;
   inputHover: string;
   inputError: string;
   inputValid: string;
+
+  burgerLine: string;
+  burgerBg: string;
+
+  like: string;
+
+  modalBg: string;
+  modalText: string;
+
+  themeButtonBorder: string;
+  themeButtonBg: string;
 }
 
 export interface IFont {
@@ -53,14 +73,37 @@ export interface ISpace {
 export interface IAnimation {
   transition?: string;
   transformActive?: string;
+  opacity: string;
 }
 
 export interface IFooterLink {
   text: string;
-  to: AppRoutes;
+  to: string;
 }
 
-export interface IUser {
+export interface IUser extends IUserProfileData {
   email: string;
   uid: string;
+  birthday?: number;
+}
+
+export interface IUserProfileData {
+  name?: string;
+  surname?: string;
+  telegram?: string;
+  password?: string;
+  gender?: Gender;
+}
+
+export interface ISideMenuOption {
+  title: string;
+  path: string;
+  icon: string;
+}
+
+export interface IPost {
+  user: IUser;
+  date: Date;
+  body: string;
+  likes: number;
 }

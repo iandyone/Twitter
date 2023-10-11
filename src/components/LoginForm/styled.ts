@@ -1,3 +1,5 @@
+import { Viewposts } from '@appTypes/enums';
+import { DEFAULT_GAP } from '@constants/variables';
 import {
   ButtonTemplate,
   FormTemplate,
@@ -17,8 +19,8 @@ export const Body = styled(PageBody)`
   width: 100%;
   max-width: 480px;
 
-  @media (max-width: 480px) {
-    row-gap: 20px;
+  @media (max-width: ${Viewposts.MOBILE}px) {
+    row-gap: ${DEFAULT_GAP};
   }
 `;
 
@@ -26,7 +28,7 @@ export const Title = styled(TitleTemplate)`
   font-size: 42px;
   margin-bottom: 36px;
 
-  @media (max-width: 480px) {
+  @media (max-width: ${Viewposts.MOBILE}px) {
     font-size: 36px;
     margin-bottom: 0px;
   }
@@ -38,7 +40,7 @@ export const TwitterIcon = styled(Icon)`
   height: 40px;
   margin-bottom: 36px;
 
-  @media (max-width: 480px) {
+  @media (max-width: ${Viewposts.MOBILE}px) {
     margin-bottom: 0px;
   }
 `;
@@ -46,7 +48,7 @@ export const TwitterIcon = styled(Icon)`
 export const Form = styled(FormTemplate)`
   margin-bottom: 24px;
 
-  @media (max-width: 480px) {
+  @media (max-width: ${Viewposts.MOBILE}px) {
     margin-bottom: 0px;
   }
 }
@@ -63,9 +65,9 @@ export const Input = styled(InputTemplate).attrs(({ type }) => ({
   type,
 }))`
   width: 100%;
-  padding: 24px 20px;
+  padding: 24px ${DEFAULT_GAP};
 
-  @media (max-width: 480px) {
+  @media (max-width: ${Viewposts.MOBILE}px) {
     padding: 12px 10px;
   }
 `;
@@ -76,11 +78,11 @@ export const Button = styled(ButtonTemplate)`
   transition: ${({ theme }) => theme.animation.transition};
 
   &:hover {
-    opacity: 0.7;
+    opacity: ${({ theme }) => theme.animation.opacity};
     transition: ${({ theme }) => theme.animation.transition};
   }
 
-  @media (max-width: 480px) {
+  @media (max-width: ${Viewposts.MOBILE}px) {
     margin-bottom: 0px;
   }
 `;
@@ -91,6 +93,7 @@ export const Link = styled(LinkTemplate)`
 
 export const Label = styled.label`
   color: ${({ theme }) => theme.colors.error};
+  transition: ${({ theme }) => theme.animation.transition};
   font-size: 14px;
   line-height: 120%;
   height: 14px;
