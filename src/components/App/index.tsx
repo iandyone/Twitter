@@ -7,7 +7,7 @@ import { LoginPage } from '@pages/login';
 import { ProfilePage } from '@pages/profile';
 import { SignInPage } from '@pages/signIn';
 import { SignUpPage } from '@pages/signUp';
-import { setBurger, setSelectDay, setSelectMonth, setSelectYear } from '@store/reducers/app';
+import { setMobileMenu, setSelectDay, setSelectMonth, setSelectYear } from '@store/reducers/app';
 import { GlobalStyles } from '@styles';
 import { theme } from '@styles/theme';
 import { FC } from 'react';
@@ -22,7 +22,7 @@ export const App: FC = () => {
   const dispatch = useDispatchTyped();
 
   function handlerOnClick() {
-    if (burger) dispatch(setBurger(false));
+    if (burger) dispatch(setMobileMenu(false));
     if (selectDay) dispatch(setSelectDay(false));
     if (selectMonth) dispatch(setSelectMonth(false));
     if (selectYear) dispatch(setSelectYear(false));
@@ -31,7 +31,7 @@ export const App: FC = () => {
   return (
     <ThemeProvider theme={theme[currentTheme]}>
       <GlobalStyles />
-      <Wrapper onClick={handlerOnClick}>
+      <Wrapper onClick={handlerOnClick} id='wrapper'>
         <Routes>
           <Route path={AppRoutes.HOME} element={<HomePage />} />
           <Route path={AppRoutes.SIGNIN} element={<SignInPage />} />

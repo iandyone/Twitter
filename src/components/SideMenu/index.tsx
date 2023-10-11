@@ -5,15 +5,19 @@ import profileIcon from '@assets/icons/profile.svg';
 import twitterIcon from '@assets/icons/twitter.svg';
 import { Account } from '@components/Account';
 import { AppRoutes } from '@constants/variables';
-import { useMobile } from '@hooks/other';
-import { useSelectorTyped } from '@hooks/redux';
+import { useDispatchTyped, useSelectorTyped } from '@hooks/redux';
+import { useMobile } from '@hooks/window';
+import { setMobileMenu, setTweetPopup } from '@store/reducers/app';
 import { FC } from 'react';
 
+import { TweetPopup } from './Modal';
 import { Option } from './Option';
 import { Container, Menu, Navigation, TweetButton, TwitterIcon, User, Wrapper } from './styled';
 
 export const SideMenu: FC = () => {
   const { uid, email } = useSelectorTyped((store) => store.user);
+  const { tweetPopup } = useSelectorTyped((store) => store.app);
+  const dispatch = useDispatchTyped();
   const isMobileView = useMobile();
 
   const sideMenuOptions: ISideMenuOption[] = [
@@ -21,6 +25,11 @@ export const SideMenu: FC = () => {
     { title: 'Feed', path: AppRoutes.page.FEED, icon: feedIcon },
     { title: 'Profile', path: AppRoutes.page.PROFILE, icon: profileIcon },
   ];
+
+  function handlerOnClickTweet() {
+    dispatch(setTweetPopup(true));
+    dispatch(setMobileMenu(false));
+  }
 
   return (
     <Wrapper>
@@ -32,7 +41,7 @@ export const SideMenu: FC = () => {
               <Option {...option} key={option.title} />
             ))}
           </Menu>
-          <TweetButton>Tweet</TweetButton>
+          <TweetButton onClick={handlerOnClickTweet}>Tweet</TweetButton>
         </Navigation>
         {!isMobileView && (
           <User>
@@ -40,6 +49,7 @@ export const SideMenu: FC = () => {
           </User>
         )}
       </Container>
+      {tweetPopup && <TweetPopup />}
     </Wrapper>
   );
 };

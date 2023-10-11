@@ -1,3 +1,5 @@
+import { Gender } from './types';
+
 export interface ITheme {
   dark: IThemeStyles;
   light: IThemeStyles;
@@ -43,6 +45,9 @@ export interface IColor {
 
   like: string;
 
+  modalBg: string;
+  modalText: string;
+
   themeButtonBorder: string;
   themeButtonBg: string;
 }
@@ -76,9 +81,18 @@ export interface IFooterLink {
   to: string;
 }
 
-export interface IUser {
+export interface IUser extends IUserProfileData {
   email: string;
   uid: string;
+  birthday?: number;
+}
+
+export interface IUserProfileData {
+  name?: string;
+  surname?: string;
+  telegram?: string;
+  password?: string;
+  gender?: Gender;
 }
 
 export interface ISideMenuOption {

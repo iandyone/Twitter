@@ -35,6 +35,8 @@ export const theme: ITheme = {
       searchLink: gray4,
 
       like: red,
+      modalBg: white,
+      modalText: black,
 
       themeButtonBorder: gray,
       themeButtonBg: blue,
@@ -71,6 +73,8 @@ export const theme: ITheme = {
       searchLink: gray4,
 
       like: red,
+      modalBg: black,
+      modalText: black,
 
       themeButtonBorder: blue,
       themeButtonBg: gray,

@@ -10,7 +10,7 @@ import { AppContainer, PageWrapper } from '@styles';
 import { getDateData, getDaysAmountInAMonth } from '@utils/helpers/date';
 import { getEmailValidation, getPasswordValidation, getPhoneValidation } from '@utils/helpers/validators';
 import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
-import { ChangeEvent, FC, FormEvent, useEffect, useMemo, useReducer, useRef } from 'react';
+import { ChangeEvent, FC, FormEvent, useCallback, useEffect, useMemo, useReducer, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { data } from './config';
@@ -140,72 +140,90 @@ export const SignUpForm: FC = () => {
     return { ...data };
   }
 
-  function handlerOnChangeEmail(e: ChangeEvent<HTMLInputElement>) {
-    const value = e.target.value;
-    dispatch({ type: ActionsTypes.SET_EMAIL, payload: value });
-    dispatch({ type: ActionsTypes.SET_EMAIL_ERROR, payload: null });
-  }
+  const handlerOnChangeEmail = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      const value = e.target.value;
+      dispatch({ type: ActionsTypes.SET_EMAIL, payload: value });
+      dispatch({ type: ActionsTypes.SET_EMAIL_ERROR, payload: null });
+    },
+    [dispatch],
+  );
 
-  function handlerOnChangePhone(e: ChangeEvent<HTMLInputElement>) {
-    const value = '+' + e.target.value.replace(/[^0-9]/g, '');
+  const handlerOnChangePhone = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      const value = '+' + e.target.value.replace(/[^0-9]/g, '');
 
-    if (value.length < 4) {
-      dispatch({ type: ActionsTypes.SET_PHONE, payload: PHONE_MASK });
-      return;
-    }
+      if (value.length < 4) {
+        dispatch({ type: ActionsTypes.SET_PHONE, payload: PHONE_MASK });
+        return;
+      }
 
-    if (value.length <= 13) {
-      dispatch({ type: ActionsTypes.SET_PHONE, payload: value });
-      dispatch({ type: ActionsTypes.SET_PHONE_ERROR, payload: null });
-    }
-  }
+      if (value.length <= 13) {
+        dispatch({ type: ActionsTypes.SET_PHONE, payload: value });
+        dispatch({ type: ActionsTypes.SET_PHONE_ERROR, payload: null });
+      }
+    },
+    [dispatch],
+  );
 
-  function handlerOnChangePassword(e: ChangeEvent<HTMLInputElement>) {
-    const value = e.target.value;
+  const handlerOnChangePassword = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      const value = e.target.value;
 
-    dispatch({ type: ActionsTypes.SET_PASSWORD, payload: value });
-    dispatch({ type: ActionsTypes.SET_PASSWORD_ERROR, payload: null });
-  }
+      dispatch({ type: ActionsTypes.SET_PASSWORD, payload: value });
+      dispatch({ type: ActionsTypes.SET_PASSWORD_ERROR, payload: null });
+    },
+    [dispatch],
+  );
 
-  function handlerOnFocusPhone() {
+  const handlerOnFocusPhone = useCallback(() => {
     if (!phone) dispatch({ type: ActionsTypes.SET_PHONE, payload: PHONE_MASK });
-  }
+  }, [phone, dispatch]);
 
-  function handlerOnBlurEmail() {
+  const handlerOnBlurEmail = useCallback(() => {
     const isEmailValid = getEmailValidation(email);
     const errorValue = email && !isEmailValid ? emailErrorMessage : null;
 
     dispatch({ type: ActionsTypes.SET_EMAIL_ERROR, payload: errorValue });
-  }
+  }, [email, emailErrorMessage, dispatch]);
 
-  function handlerOnBlurPhone() {
+  const handlerOnBlurPhone = useCallback(() => {
     const isPhoneValid = getPhoneValidation(phone);
     const errorValue = phone && !isPhoneValid ? phoneErrorMessage : null;
 
     dispatch({ type: ActionsTypes.SET_PHONE_ERROR, payload: errorValue });
-  }
+  }, [phone, phoneErrorMessage, dispatch]);
 
-  function handlerOnBlurPassword() {
+  const handlerOnBlurPassword = useCallback(() => {
     const isPasswordValid = getPasswordValidation(password);
     const errorValue = password && !isPasswordValid ? passwordErrorMessage : null;
 
     dispatch({ type: ActionsTypes.SET_PASSWORD_ERROR, payload: errorValue });
-  }
+  }, [password, passwordErrorMessage, dispatch]);
 
-  function setUserDate(date: string) {
-    dispatch({ type: ActionsTypes.SET_DAY, payload: date });
-    dispatch({ type: ActionsTypes.SET_DAY_ERROR, payload: false });
-  }
+  const setUserDate = useCallback(
+    (date: string) => {
+      dispatch({ type: ActionsTypes.SET_DAY, payload: date });
+      dispatch({ type: ActionsTypes.SET_DAY_ERROR, payload: false });
+    },
+    [dispatch],
+  );
 
-  function setUserMonth(month: string) {
-    dispatch({ type: ActionsTypes.SET_MONTH, payload: month });
-    dispatch({ type: ActionsTypes.SET_MONTH_ERROR, payload: false });
-  }
+  const setUserMonth = useCallback(
+    (month: string) => {
+      dispatch({ type: ActionsTypes.SET_MONTH, payload: month });
+      dispatch({ type: ActionsTypes.SET_MONTH_ERROR, payload: false });
+    },
+    [dispatch],
+  );
 
-  function setUserYear(year: string) {
-    dispatch({ type: ActionsTypes.SET_YEAR, payload: year });
-    dispatch({ type: ActionsTypes.SET_YEAR_ERROR, payload: false });
-  }
+  const setUserYear = useCallback(
+    (year: string) => {
+      dispatch({ type: ActionsTypes.SET_YEAR, payload: year });
+      dispatch({ type: ActionsTypes.SET_YEAR_ERROR, payload: false });
+    },
+    [dispatch],
+  );
 
   function setInputsDisabled(status: boolean = true) {
     if (emailRef) emailRef.current.disabled = status;
@@ -234,7 +252,12 @@ export const SignUpForm: FC = () => {
       createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
           const { uid, email }: IUser = userCredential.user;
-          dispatchRedux(setUser({ uid, email }));
+          const birthYear = Number(year);
+          const birthMonth = Months[month as keyof typeof Months];
+          const birthDay = Number(day);
+          const userBirthday = new Date(birthYear, birthMonth, birthDay).getTime();
+
+          dispatchRedux(setUser({ uid, email, birthday: userBirthday }));
           navigate(AppRoutes.page.FEED);
         })
         .catch(() => {

@@ -4,7 +4,7 @@ import robotoBold from '@assets/fonts/Roboto/Roboto-Bold.ttf';
 import robotoLight from '@assets/fonts/Roboto/Roboto-Light.ttf';
 import robotoMedium from '@assets/fonts/Roboto/Roboto-Medium.ttf';
 import robotoRegular from '@assets/fonts/Roboto/Roboto-Regular.ttf';
-import { DEFAULT_GAP, USER_ELEMENT_HEIGHT } from '@constants/variables';
+import { colors, DEFAULT_GAP, USER_ELEMENT_HEIGHT } from '@constants/variables';
 import { Link } from 'react-router-dom';
 import styled, { createGlobalStyle, css } from 'styled-components';
 
@@ -104,6 +104,20 @@ input::-webkit-inner-spin-button {
   appearance: none;
   -webkit-appearance: none;
 }
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: rgba(196, 196, 196, 0.80);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: ${colors.blue};
+  border-radius: 8px;
+}
+
 
 @font-face {
   font-family: 'Roboto Black';
@@ -336,4 +350,10 @@ export const SubHeader = styled(TitleTemplate)`
     text-align: center;
     padding: ${DEFAULT_GAP} 0;
   }
+`;
+
+export const LabelTemplate = styled.label`
+  color: ${({ theme }) => theme.colors.error};
+  transition: ${({ theme }) => theme.animation.transition};
+  font-size: 14px;
 `;

@@ -22,6 +22,10 @@ export const Content = styled.div`
 
 export const Avatar = styled(UserAvatar)`
   transform: translateY(-10px);
+
+  @media (max-width: ${Viewposts.MOBILE}px) {
+    display: none;
+  }
 `;
 
 export const Input = styled.textarea`
@@ -34,6 +38,10 @@ export const Input = styled.textarea`
   transition: ${({ theme }) => theme.animation.transition};
   border-top: 1px solid ${({ theme }) => theme.colors.border};
   font-weight: ${({ theme }) => theme.font.medium};
+
+  @media (max-width: ${Viewposts.MOBILE}px) {
+    font-size: 16px;
+  }
 `;
 
 export const Buttons = styled.div`

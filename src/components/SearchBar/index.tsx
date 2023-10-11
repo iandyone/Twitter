@@ -2,8 +2,8 @@ import { IFooterLink } from '@appTypes';
 import searchIcon from '@assets/icons/search.svg';
 import { Account } from '@components/Account';
 import { AppRoutes } from '@constants/variables';
-import { useMobile } from '@hooks/other';
 import { useSelectorTyped } from '@hooks/redux';
+import { useMobile } from '@hooks/window';
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
 

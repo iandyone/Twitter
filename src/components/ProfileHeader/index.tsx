@@ -1,10 +1,12 @@
 import userAvatar from '@assets/icons/avatar.svg';
 import profileBg from '@assets/images/profileBg.webp';
-import { useMobile } from '@hooks/other';
-import { useSelectorTyped } from '@hooks/redux';
+import { useDispatchTyped, useSelectorTyped } from '@hooks/redux';
+import { useMobile } from '@hooks/window';
+import { setProfilePopup } from '@store/reducers/app';
 import { FC, memo, useMemo } from 'react';
 
 import { data } from './config';
+import { ProfilePopup } from './Modal';
 import {
   Avatar,
   Banner,
@@ -24,11 +26,17 @@ import {
 
 const ProfileHeaderComponent: FC = () => {
   const { uid, email } = useSelectorTyped((state) => state.user);
-  const isMobile = useMobile();
+  const { profilePopup } = useSelectorTyped((store) => store.app);
   const { tweetCounterText, editButton } = useMemo(getTextContent, []);
+  const dispatch = useDispatchTyped();
+  const isMobile = useMobile();
 
   function getTextContent() {
     return { ...data };
+  }
+
+  function handlerOnClickEditButton() {
+    dispatch(setProfilePopup(true));
   }
 
   return (
@@ -38,7 +46,7 @@ const ProfileHeaderComponent: FC = () => {
       <Profile>
         <Header>
           <Avatar src={userAvatar} />
-          {!isMobile && <EditButton>{editButton}</EditButton>}
+          {!isMobile && <EditButton onClick={handlerOnClickEditButton}>{editButton}</EditButton>}
         </Header>
         <Body>
           <Name>{uid}</Name>
@@ -52,9 +60,10 @@ const ProfileHeaderComponent: FC = () => {
               <SubCounter>13</SubCounter> lorem
             </Subscribes>
           </Social>
-          {isMobile && <EditButton>{editButton}</EditButton>}
+          {isMobile && <EditButton onClick={handlerOnClickEditButton}>{editButton}</EditButton>}
         </Body>
       </Profile>
+      {profilePopup && <ProfilePopup />}
     </Container>
   );
 };

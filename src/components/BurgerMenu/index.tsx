@@ -1,6 +1,7 @@
 import { MobileMenu } from '@components/MobileMenu';
 import { useDispatchTyped, useSelectorTyped } from '@hooks/redux';
-import { setBurger } from '@store/reducers/app';
+import { useMobile } from '@hooks/window';
+import { setMobileMenu } from '@store/reducers/app';
 import { FC, MouseEvent, useEffect } from 'react';
 
 import { BurgerButton, BurgerLine, MenuContainer } from './styled';
@@ -8,9 +9,10 @@ import { BurgerButton, BurgerLine, MenuContainer } from './styled';
 export const BurgerMenu: FC = () => {
   const { burger } = useSelectorTyped((store) => store.app);
   const dispatch = useDispatchTyped();
+  const isMobile = useMobile();
 
   function handlerOnClickButton() {
-    dispatch(setBurger());
+    dispatch(setMobileMenu());
   }
 
   function handlerOnClickMenu(e: MouseEvent<HTMLDivElement>) {
@@ -28,7 +30,7 @@ export const BurgerMenu: FC = () => {
         <BurgerLine $isOpen={burger} />
         <BurgerLine $isOpen={burger} />
       </BurgerButton>
-      <MobileMenu isMenuOpened={burger} />
+      {isMobile && <MobileMenu isMenuOpened={burger} />}
     </MenuContainer>
   );
 };

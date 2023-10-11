@@ -7,6 +7,8 @@ interface IAppState {
   selectDay: boolean;
   selectMonth: boolean;
   selectYear: boolean;
+  tweetPopup: boolean;
+  profilePopup: boolean;
 }
 
 const initialState: IAppState = {
@@ -15,6 +17,8 @@ const initialState: IAppState = {
   selectDay: false,
   selectMonth: false,
   selectYear: false,
+  tweetPopup: false,
+  profilePopup: false,
 };
 
 const appSlice = createSlice({
@@ -24,7 +28,7 @@ const appSlice = createSlice({
     setTheme(state, action: PayloadAction<Theme>) {
       state.theme = action.payload;
     },
-    setBurger(state, action: PayloadAction<boolean>) {
+    setMobileMenu(state, action: PayloadAction<boolean>) {
       state.burger = action.payload ?? !state.burger;
     },
     setSelectDay(state, action: PayloadAction<boolean>) {
@@ -36,9 +40,23 @@ const appSlice = createSlice({
     setSelectYear(state, action: PayloadAction<boolean>) {
       state.selectYear = action.payload ?? !state.selectYear;
     },
+    setTweetPopup(state, action: PayloadAction<boolean>) {
+      state.tweetPopup = action.payload ?? !state.tweetPopup;
+    },
+    setProfilePopup(state, action: PayloadAction<boolean>) {
+      state.profilePopup = action.payload ?? !state.profilePopup;
+    },
   },
 });
 
 export default appSlice.reducer;
 
-export const { setTheme, setBurger, setSelectMonth, setSelectDay, setSelectYear } = appSlice.actions;
+export const {
+  setTheme,
+  setMobileMenu,
+  setSelectMonth,
+  setSelectDay,
+  setSelectYear,
+  setTweetPopup,
+  setProfilePopup,
+} = appSlice.actions;

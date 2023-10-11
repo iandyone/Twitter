@@ -1,6 +1,6 @@
 import { SearchBar } from '@components/SearchBar';
 import { SideMenu } from '@components/SideMenu';
-import { useMobile } from '@hooks/other';
+import { useMobile } from '@hooks/window';
 import { AppContainer, PageWrapper } from '@styles';
 import { FC } from 'react';
 import { Outlet } from 'react-router-dom';
