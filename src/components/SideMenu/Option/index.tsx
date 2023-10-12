@@ -4,11 +4,12 @@ import { useNavigate } from 'react-router-dom';
 
 import { Container, OptionIcon, OptionTitle } from './styled';
 
-const OptionComponent: FC<ISideMenuOption> = ({ icon, path, title }) => {
+const OptionComponent: FC<ISideMenuOption> = ({ icon, path, title, onClick }) => {
   const navigate = useNavigate();
 
   function handerOnClick() {
     navigate(path);
+    onClick();
   }
 
   return (

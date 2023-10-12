@@ -8,7 +8,7 @@ import { AppRoutes } from '@constants/variables';
 import { useDispatchTyped, useSelectorTyped } from '@hooks/redux';
 import { useMobile } from '@hooks/window';
 import { setMobileMenu, setTweetPopup } from '@store/reducers/app';
-import { FC } from 'react';
+import { FC, useCallback } from 'react';
 
 import { TweetPopup } from './Modal';
 import { Option } from './Option';
@@ -26,10 +26,14 @@ export const SideMenu: FC = () => {
     { title: 'Profile', path: AppRoutes.page.PROFILE, icon: profileIcon },
   ];
 
-  function handlerOnClickTweet() {
+  const handlerOnClickTweet = useCallback(() => {
     dispatch(setTweetPopup(true));
     dispatch(setMobileMenu(false));
-  }
+  }, [dispatch]);
+
+  const handlerOnClickOption = useCallback(() => {
+    dispatch(setMobileMenu(false));
+  }, [dispatch]);
 
   return (
     <Wrapper>
@@ -38,7 +42,7 @@ export const SideMenu: FC = () => {
           <TwitterIcon src={twitterIcon} />
           <Menu>
             {sideMenuOptions.map((option) => (
-              <Option {...option} key={option.title} />
+              <Option {...option} key={option.title} onClick={handlerOnClickOption} />
             ))}
           </Menu>
           <TweetButton onClick={handlerOnClickTweet}>Tweet</TweetButton>

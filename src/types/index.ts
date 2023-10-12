@@ -1,4 +1,4 @@
-import { Gender } from './types';
+import { Gender, handler } from './types';
 
 export interface ITheme {
   dark: IThemeStyles;
@@ -99,6 +99,7 @@ export interface ISideMenuOption {
   title: string;
   path: string;
   icon: string;
+  onClick?: handler;
 }
 
 export interface IPost {
