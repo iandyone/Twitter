@@ -95,7 +95,6 @@ export interface IUserProfileData {
   password?: string;
   gender?: Gender;
 }
-
 export interface ISideMenuOption {
   title: string;
   path: string;
@@ -103,17 +102,12 @@ export interface ISideMenuOption {
   onClick?: handler;
 }
 
-// export interface IPost {
-//   user: IUser;
-//   date: Date;
-//   body: string;
-//   likes: number;
-// }
-
 export interface IPost {
+  id: number;
   user: string;
   email: string;
   body: string;
+  likes: string[];
   authorAvatar?: string;
   authName?: string;
 }

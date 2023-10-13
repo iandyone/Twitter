@@ -1,16 +1,19 @@
 import userAvatar from '@assets/icons/avatar.svg';
 import { LikeIcon } from '@components/SVG/Like';
+import { useSelectorTyped } from '@hooks/redux';
+import { firebaseDB } from '@services/database';
 import { UserContact } from '@styles';
 import { getDateData } from '@utils/helpers/date';
 import { FC, memo, useMemo, useState } from 'react';
 
-import { Avatar, Body, Container, Content, Header, Likes, PostDate, User } from './styled';
+import { Avatar, Body, Container, Content, Header, LikeCounter, Likes, PostDate, User } from './styled';
 import { IPostProps } from './types';
 
 const PostComponent: FC<IPostProps> = ({ post }) => {
-  const { user, email, body, month, year, authorAvatar, authName } = useMemo(getPostData, [post]);
-  const [isLiked, setIsLiked] = useState(false);
-  // const [postLikes, setLikes] = useState(likes);
+  const { uid } = useSelectorTyped((store) => store.user);
+  const { user, email, body, month, year, authorAvatar, authName, likes } = useMemo(getPostData, [post]);
+  const [isLiked, setIsLiked] = useState(getLikeStatus);
+  const [postLikes, setLikes] = useState(getPostLikes);
 
   function getPostData() {
     const { timestamp } = post;
@@ -19,9 +22,22 @@ const PostComponent: FC<IPostProps> = ({ post }) => {
     return { ...post, ...dateData };
   }
 
-  function handlerOnLike() {
+  function getLikeStatus() {
+    return likes && likes.includes(uid);
+  }
+
+  function getPostLikes() {
+    if (likes) {
+      return likes.length;
+    }
+
+    return 0;
+  }
+
+  async function handlerOnLike() {
+    const likesCounter = await firebaseDB.setPostLike(post, uid);
     setIsLiked(!isLiked);
-    // setLikes(isLiked ? postLikes - 1 : postLikes + 1);
+    setLikes(likesCounter);
   }
 
   return (
@@ -38,7 +54,7 @@ const PostComponent: FC<IPostProps> = ({ post }) => {
         <Body>{body}</Body>
         <Likes>
           <LikeIcon isActive={isLiked} onClick={handlerOnLike} />
-          {/* {postLikes > 0 && <LikeCounter $isActive={isLiked}>{postLikes}</LikeCounter>} */}
+          {postLikes > 0 && <LikeCounter $isActive={isLiked}>{postLikes}</LikeCounter>}
         </Likes>
       </Content>
     </Container>

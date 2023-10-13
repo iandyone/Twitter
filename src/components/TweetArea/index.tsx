@@ -3,6 +3,7 @@ import userAvatar from '@assets/icons/avatar.svg';
 import pictureIcon from '@assets/icons/image.svg';
 import { useDispatchTyped, useSelectorTyped } from '@hooks/redux';
 import { firebaseDB } from '@services/database';
+import { setTweetPopup } from '@store/reducers/app';
 import { setUserPosts } from '@store/reducers/posts';
 import { ChangeEvent, FC, FormEvent, memo, useCallback, useState } from 'react';
 
@@ -26,10 +27,12 @@ const TweetAreaComponent: FC = () => {
   function handlerOnClickSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const post: IPost = {
+      id: Math.random(),
       body: tweet,
       user: uid,
       authorAvatar: avatar ?? null,
       authName: name ?? null,
+      likes: null,
       email,
     };
 
@@ -37,6 +40,7 @@ const TweetAreaComponent: FC = () => {
     getCurrentUserPosts();
 
     setTweet('');
+    dispatch(setTweetPopup(false));
   }
 
   function handlerOnChange(e: ChangeEvent<HTMLTextAreaElement>) {

@@ -13,7 +13,6 @@ export const PopupElement = styled.div<{ $isVisible: boolean }>`
   z-index: 100;
   background: rgba(0, 0, 0, 0);
   pointer-events: auto;
-  // transition: ${({ theme }) => theme.animation.transition};
 
   ${({ $isVisible }) =>
     $isVisible &&

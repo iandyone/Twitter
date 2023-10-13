@@ -1,4 +1,5 @@
 import { IPost, IPostDB, IUser } from '@appTypes';
+import { getLikesList } from '@utils/helpers/common';
 import {
   createUserWithEmailAndPassword,
   getAuth,
@@ -6,7 +7,7 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
 } from 'firebase/auth';
-import { equalTo, get, orderByChild, push, query, serverTimestamp } from 'firebase/database';
+import { equalTo, get, orderByChild, push, query, serverTimestamp, update } from 'firebase/database';
 
 import { databaseRefs } from '../../firebase';
 
@@ -75,20 +76,21 @@ class Database {
     return response.user;
   }
 
-  /*
+  async setPostLike(userPost: IPostDB, uid: string) {
+    const { id } = userPost;
+    const postQuery = query(databaseRefs.posts, orderByChild('id'), equalTo(id));
 
-      signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          const { uid, email }: IUser = userCredential.user;
-          dispatch(setUser({ uid, email }));
-          navigate(AppRoutes.page.FEED);
-        })
-        .catch((error: Error) => {
-          setPasswordError(error.message);
-          setInputsDisabled(false);
-        });
+    const snapshot = await get(postQuery);
+    const post = snapshot.val();
+    const postKey = Object.keys(post)[0];
 
-  */
+    const updates: { [key: string]: object } = {};
+    const likesList = getLikesList(post[postKey].likes, uid);
+
+    updates[`/${postKey}/likes`] = likesList;
+    update(this.postsRef, updates);
+    return likesList.length;
+  }
 }
 
 export const firebaseDB = new Database();
