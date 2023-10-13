@@ -21,10 +21,12 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     setUser(state, action: PayloadAction<IUser>) {
-      const { uid, email, birthday } = action.payload;
+      const { uid, email, birthday, avatar, name } = action.payload;
       state.uid = uid;
       state.email = email;
       state.birthday = birthday;
+      state.avatar = avatar;
+      state.name = name;
       state.isAuthorized = true;
     },
     logoutUser(state) {

@@ -21,3 +21,9 @@ export const Viewposts = {
   TABLET_SMALL: 500,
   MOBILE: 480,
 };
+
+export enum DatabaseRefs {
+  POSTS = 'posts',
+  USERS = 'users',
+  USER_POSTS = 'user-posts',
+}

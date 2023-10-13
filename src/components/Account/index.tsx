@@ -1,5 +1,5 @@
-import avatar from '@assets/icons/avatar.svg';
-import { useDispatchTyped } from '@hooks/redux';
+import userAvatar from '@assets/icons/avatar.svg';
+import { useDispatchTyped, useSelectorTyped } from '@hooks/redux';
 import { logoutUser } from '@store/reducers/user';
 import { UserAvatar, UserData, UserEmail, UserInfo, UserName } from '@styles';
 import { FC, memo } from 'react';
@@ -9,6 +9,7 @@ import { IAccountProps } from './types';
 
 const AccountComponent: FC<IAccountProps> = ({ userName, userEmail, withLogout = true }) => {
   const dispatch = useDispatchTyped();
+  const { avatar, name } = useSelectorTyped((store) => store.user);
 
   function handlerOnLogOut() {
     dispatch(logoutUser());
@@ -17,9 +18,9 @@ const AccountComponent: FC<IAccountProps> = ({ userName, userEmail, withLogout =
   return (
     <Container>
       <UserData>
-        <UserAvatar src={avatar} />
+        <UserAvatar src={avatar ?? userAvatar} />
         <UserInfo>
-          <UserName>{userName}</UserName>
+          <UserName>{name ?? userName}</UserName>
           <UserEmail>{userEmail}</UserEmail>
         </UserInfo>
       </UserData>

@@ -4,32 +4,32 @@ import { UserContact } from '@styles';
 import { getDateData } from '@utils/helpers/date';
 import { FC, memo, useMemo, useState } from 'react';
 
-import { Avatar, Body, Container, Content, Header, LikeCounter, Likes, PostDate, User } from './styled';
+import { Avatar, Body, Container, Content, Header, Likes, PostDate, User } from './styled';
 import { IPostProps } from './types';
 
 const PostComponent: FC<IPostProps> = ({ post }) => {
-  const { uid, email, body, likes, month, year } = useMemo(getPostData, [post]);
+  const { user, email, body, month, year, authorAvatar, authName } = useMemo(getPostData, [post]);
   const [isLiked, setIsLiked] = useState(false);
-  const [postLikes, setLikes] = useState(likes);
+  // const [postLikes, setLikes] = useState(likes);
 
   function getPostData() {
-    const { user, body, date, likes } = post;
-    const dateData = getDateData(date);
+    const { timestamp } = post;
+    const dateData = getDateData(new Date(timestamp as number));
 
-    return { ...user, body, ...dateData, likes };
+    return { ...post, ...dateData };
   }
 
   function handlerOnLike() {
     setIsLiked(!isLiked);
-    setLikes(isLiked ? postLikes - 1 : postLikes + 1);
+    // setLikes(isLiked ? postLikes - 1 : postLikes + 1);
   }
 
   return (
     <Container>
-      <Avatar src={userAvatar} />
+      <Avatar src={authorAvatar ?? userAvatar} />
       <Content>
         <Header>
-          <User>{uid}</User>
+          <User>{authName ?? user}</User>
           <UserContact>{email}</UserContact>
           <PostDate>
             {month}.{year}
@@ -38,7 +38,7 @@ const PostComponent: FC<IPostProps> = ({ post }) => {
         <Body>{body}</Body>
         <Likes>
           <LikeIcon isActive={isLiked} onClick={handlerOnLike} />
-          {postLikes > 0 && <LikeCounter $isActive={isLiked}>{postLikes}</LikeCounter>}
+          {/* {postLikes > 0 && <LikeCounter $isActive={isLiked}>{postLikes}</LikeCounter>} */}
         </Likes>
       </Content>
     </Container>

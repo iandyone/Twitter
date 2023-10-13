@@ -1,12 +1,11 @@
-import { IUser } from '@appTypes';
 import twitterIcon from '@assets/icons/twitter.svg';
 import { InputAuth } from '@components/InputAuth';
 import { AppRoutes } from '@constants/variables';
 import { useDispatchTyped } from '@hooks/redux';
+import { firebaseDB } from '@services/database';
 import { setUser } from '@store/reducers/user';
 import { AppContainer, PageWrapper } from '@styles';
 import { getEmailValidation, getPasswordValidation } from '@utils/helpers/validators';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { ChangeEvent, FC, FormEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -73,7 +72,8 @@ export const LoginForm: FC = () => {
     buttonRef.current.disabled = status;
   }
 
-  function handlerOnSubmit(e: FormEvent) {
+  async function handlerOnSubmit(e: FormEvent) {
+    e.preventDefault();
     const isEmailValid = getEmailValidation(email);
     const isPasswordValid = getPasswordValidation(password);
 
@@ -86,19 +86,17 @@ export const LoginForm: FC = () => {
     }
 
     if (isEmailValid && isPasswordValid) {
-      setInputsDisabled();
-      const auth = getAuth();
-
-      signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          const { uid, email }: IUser = userCredential.user;
-          dispatch(setUser({ uid, email }));
-          navigate(AppRoutes.page.FEED);
-        })
-        .catch((error: Error) => {
+      try {
+        setInputsDisabled();
+        const { uid } = await firebaseDB.getSignInWithEmailAndPassword(email, password);
+        dispatch(setUser({ uid, email }));
+        navigate(AppRoutes.page.FEED);
+      } catch (error: unknown) {
+        if (error instanceof Error) {
           setPasswordError(error.message);
-          setInputsDisabled(false);
-        });
+        }
+        setInputsDisabled(false);
+      }
     }
 
     e.preventDefault();

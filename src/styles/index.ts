@@ -157,7 +157,7 @@ input::-webkit-inner-spin-button {
 `;
 
 export const AppContainer = styled.div`
-  max-width: 19 ${DEFAULT_GAP};
+  max-width: 1920px;
   margin: 0 auto;
   box-sizing: content-box;
   padding: 0 ${DEFAULT_GAP};
@@ -293,6 +293,7 @@ export const UserData = styled.div`
 export const UserAvatar = styled(Icon)`
   width: ${USER_ELEMENT_HEIGHT};
   height: ${USER_ELEMENT_HEIGHT};
+  border-radius: 50%;
 `;
 
 export const UserInfo = styled.div`
@@ -322,6 +323,8 @@ export const UserEmail = styled.p`
 
 export const PageContainer = styled.section`
   width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   min-height: 100vh;

@@ -8,30 +8,52 @@ import { ProfilePage } from '@pages/profile';
 import { SignInPage } from '@pages/signIn';
 import { SignUpPage } from '@pages/signUp';
 import { setMobileMenu, setSelectDay, setSelectMonth, setSelectYear } from '@store/reducers/app';
+import { setFeedPosts } from '@store/reducers/posts';
 import { GlobalStyles } from '@styles';
 import { theme } from '@styles/theme';
-import { FC } from 'react';
+import { DataSnapshot, onChildAdded } from 'firebase/database';
+import { FC, useCallback, useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import styled, { ThemeProvider } from 'styled-components';
+
+import { databaseRefs } from '../../../firebase';
 
 export const Wrapper = styled.section``;
 
 export const App: FC = () => {
-  const { theme: currentTheme } = useSelectorTyped((store) => store.app);
-  const { burger, selectDay, selectMonth, selectYear } = useSelectorTyped((store) => store.app);
+  const {
+    burger,
+    selectDay,
+    selectMonth,
+    selectYear,
+    theme: currentTheme,
+  } = useSelectorTyped((store) => store.app);
+
   const dispatch = useDispatchTyped();
 
-  function handlerOnClick() {
+  function handlerOnClickApp() {
     if (burger) dispatch(setMobileMenu(false));
     if (selectDay) dispatch(setSelectDay(false));
     if (selectMonth) dispatch(setSelectMonth(false));
     if (selectYear) dispatch(setSelectYear(false));
   }
 
+  const handlerChildAddedPosts = useCallback(
+    (data: DataSnapshot) => {
+      dispatch(setFeedPosts(data.val()));
+    },
+    [dispatch],
+  );
+
+  useEffect(() => {
+    const { posts } = databaseRefs;
+    onChildAdded(posts, handlerChildAddedPosts);
+  }, [handlerChildAddedPosts]);
+
   return (
-    <ThemeProvider theme={theme[currentTheme]}>
-      <GlobalStyles />
-      <Wrapper onClick={handlerOnClick} id='wrapper'>
+    <Wrapper onClick={handlerOnClickApp} id='wrapper'>
+      <ThemeProvider theme={theme[currentTheme]}>
+        <GlobalStyles />
         <Routes>
           <Route path={AppRoutes.HOME} element={<HomePage />} />
           <Route path={AppRoutes.SIGNIN} element={<SignInPage />} />
@@ -42,7 +64,7 @@ export const App: FC = () => {
             <Route path={AppRoutes.page.PROFILE} element={<ProfilePage />} />
           </Route>
         </Routes>
-      </Wrapper>
-    </ThemeProvider>
+      </ThemeProvider>
+    </Wrapper>
   );
 };

@@ -1,5 +1,4 @@
 import { ISideMenuOption } from '@appTypes';
-import feedIcon from '@assets/icons/feed.svg';
 import homeIcon from '@assets/icons/home.svg';
 import profileIcon from '@assets/icons/profile.svg';
 import twitterIcon from '@assets/icons/twitter.svg';
@@ -22,7 +21,6 @@ export const SideMenu: FC = () => {
 
   const sideMenuOptions: ISideMenuOption[] = [
     { title: 'Home', path: AppRoutes.HOME, icon: homeIcon },
-    { title: 'Feed', path: AppRoutes.page.FEED, icon: feedIcon },
     { title: 'Profile', path: AppRoutes.page.PROFILE, icon: profileIcon },
   ];
 

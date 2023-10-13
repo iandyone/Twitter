@@ -4,9 +4,9 @@ import twitterIcon from '@assets/icons/twitter.svg';
 import preview from '@assets/images/preview.webp';
 import { AppRoutes } from '@constants/variables';
 import { useDispatchTyped } from '@hooks/redux';
+import { firebaseDB } from '@services/database';
 import { logoutUser, setUser } from '@store/reducers/user';
 import { PageBody, PageWrapper } from '@styles';
-import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { FC, MouseEvent, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -40,24 +40,23 @@ export const SignIn: FC = () => {
 
   async function handlerOnClickGoogle(e: MouseEvent<HTMLElement>) {
     e.preventDefault();
+    try {
+      const { uid, email, displayName, photoURL } = await firebaseDB.getGoogleAuth();
+      const userData: IUser = {
+        uid: uid,
+        email: email,
+        name: displayName,
+        avatar: photoURL,
+      };
 
-    const auth = getAuth();
-    const provider = new GoogleAuthProvider();
+      const isUserAlredyExist = await firebaseDB.getIsUserAlredyExist(email);
+      if (!isUserAlredyExist) firebaseDB.addUser(userData);
 
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        const { uid, email } = result.user;
-
-        const userData: IUser = {
-          uid: uid,
-          email: email,
-        };
-        dispatch(setUser(userData));
-        navigate(AppRoutes.page.FEED);
-      })
-      .catch(() => {
-        dispatch(logoutUser());
-      });
+      dispatch(setUser(userData));
+      navigate(AppRoutes.page.FEED);
+    } catch (error) {
+      dispatch(logoutUser());
+    }
   }
 
   return (

@@ -85,6 +85,7 @@ export interface IUser extends IUserProfileData {
   email: string;
   uid: string;
   birthday?: number;
+  avatar?: string;
 }
 
 export interface IUserProfileData {
@@ -102,9 +103,21 @@ export interface ISideMenuOption {
   onClick?: handler;
 }
 
+// export interface IPost {
+//   user: IUser;
+//   date: Date;
+//   body: string;
+//   likes: number;
+// }
+
 export interface IPost {
-  user: IUser;
-  date: Date;
+  user: string;
+  email: string;
   body: string;
-  likes: number;
+  authorAvatar?: string;
+  authName?: string;
+}
+
+export interface IPostDB extends IPost {
+  timestamp: object | number;
 }

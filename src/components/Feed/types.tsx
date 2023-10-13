@@ -1,5 +1,5 @@
-import { IPost } from '@appTypes';
+import { IPostDB } from '@appTypes';
 
 export interface IFeedProps {
-  posts: IPost[];
+  posts: IPostDB[];
 }
