@@ -32,6 +32,7 @@ export const LoginForm: FC = () => {
     passwordErrorMessage,
     emailPlaceholder,
     passwordPlaceholder,
+    accountErrorMessage,
   } = useMemo(getTextContent, []);
 
   useEffect(() => {
@@ -76,6 +77,8 @@ export const LoginForm: FC = () => {
     e.preventDefault();
     const isEmailValid = getEmailValidation(email);
     const isPasswordValid = getPasswordValidation(password);
+    const isAccountExist = await firebaseDB.getIsUserAlredyExist(email);
+    const isValidData = isEmailValid && isPasswordValid && isAccountExist;
 
     if (!isEmailValid) {
       setEmailError(emailErrorMessage);
@@ -85,21 +88,22 @@ export const LoginForm: FC = () => {
       setPasswordError(passwordErrorMessage);
     }
 
-    if (isEmailValid && isPasswordValid) {
+    if (!isAccountExist) {
+      setEmailError(accountErrorMessage);
+      return;
+    }
+
+    if (isValidData) {
       try {
         setInputsDisabled();
         const { uid } = await firebaseDB.getSignInWithEmailAndPassword(email, password);
         dispatch(setUser({ uid, email }));
         navigate(AppRoutes.page.FEED);
-      } catch (error: unknown) {
-        if (error instanceof Error) {
-          setPasswordError(error.message);
-        }
+      } catch (error) {
+        setPasswordError(passwordErrorMessage);
         setInputsDisabled(false);
       }
     }
-
-    e.preventDefault();
   }
 
   return (

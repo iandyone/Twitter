@@ -21,20 +21,20 @@ class Database {
     this.userRef = databaseRefs.users;
   }
 
-  addPost(post: IPost) {
+  async addPost(post: IPost) {
     const postData: IPostDB = {
       ...post,
       timestamp: serverTimestamp(),
     };
 
-    push(this.postsRef, postData);
+    await push(this.postsRef, postData);
   }
 
-  addUser(userData: IUser) {
+  async addUser(userData: IUser) {
     const user: IUser = {
       ...userData,
     };
-    push(this.userRef, user);
+    await push(this.userRef, user);
   }
 
   async getUserPosts(uid: string): Promise<IPostDB[]> {

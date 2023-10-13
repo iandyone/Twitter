@@ -24,7 +24,7 @@ const TweetAreaComponent: FC = () => {
   const { avatar, name } = useSelectorTyped((store) => store.user);
   const dispatch = useDispatchTyped();
 
-  function handlerOnClickSubmit(e: FormEvent<HTMLFormElement>) {
+  async function handlerOnClickSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const post: IPost = {
       id: Math.random(),
@@ -36,7 +36,7 @@ const TweetAreaComponent: FC = () => {
       email,
     };
 
-    firebaseDB.addPost(post);
+    await firebaseDB.addPost(post);
     getCurrentUserPosts();
 
     setTweet('');

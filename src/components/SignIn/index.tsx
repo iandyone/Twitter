@@ -50,7 +50,7 @@ export const SignIn: FC = () => {
       };
 
       const isUserAlredyExist = await firebaseDB.getIsUserAlredyExist(email);
-      if (!isUserAlredyExist) firebaseDB.addUser(userData);
+      if (!isUserAlredyExist) await firebaseDB.addUser(userData);
 
       dispatch(setUser(userData));
       navigate(AppRoutes.page.FEED);

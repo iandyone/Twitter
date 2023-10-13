@@ -30,6 +30,7 @@ export const SignUpForm: FC = () => {
     emailErrorMessage,
     phoneErrorMessage,
     passwordErrorMessage,
+    emailWrongMessage,
   } = useMemo(getTextContent, []);
 
   const initialState: IReducerState = useMemo(getInitialState, []);
@@ -237,12 +238,15 @@ export const SignUpForm: FC = () => {
     const isEmailValid = getEmailValidation(email);
     const isPhoneValid = getPhoneValidation(phone);
     const isPasswordValid = getPasswordValidation(password);
-    const isValidForm = isEmailValid && isPasswordValid && isPhoneValid && day && month && year;
+    const isAccountAlredyExist = await firebaseDB.getIsUserAlredyExist(email);
+    const isValidForm =
+      isEmailValid && isPasswordValid && isPhoneValid && day && month && year && !isAccountAlredyExist;
 
     if (!day) dispatch({ type: ActionsTypes.SET_DAY_ERROR, payload: true });
     if (!month) dispatch({ type: ActionsTypes.SET_MONTH_ERROR, payload: true });
     if (!year) dispatch({ type: ActionsTypes.SET_YEAR_ERROR, payload: true });
     if (!isEmailValid) dispatch({ type: ActionsTypes.SET_EMAIL_ERROR, payload: emailErrorMessage });
+    if (isAccountAlredyExist) dispatch({ type: ActionsTypes.SET_EMAIL_ERROR, payload: emailWrongMessage });
     if (!isPhoneValid) dispatch({ type: ActionsTypes.SET_PHONE_ERROR, payload: phoneErrorMessage });
     if (!isPasswordValid) dispatch({ type: ActionsTypes.SET_PASSWORD_ERROR, payload: passwordErrorMessage });
 
@@ -258,7 +262,7 @@ export const SignUpForm: FC = () => {
         const user: IUser = { uid, email, birthday: userBirthday };
 
         dispatchRedux(setUser(user));
-        firebaseDB.addUser(user);
+        await firebaseDB.addUser(user);
         navigate(AppRoutes.page.FEED);
       } catch (error) {
         setInputsDisabled(false);
