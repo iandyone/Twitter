@@ -1,7 +1,8 @@
 import userAvatar from '@assets/icons/avatar.svg';
 import { LikeIcon } from '@components/SVG/Like';
-import { useSelectorTyped } from '@hooks/redux';
+import { useDispatchTyped, useSelectorTyped } from '@hooks/redux';
 import { firebaseDB } from '@services/database';
+import { updatePostLikes } from '@store/reducers/posts';
 import { UserContact } from '@styles';
 import { getDateData } from '@utils/helpers/date';
 import { FC, memo, useMemo, useState } from 'react';
@@ -14,6 +15,7 @@ const PostComponent: FC<IPostProps> = ({ post }) => {
   const { user, email, body, month, year, authorAvatar, authName, likes } = useMemo(getPostData, [post]);
   const [isLiked, setIsLiked] = useState(getLikeStatus);
   const [postLikes, setLikes] = useState(getPostLikes);
+  const dispatch = useDispatchTyped();
 
   function getPostData() {
     const { timestamp } = post;
@@ -23,10 +25,16 @@ const PostComponent: FC<IPostProps> = ({ post }) => {
   }
 
   function getLikeStatus() {
-    return likes && likes.includes(uid);
+    if (Array.isArray(likes)) {
+      return likes && likes.includes(uid);
+    }
   }
 
   function getPostLikes() {
+    if (typeof likes === 'number') {
+      return likes;
+    }
+
     if (likes) {
       return likes.length;
     }
@@ -35,9 +43,10 @@ const PostComponent: FC<IPostProps> = ({ post }) => {
   }
 
   async function handlerOnLike() {
-    const likesCounter = await firebaseDB.setPostLike(post, uid);
+    const likesList = await firebaseDB.setPostLike(post, uid);
     setIsLiked(!isLiked);
-    setLikes(likesCounter);
+    setLikes(likesList.length);
+    dispatch(updatePostLikes({ likes: likesList, postID: post.id }));
   }
 
   return (

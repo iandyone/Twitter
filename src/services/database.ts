@@ -89,7 +89,7 @@ class Database {
 
     updates[`/${postKey}/likes`] = likesList;
     update(this.postsRef, updates);
-    return likesList.length;
+    return likesList;
   }
 }
 

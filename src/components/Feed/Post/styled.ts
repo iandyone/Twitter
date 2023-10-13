@@ -60,16 +60,7 @@ export const Likes = styled.div`
   align-items: flex-end;
   align-self: flex-start;
   transition: ${({ theme }) => theme.animation.transition};
-
-  &:hover {
-    cursor: pointer;
-    transition: ${({ theme }) => theme.animation.transition};
-  }
-
-  &:active {
-    transition: ${({ theme }) => theme.animation.transition};
-    transform: ${({ theme }) => theme.animation.transformActive};
-  }
+  user-select: none;
 `;
 
 export const LikeCounter = styled.span<{ $isActive: boolean }>`

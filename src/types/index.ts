@@ -107,7 +107,7 @@ export interface IPost {
   user: string;
   email: string;
   body: string;
-  likes: string[];
+  likes: string[] | number;
   authorAvatar?: string;
   authName?: string;
 }

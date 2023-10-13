@@ -27,9 +27,20 @@ const userSlice = createSlice({
         state.all = postsList.sort((a, b) => (b.timestamp as number) - (a.timestamp as number));
       }
     },
+
+    updatePostLikes(state, action: PayloadAction<{ postID: number; likes: string[] }>) {
+      const { likes, postID } = action.payload;
+      const post = state.all.find((post) => post.id === postID);
+      post.likes = likes;
+
+      const newPostList = state.all.filter((post) => post.id !== postID);
+      newPostList.push(post);
+
+      state.all = newPostList.sort((a, b) => (b.timestamp as number) - (a.timestamp as number));
+    },
   },
 });
 
-export const { setFeedPosts, setUserPosts } = userSlice.actions;
+export const { setFeedPosts, setUserPosts, updatePostLikes } = userSlice.actions;
 
 export default userSlice.reducer;

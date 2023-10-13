@@ -1,6 +1,19 @@
 import { FC, memo, useMemo } from 'react';
+import styled from 'styled-components';
 
 import { ILikeIconProps } from './types';
+
+export const Container = styled.div`
+  &:hover {
+    cursor: pointer;
+    transition: ${({ theme }) => theme.animation.transition};
+  }
+
+  &:active {
+    transition: ${({ theme }) => theme.animation.transition};
+    transform: ${({ theme }) => theme.animation.transformActive};
+  }
+`;
 
 const LikeIconComponent: FC<ILikeIconProps> = ({ isActive, onClick }) => {
   const fillColor = useMemo(() => (isActive ? 'red' : '#C4C4C4'), [isActive]);
@@ -11,7 +24,7 @@ const LikeIconComponent: FC<ILikeIconProps> = ({ isActive, onClick }) => {
   }
 
   return (
-    <div onClick={handlerOnClick}>
+    <Container onClick={handlerOnClick}>
       <svg width='24' height='24' viewBox='0 0 24 24' fill={fillColor}>
         <g id='like'>
           <mask id='mask0_1265_138' maskUnits='userSpaceOnUse' x='0' y='0' width='24' height='24'>
@@ -26,7 +39,7 @@ const LikeIconComponent: FC<ILikeIconProps> = ({ isActive, onClick }) => {
           </g>
         </g>
       </svg>
-    </div>
+    </Container>
   );
 };
 
