@@ -5,8 +5,8 @@ import { useDispatchTyped, useSelectorTyped } from '@hooks/redux';
 import { firebaseDB } from '@services/database';
 import { updatePostLikes } from '@store/reducers/posts';
 import { UserContact } from '@styles';
-import { getDateData } from '@utils/helpers/date';
-import { FC, memo, useMemo, useState } from 'react';
+import { getDateData, getFormattedPostDate } from '@utils/helpers/date';
+import { FC, memo, useEffect, useMemo, useState } from 'react';
 
 import {
   Avatar,
@@ -25,17 +25,31 @@ import { IPostProps } from './types';
 
 const PostComponent: FC<IPostProps> = ({ post }) => {
   const { uid } = useSelectorTyped((store) => store.user);
-  const { user, email, body, month, year, authorAvatar, authName, likes } = useMemo(getPostData, [post]);
+  const { user, email, body, authorAvatar, authName, likes, timestamp } = useMemo(getPostData, [post]);
   const [isLiked, setIsLiked] = useState(getLikeStatus);
   const [postLikes, setLikes] = useState(getPostLikes);
   const dispatch = useDispatchTyped();
   const isUserPost = user === uid;
 
+  const [postDate, setPostDate] = useState<string>(getPostDate);
+
+  useEffect(() => {
+    const intervalID = setInterval(() => {
+      setPostDate(getPostDate());
+    }, 1000);
+
+    return () => clearInterval(intervalID);
+  });
+
+  function getPostDate() {
+    return getFormattedPostDate(timestamp as number);
+  }
+
   function getPostData() {
     const { timestamp } = post;
     const dateData = getDateData(new Date(timestamp as number));
 
-    return { ...post, ...dateData };
+    return { ...post, ...dateData, timestamp };
   }
 
   function getLikeStatus() {
@@ -74,10 +88,8 @@ const PostComponent: FC<IPostProps> = ({ post }) => {
         <Header>
           <HeaderContent>
             <User>{authName ?? user}</User>
-            <UserContact>{email}</UserContact>
-            <PostDate>
-              {month}.{year}
-            </PostDate>
+            <UserContact>{email} · </UserContact>
+            <PostDate>{postDate}</PostDate>
           </HeaderContent>
           {isUserPost && <DeleteButton src={deleteIcon} onClick={handlerOnDelete} />}
         </Header>

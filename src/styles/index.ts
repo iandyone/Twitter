@@ -332,7 +332,7 @@ export const PageContainer = styled.section`
 `;
 
 export const UserContact = styled.span`
-  font-size: ${({ theme }) => theme.font.size};
+  font-size: 16px;
   font-weight: ${({ theme }) => theme.font.regular};
   opacity: ${({ theme }) => theme.animation.opacity};
 `;

@@ -28,6 +28,7 @@ export const Content = styled.div`
 
 export const Header = styled.div`
   display: flex;
+  font-size: ${({ theme }) => theme.font.size};
   justify-content: space-between;
 `;
 
@@ -44,7 +45,11 @@ export const HeaderContent = styled.div`
 `;
 
 export const User = styled(TitleTemplate)`
-  font-size: 20px;
+  max-width: 200px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 16px;
 `;
 
 export const PostDate = styled(UserContact)``;
