@@ -9,6 +9,7 @@ import {
   signInWithPopup,
 } from 'firebase/auth';
 import {
+  endAt,
   equalTo,
   get,
   orderByChild,
@@ -17,6 +18,7 @@ import {
   ref,
   remove,
   serverTimestamp,
+  startAt,
   update,
 } from 'firebase/database';
 
@@ -54,6 +56,7 @@ class Database {
   async addUser(userData: IUser) {
     const user: IUser = {
       ...userData,
+      name: userData.uid,
     };
     await push(this.userRef, user);
   }
@@ -112,6 +115,21 @@ class Database {
   async removePost(userPost: IPostDB) {
     const { postKey } = await this.getPostData(userPost.id);
     await remove(ref(database, DatabaseRefs.POSTS + `/${postKey}`));
+  }
+
+  async getUsers(userName: string) {
+    try {
+      const usersQuery = query(
+        this.userRef,
+        orderByChild('name'),
+        startAt(userName),
+        endAt(userName + '\uf8ff'),
+      );
+      const response = await get(usersQuery);
+      return response.val();
+    } catch (error) {
+      return {};
+    }
   }
 }
 

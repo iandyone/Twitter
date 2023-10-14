@@ -5,12 +5,14 @@ import styled from 'styled-components';
 
 export const Wrapper = styled.aside`
   position: relative;
+  width: 100%;
 `;
 
 export const Container = styled(SidesTemplate)`
   position: fixed;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   row-gap: 60px;
   overflow: hidden;
   width: 300px;
@@ -31,6 +33,13 @@ export const Container = styled(SidesTemplate)`
     position: static;
     width: 100%;
   }
+`;
+
+export const SearchContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  row-gap: ${DEFAULT_GAP};
+  width: 100%;
 `;
 
 export const Search = styled.div`
