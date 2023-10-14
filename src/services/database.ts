@@ -1,4 +1,5 @@
 import { IPost, IPostDB, IUser } from '@appTypes';
+import { DatabaseRefs } from '@appTypes/enums';
 import { getLikesList } from '@utils/helpers/common';
 import {
   createUserWithEmailAndPassword,
@@ -7,9 +8,19 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
 } from 'firebase/auth';
-import { equalTo, get, orderByChild, push, query, serverTimestamp, update } from 'firebase/database';
+import {
+  equalTo,
+  get,
+  orderByChild,
+  push,
+  query,
+  ref,
+  remove,
+  serverTimestamp,
+  update,
+} from 'firebase/database';
 
-import { databaseRefs } from '../../firebase';
+import { database, databaseRefs } from '../../firebase';
 
 class Database {
   private postsRef;
@@ -19,6 +30,16 @@ class Database {
   constructor() {
     this.postsRef = databaseRefs.posts;
     this.userRef = databaseRefs.users;
+  }
+
+  private async getPostData(id: number) {
+    const postQuery = query(databaseRefs.posts, orderByChild('id'), equalTo(id));
+
+    const snapshot = await get(postQuery);
+    const post = snapshot.val();
+    const postKey = Object.keys(post)[0];
+
+    return { post, postKey };
   }
 
   async addPost(post: IPost) {
@@ -78,11 +99,7 @@ class Database {
 
   async setPostLike(userPost: IPostDB, uid: string) {
     const { id } = userPost;
-    const postQuery = query(databaseRefs.posts, orderByChild('id'), equalTo(id));
-
-    const snapshot = await get(postQuery);
-    const post = snapshot.val();
-    const postKey = Object.keys(post)[0];
+    const { post, postKey } = await this.getPostData(id);
 
     const updates: { [key: string]: object } = {};
     const likesList = getLikesList(post[postKey].likes, uid);
@@ -90,6 +107,11 @@ class Database {
     updates[`/${postKey}/likes`] = likesList;
     update(this.postsRef, updates);
     return likesList;
+  }
+
+  async removePost(userPost: IPostDB) {
+    const { postKey } = await this.getPostData(userPost.id);
+    await remove(ref(database, DatabaseRefs.POSTS + `/${postKey}`));
   }
 }
 

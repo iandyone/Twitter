@@ -26,21 +26,23 @@ const TweetAreaComponent: FC = () => {
 
   async function handlerOnClickSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const post: IPost = {
-      id: Math.random(),
-      body: tweet,
-      user: uid,
-      authorAvatar: avatar ?? null,
-      authName: name ?? null,
-      likes: null,
-      email,
-    };
+    if (tweet) {
+      const post: IPost = {
+        id: Math.random(),
+        body: tweet,
+        user: uid,
+        authorAvatar: avatar ?? null,
+        authName: name ?? null,
+        likes: null,
+        email,
+      };
 
-    await firebaseDB.addPost(post);
-    getCurrentUserPosts();
+      await firebaseDB.addPost(post);
+      getCurrentUserPosts();
 
-    setTweet('');
-    dispatch(setTweetPopup(false));
+      setTweet('');
+      dispatch(setTweetPopup(false));
+    }
   }
 
   function handlerOnChange(e: ChangeEvent<HTMLTextAreaElement>) {

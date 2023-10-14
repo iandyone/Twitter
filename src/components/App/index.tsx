@@ -8,10 +8,10 @@ import { ProfilePage } from '@pages/profile';
 import { SignInPage } from '@pages/signIn';
 import { SignUpPage } from '@pages/signUp';
 import { setMobileMenu, setSelectDay, setSelectMonth, setSelectYear } from '@store/reducers/app';
-import { setFeedPosts } from '@store/reducers/posts';
+import { removePost, setFeedPosts } from '@store/reducers/posts';
 import { GlobalStyles } from '@styles';
 import { theme } from '@styles/theme';
-import { DataSnapshot, onChildAdded } from 'firebase/database';
+import { DataSnapshot, onChildAdded, onChildRemoved } from 'firebase/database';
 import { FC, useCallback, useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import styled, { ThemeProvider } from 'styled-components';
@@ -45,10 +45,19 @@ export const App: FC = () => {
     [dispatch],
   );
 
+  const handlerOnPostRemoved = useCallback(
+    (data: DataSnapshot) => {
+      const removedPost = data.val();
+      dispatch(removePost(removedPost));
+    },
+    [dispatch],
+  );
+
   useEffect(() => {
     const { posts } = databaseRefs;
     onChildAdded(posts, handlerChildAddedPosts);
-  }, [handlerChildAddedPosts]);
+    onChildRemoved(posts, handlerOnPostRemoved);
+  }, [handlerChildAddedPosts, handlerOnPostRemoved]);
 
   return (
     <Wrapper onClick={handlerOnClickApp} id='wrapper'>

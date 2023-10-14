@@ -1,4 +1,5 @@
 import userAvatar from '@assets/icons/avatar.svg';
+import deleteIcon from '@assets/icons/trash.svg';
 import { LikeIcon } from '@components/SVG/Like';
 import { useDispatchTyped, useSelectorTyped } from '@hooks/redux';
 import { firebaseDB } from '@services/database';
@@ -7,7 +8,19 @@ import { UserContact } from '@styles';
 import { getDateData } from '@utils/helpers/date';
 import { FC, memo, useMemo, useState } from 'react';
 
-import { Avatar, Body, Container, Content, Header, LikeCounter, Likes, PostDate, User } from './styled';
+import {
+  Avatar,
+  Body,
+  Container,
+  Content,
+  DeleteButton,
+  Header,
+  HeaderContent,
+  LikeCounter,
+  Likes,
+  PostDate,
+  User,
+} from './styled';
 import { IPostProps } from './types';
 
 const PostComponent: FC<IPostProps> = ({ post }) => {
@@ -16,6 +29,7 @@ const PostComponent: FC<IPostProps> = ({ post }) => {
   const [isLiked, setIsLiked] = useState(getLikeStatus);
   const [postLikes, setLikes] = useState(getPostLikes);
   const dispatch = useDispatchTyped();
+  const isUserPost = user === uid;
 
   function getPostData() {
     const { timestamp } = post;
@@ -49,16 +63,23 @@ const PostComponent: FC<IPostProps> = ({ post }) => {
     dispatch(updatePostLikes({ likes: likesList, postID: post.id }));
   }
 
+  async function handlerOnDelete() {
+    firebaseDB.removePost(post);
+  }
+
   return (
     <Container>
       <Avatar src={authorAvatar ?? userAvatar} />
       <Content>
         <Header>
-          <User>{authName ?? user}</User>
-          <UserContact>{email}</UserContact>
-          <PostDate>
-            {month}.{year}
-          </PostDate>
+          <HeaderContent>
+            <User>{authName ?? user}</User>
+            <UserContact>{email}</UserContact>
+            <PostDate>
+              {month}.{year}
+            </PostDate>
+          </HeaderContent>
+          {isUserPost && <DeleteButton src={deleteIcon} onClick={handlerOnDelete} />}
         </Header>
         <Body>{body}</Body>
         <Likes>
