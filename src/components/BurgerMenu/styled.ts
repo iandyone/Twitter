@@ -32,7 +32,7 @@ export const BurgerLine = styled.span<{ $isOpen: boolean }>`
   width: 100%;
   height: 2px;
   background-color: ${({ theme }) => theme.colors.burgerLine};
-  transition: ${({ theme }) => theme.animation.transition};
+  transition: ${({ theme }) => theme.animations.transition};
 
   ${({ $isOpen }) =>
     $isOpen &&

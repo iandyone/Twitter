@@ -85,10 +85,10 @@ export const TweetButton = styled(ButtonTemplate)`
   border-radius: 28px;
   font-weight: ${({ theme }) => theme.font.bold};
   font-size: ${({ theme }) => theme.font.size};
-  transition: ${({ theme }) => theme.animation.transition};
+  transition: ${({ theme }) => theme.animations.transition};
 
   &:hover {
-    opacity: ${({ theme }) => theme.animation.opacity};
+    opacity: ${({ theme }) => theme.animations.opacity};
   }
 `;
 

@@ -9,7 +9,7 @@ export interface IThemeStyles {
   font: IFont;
   colors: IColor;
   spaces?: ISpace;
-  animation?: IAnimation;
+  animations?: IAnimation;
 }
 
 export interface IUserProps {
@@ -115,6 +115,7 @@ export interface IPost {
   likes: string[] | number;
   authorAvatar?: string;
   authName?: string;
+  media?: boolean;
 }
 
 export interface IPostDB extends IPost {

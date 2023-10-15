@@ -21,18 +21,18 @@ export const Title = styled.h3<{ $isActive?: boolean; $isValid?: boolean }>`
   border: 1px solid ${({ theme }) => theme.colors.border};
   color: ${({ theme }) => theme.colors.text};
   font-size: ${({ theme }) => theme.font.size};
-  transition: ${({ theme }) => theme.animation.transition};
+  transition: ${({ theme }) => theme.animations.transition};
 
   ${({ $isValid }) =>
     $isValid &&
     css`
       border: 1px solid ${({ theme }) => theme.colors.error};
-      transition: ${({ theme }) => theme.animation.transition};
+      transition: ${({ theme }) => theme.animations.transition};
     `}
 
   &:hover {
     cursor: pointer;
-    transition: ${({ theme }) => theme.animation.transition};
+    transition: ${({ theme }) => theme.animations.transition};
     border-color: ${({ theme }) => theme.colors.link};
   }
 `;
@@ -43,7 +43,7 @@ export const IconContainer = styled.div<{ $isActive?: boolean; $isValid?: boolea
   top: 40%;
   width: 28px;
   height: 28px;
-  transition: ${({ theme }) => theme.animation.transition};
+  transition: ${({ theme }) => theme.animations.transition};
   width: 18px;
   height: 11px;
   display: flex;
@@ -54,7 +54,7 @@ export const IconContainer = styled.div<{ $isActive?: boolean; $isValid?: boolea
     $isActive &&
     css`
       transform: rotate(180deg);
-      transition: ${({ theme }) => theme.animation.transition};
+      transition: ${({ theme }) => theme.animations.transition};
     `};
 `;
 

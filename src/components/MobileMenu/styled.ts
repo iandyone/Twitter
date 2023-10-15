@@ -10,7 +10,7 @@ export const MenuContent = styled.div<{ $isOpen: boolean }>`
   height: 100%;
   background-color: ${({ theme }) => theme.colors.burgerBg};
   transform: translateX(100%);
-  transition: ${({ theme }) => theme.animation.transition};
+  transition: ${({ theme }) => theme.animations.transition};
   overflow: auto;
   display: flex;
   justify-content: center;

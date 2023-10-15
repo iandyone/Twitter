@@ -50,7 +50,7 @@ export const theme: ITheme = {
       burgerLine: black,
       burgerBg: white,
     },
-    animation: {
+    animations: {
       transformActive: 'scale(0.95)',
       transition: 'all .3s ease',
       opacity: '0.7',
@@ -94,7 +94,7 @@ export const theme: ITheme = {
       burgerLine: white2,
       burgerBg: black,
     },
-    animation: {
+    animations: {
       transformActive: 'scale(0.95)',
       transition: 'all .3s ease',
       opacity: '0.7',

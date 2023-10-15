@@ -11,7 +11,7 @@ export const Switcher = styled.div`
   position: relative;
   background-color: transparent;
   border: 2px solid ${({ theme }) => theme.colors.themeButtonBorder};
-  transition: ${({ theme }) => theme.animation.transition};
+  transition: ${({ theme }) => theme.animations.transition};
 
   &:hover {
     cursor: pointer;
@@ -28,5 +28,5 @@ export const Toggler = styled.div<{ $theme: Theme }>`
   border: 2px solid ${({ theme }) => theme.colors.themeButtonBorder};
   transform: translateX(${({ $theme }) => ($theme === 'light' ? '0px' : '24px')});
   transition: transform 0.2s ease;
-  transition: ${({ theme }) => theme.animation.transition};
+  transition: ${({ theme }) => theme.animations.transition};
 `;

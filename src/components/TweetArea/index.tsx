@@ -1,48 +1,43 @@
 import { IPost } from '@appTypes';
 import userAvatar from '@assets/icons/avatar.svg';
 import pictureIcon from '@assets/icons/image.svg';
+import removeIcon from '@assets/icons/trash.svg';
 import { useDispatchTyped, useSelectorTyped } from '@hooks/redux';
 import { firebaseDB } from '@services/database';
 import { setTweetPopup } from '@store/reducers/app';
 import { setUserPosts } from '@store/reducers/posts';
-import { ChangeEvent, FC, FormEvent, memo, useCallback, useState } from 'react';
+import { ChangeEvent, FC, FormEvent, MouseEvent, useCallback, useRef, useState } from 'react';
 
 import {
   Avatar,
   Buttons,
   Container,
   Content,
+  FileInput,
+  ImageIcon,
   Input,
-  PictureButton,
+  MediaData,
   PictureButtonIcon,
+  RemoveIcon,
   SubmitButton,
 } from './styled';
 
-const TweetAreaComponent: FC = () => {
+export const TweetArea: FC = () => {
   const [tweet, setTweet] = useState('');
   const { email, uid } = useSelectorTyped((store) => store.user);
   const { avatar, name } = useSelectorTyped((store) => store.user);
+  const [media, setMedia] = useState<File>(null);
   const dispatch = useDispatchTyped();
+  const inputFileRef = useRef(null);
 
-  async function handlerOnClickSubmit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    if (tweet) {
-      const post: IPost = {
-        id: Math.random(),
-        body: tweet,
-        user: uid,
-        authorAvatar: avatar ?? null,
-        authName: name ?? null,
-        likes: null,
-        email,
-      };
+  const getCurrentUserPosts = useCallback(async () => {
+    const userPosts = await firebaseDB.getUserPosts(uid);
+    dispatch(setUserPosts(userPosts));
+  }, [dispatch, uid]);
 
-      await firebaseDB.addPost(post);
-      getCurrentUserPosts();
-
-      setTweet('');
-      dispatch(setTweetPopup(false));
-    }
+  function handlerOnChangeMedia(e: ChangeEvent<HTMLInputElement>) {
+    const mediaFile = e.target.files[0];
+    setMedia(mediaFile);
   }
 
   function handlerOnChange(e: ChangeEvent<HTMLTextAreaElement>) {
@@ -52,10 +47,46 @@ const TweetAreaComponent: FC = () => {
     }
   }
 
-  const getCurrentUserPosts = useCallback(async () => {
-    const userPosts = await firebaseDB.getUserPosts(uid);
-    dispatch(setUserPosts(userPosts));
-  }, [dispatch, uid]);
+  function handlerOnResetMedia(e: MouseEvent<HTMLElement>) {
+    clearMediaStash();
+    e.preventDefault();
+  }
+
+  function clearMediaStash() {
+    inputFileRef.current.value = null;
+    setMedia(null);
+  }
+
+  async function handlerOnClickSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    if (tweet) {
+      const postID = Math.random();
+      const post: IPost = {
+        id: postID,
+        email,
+        body: tweet,
+        user: uid,
+        authorAvatar: avatar ?? null,
+        authName: name ?? null,
+        likes: null,
+        media: Boolean(media),
+      };
+
+      if (media) {
+        await firebaseDB.uploadMedia(postID, media);
+        inputFileRef.current.value = null;
+      }
+
+      await firebaseDB.addPost(post);
+
+      getCurrentUserPosts();
+      clearMediaStash();
+      dispatch(setTweetPopup(false));
+
+      setTweet('');
+    }
+  }
 
   return (
     <Container onSubmit={handlerOnClickSubmit}>
@@ -63,14 +94,19 @@ const TweetAreaComponent: FC = () => {
       <Content>
         <Input placeholder='What`s happening' value={tweet} onChange={handlerOnChange} />
         <Buttons>
-          <PictureButton>
+          <ImageIcon htmlFor='media'>
             <PictureButtonIcon src={pictureIcon} />
-          </PictureButton>
+            {media && (
+              <>
+                <MediaData>{media.name}</MediaData>
+                <RemoveIcon src={removeIcon} onClick={handlerOnResetMedia} />
+              </>
+            )}
+          </ImageIcon>
+          <FileInput type='file' id='media' ref={inputFileRef} onChange={handlerOnChangeMedia} />
           <SubmitButton type='submit'>Tweet</SubmitButton>
         </Buttons>
       </Content>
     </Container>
   );
 };
-
-export const TweetArea = memo(TweetAreaComponent);

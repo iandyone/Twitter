@@ -75,11 +75,11 @@ export const Input = styled(InputTemplate).attrs(({ type }) => ({
 export const Button = styled(ButtonTemplate)`
   min-height: 60px;
   margin-bottom: 40px;
-  transition: ${({ theme }) => theme.animation.transition};
+  transition: ${({ theme }) => theme.animations.transition};
 
   &:hover {
-    opacity: ${({ theme }) => theme.animation.opacity};
-    transition: ${({ theme }) => theme.animation.transition};
+    opacity: ${({ theme }) => theme.animations.opacity};
+    transition: ${({ theme }) => theme.animations.transition};
   }
 
   @media (max-width: ${Viewposts.MOBILE}px) {
@@ -93,7 +93,7 @@ export const Link = styled(LinkTemplate)`
 
 export const Label = styled.label`
   color: ${({ theme }) => theme.colors.error};
-  transition: ${({ theme }) => theme.animation.transition};
+  transition: ${({ theme }) => theme.animations.transition};
   font-size: 14px;
   line-height: 120%;
   height: 14px;

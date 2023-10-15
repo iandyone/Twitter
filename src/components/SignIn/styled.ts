@@ -80,7 +80,7 @@ export const Title = styled(TitleTemplate)`
   color: ${({ theme }) => theme.colors.text};
   font-family: ${({ theme }) => theme.font.family};
   font-weight: ${({ theme }) => theme.font.bold};
-  transition: ${({ theme }) => theme.animation.transition};
+  transition: ${({ theme }) => theme.animations.transition};
   font-size: 84px;
 
   @media (max-width: ${Viewposts.DESKTOP}px) {
@@ -98,7 +98,7 @@ export const Title = styled(TitleTemplate)`
 export const Subtitle = styled.p`
   color: ${({ theme }) => theme.colors.text};
   font-weight: ${({ theme }) => theme.font.bold};
-  transition: ${({ theme }) => theme.animation.transition};
+  transition: ${({ theme }) => theme.animations.transition};
   font-size: 42px;
 
   @media (max-width: ${Viewposts.DESKTOP}px) {
@@ -130,7 +130,7 @@ export const Button = styled(RouterLink)`
   justify-content: center;
   align-items: center;
   height: 62px;
-  transition: ${({ theme }) => theme.animation.transition};
+  transition: ${({ theme }) => theme.animations.transition};
   font-weight: ${({ theme }) => theme.font.medium};
   font-size: 20px;
   display: flex;
@@ -139,13 +139,13 @@ export const Button = styled(RouterLink)`
 
   &:hover {
     cursor: pointer;
-    transition: ${({ theme }) => theme.animation.transition};
+    transition: ${({ theme }) => theme.animations.transition};
     border-color: ${({ theme }) => theme.colors.link};
   }
 
   &:active {
-    transition: ${({ theme }) => theme.animation.transition};
-    transform: ${({ theme }) => theme.animation.transformActive};
+    transition: ${({ theme }) => theme.animations.transition};
+    transform: ${({ theme }) => theme.animations.transformActive};
   }
 
   @media (max-width: ${Viewposts.DESKTOP}px) {
@@ -156,7 +156,7 @@ export const Button = styled(RouterLink)`
   @media (max-width: ${Viewposts.TABLET}px) {
     flex: 1 1 auto;
     border-color: ${({ theme }) => theme.colors.text};
-    transition: ${({ theme }) => theme.animation.transition};
+    transition: ${({ theme }) => theme.animations.transition};
     align-self: center;
     width: 100%;
     max-width: 300px;
@@ -165,7 +165,7 @@ export const Button = styled(RouterLink)`
   @media (max-width: ${Viewposts.TABLET_SMALL}px) {
     flex: 1 1 auto;
     border-color: ${({ theme }) => theme.colors.border};
-    transition: ${({ theme }) => theme.animation.transition};
+    transition: ${({ theme }) => theme.animations.transition};
   }
 `;
 
@@ -179,7 +179,7 @@ export const Links = styled.div`
 
 export const Link = styled(LinkTemplate)`
   color: ${({ theme }) => theme.colors.link};
-  transition: ${({ theme }) => theme.animation.transition};
+  transition: ${({ theme }) => theme.animations.transition};
 
   &:hover {
     text-decoration: underline;
@@ -208,7 +208,7 @@ export const Footer = styled.footer`
 
 export const FooterLink = styled(RouterLink)`
   color: ${({ theme }) => theme.colors.text};
-  transition: ${({ theme }) => theme.animation.transition};
+  transition: ${({ theme }) => theme.animations.transition};
 
   &:hover {
     text-decoration: underline;

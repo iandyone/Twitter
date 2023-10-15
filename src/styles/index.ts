@@ -166,7 +166,7 @@ export const AppContainer = styled.div`
 
 export const PageWrapper = styled.div`
   min-height: 100vh;
-  transition: ${({ theme }) => theme.animation.transition};
+  transition: ${({ theme }) => theme.animations.transition};
   background-color: ${({ theme }) => theme.colors.bgApp};
 `;
 
@@ -187,7 +187,7 @@ export const TitleTemplate = styled.h1`
   color: ${({ theme }) => theme.colors.text};
   font-family: ${({ theme }) => theme.font.family};
   font-weight: ${({ theme }) => theme.font.bold};
-  transition: ${({ theme }) => theme.animation.transition};
+  transition: ${({ theme }) => theme.animations.transition};
 `;
 
 export const SubtitleTemplate = styled.h2`
@@ -205,23 +205,23 @@ export const ButtonTemplate = styled.button`
   color: ${({ theme }) => theme.colors.buttonText};
   font-size: ${({ theme }) => theme.font.size};
   background: ${({ theme }) => theme.colors.buttonBg};
-  transition: ${({ theme }) => theme.animation.transition};
+  transition: ${({ theme }) => theme.animations.transition};
 
   &:hover {
     cursor: pointer;
-    transition: ${({ theme }) => theme.animation.transition};
+    transition: ${({ theme }) => theme.animations.transition};
     border-color: ${({ theme }) => theme.colors.link};
   }
 
   &:active {
-    transition: ${({ theme }) => theme.animation.transition};
-    transform: ${({ theme }) => theme.animation.transformActive};
+    transition: ${({ theme }) => theme.animations.transition};
+    transform: ${({ theme }) => theme.animations.transformActive};
   }
 `;
 
 export const LinkTemplate = styled(Link)`
   color: ${({ theme }) => theme.colors.link};
-  transition: ${({ theme }) => theme.animation.transition};
+  transition: ${({ theme }) => theme.animations.transition};
 
   &:hover {
     cursor: pointer;
@@ -234,15 +234,15 @@ export const InputTemplate = styled.input<{ $error?: boolean; $isNotEmpty?: bool
   border: 1px solid ${({ theme }) => theme.colors.border};
   color: ${({ theme }) => theme.colors.text};
   font-size: ${({ theme }) => theme.font.size};
-  transition: ${({ theme }) => theme.animation.transition};
+  transition: ${({ theme }) => theme.animations.transition};
 
   &:focus {
     border-color: ${({ theme }) => theme.colors.inputFocus};
-    transition: ${({ theme }) => theme.animation.transition};
+    transition: ${({ theme }) => theme.animations.transition};
   }
 
   &:hover {
-    transition: ${({ theme }) => theme.animation.transition};
+    transition: ${({ theme }) => theme.animations.transition};
     border-color: ${({ theme }) => theme.colors.inputHover};
   }
 
@@ -258,7 +258,7 @@ export const InputTemplate = styled.input<{ $error?: boolean; $isNotEmpty?: bool
     $isNotEmpty &&
     css`
       border-color: ${({ theme }) => theme.colors.inputValid};
-      transition: ${({ theme }) => theme.animation.transition};
+      transition: ${({ theme }) => theme.animations.transition};
     `}
 `;
 
@@ -315,7 +315,7 @@ export const UserName = styled(TitleTemplate)`
 `;
 
 export const UserEmail = styled.p`
-  opacity: ${({ theme }) => theme.animation.opacity};
+  opacity: ${({ theme }) => theme.animations.opacity};
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -335,7 +335,7 @@ export const PageContainer = styled.section`
 export const UserContact = styled.span`
   font-size: 16px;
   font-weight: ${({ theme }) => theme.font.regular};
-  opacity: ${({ theme }) => theme.animation.opacity};
+  opacity: ${({ theme }) => theme.animations.opacity};
 `;
 
 export const SubHeader = styled(TitleTemplate)`
@@ -358,6 +358,6 @@ export const SubHeader = styled(TitleTemplate)`
 
 export const LabelTemplate = styled.label`
   color: ${({ theme }) => theme.colors.error};
-  transition: ${({ theme }) => theme.animation.transition};
+  transition: ${({ theme }) => theme.animations.transition};
   font-size: 14px;
 `;
