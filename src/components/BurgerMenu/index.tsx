@@ -2,6 +2,7 @@ import { MobileMenu } from '@components/MobileMenu';
 import { useDispatchTyped, useSelectorTyped } from '@hooks/redux';
 import { useMobile } from '@hooks/window';
 import { setMobileMenu } from '@store/reducers/app';
+import { setPageScroll } from '@utils/helpers/common';
 import { FC, MouseEvent, useEffect } from 'react';
 
 import { BurgerButton, BurgerLine, MenuContainer } from './styled';
@@ -20,7 +21,7 @@ export const BurgerMenu: FC = () => {
   }
 
   useEffect(() => {
-    document.body.style.position = burger ? 'fixed' : 'static';
+    setPageScroll(!burger);
   }, [burger]);
 
   return (

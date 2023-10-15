@@ -9,7 +9,6 @@ const initialState: IUSerState = {
   uid: null,
   email: null,
   name: null,
-  surname: null,
   gender: null,
   telegram: null,
   birthday: null,
@@ -21,12 +20,14 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     setUser(state, action: PayloadAction<IUser>) {
-      const { uid, email, birthday, avatar, name } = action.payload;
+      const { uid, email, birthday, avatar, name, gender, telegram } = action.payload;
       state.uid = uid;
       state.email = email;
       state.birthday = birthday;
       state.avatar = avatar;
       state.name = name;
+      state.gender = gender;
+      state.telegram = telegram;
       state.isAuthorized = true;
     },
     logoutUser(state) {
@@ -35,10 +36,9 @@ const userSlice = createSlice({
       state.isAuthorized = false;
     },
     setUserProfile(state, action: PayloadAction<IUserProfileData>) {
-      const { gender, name, surname, telegram } = action.payload;
+      const { gender, name, telegram } = action.payload;
       if (gender) state.gender = gender;
       if (name) state.name = name;
-      if (surname) state.surname = surname;
       if (telegram) state.telegram = telegram;
     },
   },

@@ -8,7 +8,7 @@ import { AccountContainer, MenuContent, MenuOption } from './styled';
 import { IMobileMenuProps } from './types';
 
 const MobileMenuComponent: FC<IMobileMenuProps> = ({ isMenuOpened }) => {
-  const { uid, email, name } = useSelectorTyped((store) => store.user);
+  const { uid, email, name, avatar } = useSelectorTyped((store) => store.user);
 
   return (
     <MenuContent $isOpen={isMenuOpened}>
@@ -16,7 +16,7 @@ const MobileMenuComponent: FC<IMobileMenuProps> = ({ isMenuOpened }) => {
         <SideMenu />
         <SearchBar />
         <AccountContainer>
-          <Account userName={name ?? uid} userEmail={email} />
+          <Account userName={name ?? uid} userEmail={email} avatar={avatar} />
         </AccountContainer>
       </MenuOption>
     </MenuContent>

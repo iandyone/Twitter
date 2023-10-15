@@ -14,7 +14,7 @@ import { Option } from './Option';
 import { Container, Menu, Navigation, TweetButton, TwitterIcon, User, Wrapper } from './styled';
 
 export const SideMenu: FC = () => {
-  const { uid, email, name } = useSelectorTyped((store) => store.user);
+  const { uid, email, name, avatar } = useSelectorTyped((store) => store.user);
   const { tweetPopup } = useSelectorTyped((store) => store.app);
   const dispatch = useDispatchTyped();
   const isMobileView = useMobile();
@@ -47,7 +47,7 @@ export const SideMenu: FC = () => {
         </Navigation>
         {!isMobileView && (
           <User>
-            <Account userName={name ?? uid} userEmail={email} />
+            <Account userName={name ?? uid} userEmail={email} avatar={avatar} />
           </User>
         )}
       </Container>

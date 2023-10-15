@@ -125,7 +125,6 @@ export const Buttons = styled.div`
 export const Button = styled(RouterLink)`
   border-radius: 42px;
   border: 1px solid ${({ theme }) => theme.colors.border};
-  // opacity: ${({ theme }) => theme.animation.opacity};
   background: transparent;
   display: flex;
   justify-content: center;

@@ -67,7 +67,6 @@ export const SearchBar: FC = () => {
       <Container>
         <SearchContainer>
           <Search>
-            {/* <SearchIcon src={searchIcon} /> */}
             <SearchIconContainer>
               <SearchIcon />
             </SearchIconContainer>

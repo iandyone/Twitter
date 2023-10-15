@@ -19,14 +19,14 @@ import {
   Name,
   Profile,
   Social,
-  Status,
   SubCounter,
   Subscribes,
+  TelegramLink,
   TweetsCounter,
 } from './styled';
 
 const ProfileHeaderComponent: FC = () => {
-  const { uid, email, name } = useSelectorTyped((state) => state.user);
+  const { uid, email, name, avatar, telegram } = useSelectorTyped((state) => state.user);
   const { profilePopup } = useSelectorTyped((store) => store.app);
   const { tweetCounterText, editButton } = useMemo(getTextContent, []);
   const { all } = useSelectorTyped((store) => store.posts);
@@ -34,6 +34,7 @@ const ProfileHeaderComponent: FC = () => {
   const isMobile = useMobile();
   const tweetCounter = useMemo(getUserPosts, [all, uid]);
   const [followings, setFollowings] = useState(0);
+
   function getUserPosts() {
     return all.filter((post) => post.user === uid).length;
   }
@@ -63,13 +64,15 @@ const ProfileHeaderComponent: FC = () => {
       <Banner src={profileBg} />
       <Profile>
         <Header>
-          <Avatar src={userAvatar} />
+          <Avatar src={avatar ?? userAvatar} />
           {!isMobile && <EditButton onClick={handlerOnClickEditButton}>{editButton}</EditButton>}
         </Header>
         <Body>
           <Name>{name ?? uid}</Name>
           <Contact>{email}</Contact>
-          <Status>Some status</Status>
+          {telegram && (
+            <TelegramLink href={`https://t.me/${telegram}`} target='_blank'>{`@${telegram}`}</TelegramLink>
+          )}
           <Social>
             <Subscribes>
               <SubCounter>{followings}</SubCounter> followers

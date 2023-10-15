@@ -96,7 +96,6 @@ export interface IUser extends IUserProfileData {
 
 export interface IUserProfileData {
   name?: string;
-  surname?: string;
   telegram?: string;
   password?: string;
   gender?: Gender;

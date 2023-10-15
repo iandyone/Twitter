@@ -1,4 +1,4 @@
-import { IPost, IPostDB, IUser } from '@appTypes';
+import { IPost, IPostDB, IUser, IUserProfileData } from '@appTypes';
 import { DatabaseRefs } from '@appTypes/enums';
 import { getLikesList } from '@utils/helpers/common';
 import {
@@ -44,6 +44,17 @@ class Database {
     return { post, postKey };
   }
 
+  async getUserData(uid: string) {
+    const userQuery = query(databaseRefs.users, orderByChild('uid'), equalTo(uid));
+
+    const snapshot = await get(userQuery);
+    const userData = snapshot.val();
+    const userKey = Object.keys(userData)[0];
+    const user = Object.values(userData)[0];
+
+    return { user, userKey };
+  }
+
   async addPost(post: IPost) {
     const postData: IPostDB = {
       ...post,
@@ -55,8 +66,8 @@ class Database {
 
   async addUser(userData: IUser) {
     const user: IUser = {
-      ...userData,
       name: userData.uid,
+      ...userData,
     };
     await push(this.userRef, user);
   }
@@ -127,6 +138,16 @@ class Database {
     } catch (error) {
       return {};
     }
+  }
+
+  async updateUserData(data: IUserProfileData, uid: string) {
+    const { user, userKey } = await this.getUserData(uid);
+    const updatedUserData = { ...(user as object), ...data };
+    const updates: { [key: string]: object } = {};
+
+    updates[`/${userKey}`] = updatedUserData;
+    update(this.userRef, updates);
+    return updatedUserData;
   }
 }
 

@@ -33,8 +33,12 @@ export const ProfilePage: FC = () => {
       <BurgerMenu />
       <ProfileHeader />
       <TweetArea />
-      <SubHeader>Tweets</SubHeader>
-      <Feed posts={posts} />
+      {posts.length !== 0 && (
+        <>
+          <SubHeader>Tweets</SubHeader>
+          <Feed posts={posts} />
+        </>
+      )}
     </PageContainer>
   );
 };

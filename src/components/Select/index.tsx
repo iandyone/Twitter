@@ -1,5 +1,5 @@
 import { useDispatchTyped, useSelectorTyped } from '@hooks/redux';
-import { setSelectDay, setSelectMonth, setSelectYear } from '@store/reducers/app';
+import { setSelectDay, setSelectGender, setSelectMonth, setSelectYear } from '@store/reducers/app';
 import { FC, memo, useMemo } from 'react';
 
 import { Option } from './Option';
@@ -7,7 +7,7 @@ import { Container, Options, Title } from './styled';
 import { ISelectComponentProps } from './types';
 
 const SelectComponent: FC<ISelectComponentProps> = ({ title, data, onClick, isValid, type }) => {
-  const { selectDay, selectMonth, selectYear } = useSelectorTyped((store) => store.app);
+  const { selectDay, selectMonth, selectYear, selectGender } = useSelectorTyped((store) => store.app);
   const { action, isVisible } = useMemo(getControls, [type, getAction, getControls]);
   const dispatch = useDispatchTyped();
 
@@ -27,6 +27,7 @@ const SelectComponent: FC<ISelectComponentProps> = ({ title, data, onClick, isVa
       day: setSelectDay,
       month: setSelectMonth,
       year: setSelectYear,
+      gender: setSelectGender,
     };
 
     return actions[type];
@@ -37,6 +38,7 @@ const SelectComponent: FC<ISelectComponentProps> = ({ title, data, onClick, isVa
       day: selectDay,
       month: selectMonth,
       year: selectYear,
+      gender: selectGender,
     };
 
     return selectStatuses[type];

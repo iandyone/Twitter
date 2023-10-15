@@ -46,7 +46,7 @@ export const Header = styled.div`
   width: 100%;
   justify-content: space-between;
   align-items: center;
-  padding-right: 25px;
+  padding-right: ${DEFAULT_GAP};
   margin-bottom: 10px;
 
   @media (max-width: ${Viewposts.TABLET}px) {
@@ -60,8 +60,8 @@ export const Header = styled.div`
 `;
 
 export const Avatar = styled(UserAvatar)`
-  width: 150px;
-  height: 150px;
+  width: 130px;
+  height: 130px;
 `;
 
 export const EditButton = styled(ButtonTemplate)`
@@ -112,9 +112,17 @@ export const Body = styled.div`
 
 export const Contact = styled(UserContact)``;
 
-export const Status = styled.p`
-  font-size: ${({ theme }) => theme.font.size};
+export const TelegramLink = styled.a`
+  font-size: 16px;
   margin-bottom: ${DEFAULT_GAP};
+
+  color: ${({ theme }) => theme.colors.link};
+  transition: ${({ theme }) => theme.animation.transition};
+
+  &:hover {
+    cursor: pointer;
+    text-decoration: underline;
+  }
 `;
 
 export const Social = styled.div`

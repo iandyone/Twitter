@@ -27,3 +27,8 @@ export enum DatabaseRefs {
   USERS = 'users',
   USER_POSTS = 'user-posts',
 }
+
+export enum Genders {
+  MALE = 'male',
+  FEMALE = 'female',
+}

@@ -1,3 +1,4 @@
+import { IUser } from '@appTypes';
 import twitterIcon from '@assets/icons/twitter.svg';
 import { InputAuth } from '@components/InputAuth';
 import { AppRoutes } from '@constants/variables';
@@ -97,7 +98,9 @@ export const LoginForm: FC = () => {
       try {
         setInputsDisabled();
         const { uid } = await firebaseDB.getSignInWithEmailAndPassword(email, password);
-        dispatch(setUser({ uid, email }));
+        const { user } = await firebaseDB.getUserData(uid);
+
+        dispatch(setUser(user as IUser));
         navigate(AppRoutes.page.FEED);
       } catch (error) {
         setPasswordError(passwordErrorMessage);
