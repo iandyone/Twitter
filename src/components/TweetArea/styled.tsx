@@ -38,6 +38,8 @@ export const Input = styled.textarea`
   transition: ${({ theme }) => theme.animation.transition};
   border-top: 1px solid ${({ theme }) => theme.colors.border};
   font-weight: ${({ theme }) => theme.font.medium};
+  background: ${({ theme }) => theme.colors.inputBg};
+  color: ${({ theme }) => theme.colors.text};
 
   @media (max-width: ${Viewposts.MOBILE}px) {
     font-size: 16px;

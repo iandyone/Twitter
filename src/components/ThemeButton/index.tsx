@@ -12,6 +12,7 @@ export const ThemeButton: FC = () => {
   function handlerOnClick() {
     const newTheme: Theme = theme === 'light' ? 'dark' : 'light';
     dispatch(setTheme(newTheme));
+    localStorage.setItem('theme', newTheme);
   }
 
   return (

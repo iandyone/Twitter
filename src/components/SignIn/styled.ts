@@ -1,7 +1,7 @@
 import { Viewposts } from '@appTypes/enums';
 import { DEFAULT_GAP } from '@constants/variables';
 import { Icon, LinkTemplate, TitleTemplate } from '@styles';
-import { Link as LinkLRouterLink } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const Body = styled.div`
@@ -122,10 +122,10 @@ export const Buttons = styled.div`
   row-gap: ${DEFAULT_GAP};
 `;
 
-export const Button = styled(LinkLRouterLink)`
+export const Button = styled(RouterLink)`
   border-radius: 42px;
   border: 1px solid ${({ theme }) => theme.colors.border};
-  opacity: ${({ theme }) => theme.animation.opacity};
+  // opacity: ${({ theme }) => theme.animation.opacity};
   background: transparent;
   display: flex;
   justify-content: center;
@@ -136,6 +136,7 @@ export const Button = styled(LinkLRouterLink)`
   font-size: 20px;
   display: flex;
   column-gap: 5px;
+  color: ${({ theme }) => theme.colors.buttonText2};
 
   &:hover {
     cursor: pointer;
@@ -206,7 +207,7 @@ export const Footer = styled.footer`
   }
 `;
 
-export const FooterLink = styled(LinkLRouterLink)`
+export const FooterLink = styled(RouterLink)`
   color: ${({ theme }) => theme.colors.text};
   transition: ${({ theme }) => theme.animation.transition};
 

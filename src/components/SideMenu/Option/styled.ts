@@ -18,6 +18,6 @@ export const OptionIcon = styled(Icon)``;
 export const OptionTitle = styled(TitleTemplate)`
   font-size: ${({ theme }) => theme.font.size};
   font-weight: ${({ theme }) => theme.font.medium};
-  transition: ${({ theme }) => theme.animation.transition};
+  transition: none;
   color: inherit;
 `;

@@ -1,6 +1,6 @@
 import { Viewposts } from '@appTypes/enums';
 import { DEFAULT_GAP } from '@constants/variables';
-import { Icon, TitleTemplate, UserAvatar, UserContact } from '@styles';
+import { TitleTemplate, UserAvatar, UserContact } from '@styles';
 import styled, { css } from 'styled-components';
 
 export const Container = styled.article`
@@ -69,7 +69,6 @@ export const Likes = styled.div`
   column-gap: 5px;
   align-items: flex-end;
   align-self: flex-start;
-  transition: ${({ theme }) => theme.animation.transition};
   user-select: none;
 `;
 
@@ -86,19 +85,4 @@ export const LikeCounter = styled.span<{ $isActive: boolean }>`
     css`
       color: ${({ theme }) => theme.colors.error};
     `}
-`;
-
-export const DeleteButton = styled(Icon)`
-  transition: ${({ theme }) => theme.animation.transition};
-
-  &:hover {
-    cursor: pointer;
-    transition: ${({ theme }) => theme.animation.transition};
-    border-color: ${({ theme }) => theme.colors.link};
-  }
-
-  &:active {
-    transition: ${({ theme }) => theme.animation.transition};
-    transform: scale(0.8);
-  }
 `;

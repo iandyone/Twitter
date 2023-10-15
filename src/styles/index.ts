@@ -43,7 +43,6 @@ body {
   font-family: ${({ theme }) => theme.font.family};
   font-size: ${({ theme }) => theme.font.size};
   color: ${({ theme }) => theme.colors.text};
-  transition: ${({ theme }) => theme.animation.transition};
   background-color: white;
   scroll-behavior: smooth;
 }
@@ -167,6 +166,8 @@ export const AppContainer = styled.div`
 
 export const PageWrapper = styled.div`
   min-height: 100vh;
+  transition: ${({ theme }) => theme.animation.transition};
+  background-color: ${({ theme }) => theme.colors.bgApp};
 `;
 
 export const Icon = styled.img`

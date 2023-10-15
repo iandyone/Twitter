@@ -1,8 +1,8 @@
 import { ISideMenuOption } from '@appTypes';
-import homeIcon from '@assets/icons/home.svg';
-import profileIcon from '@assets/icons/profile.svg';
 import twitterIcon from '@assets/icons/twitter.svg';
 import { Account } from '@components/Account';
+import { HomeIcon } from '@components/SVG/Home';
+import { ProfileIcon } from '@components/SVG/Profile';
 import { AppRoutes } from '@constants/variables';
 import { useDispatchTyped, useSelectorTyped } from '@hooks/redux';
 import { useMobile } from '@hooks/window';
@@ -14,14 +14,14 @@ import { Option } from './Option';
 import { Container, Menu, Navigation, TweetButton, TwitterIcon, User, Wrapper } from './styled';
 
 export const SideMenu: FC = () => {
-  const { uid, email } = useSelectorTyped((store) => store.user);
+  const { uid, email, name } = useSelectorTyped((store) => store.user);
   const { tweetPopup } = useSelectorTyped((store) => store.app);
   const dispatch = useDispatchTyped();
   const isMobileView = useMobile();
 
   const sideMenuOptions: ISideMenuOption[] = [
-    { title: 'Home', path: AppRoutes.HOME, icon: homeIcon },
-    { title: 'Profile', path: AppRoutes.page.PROFILE, icon: profileIcon },
+    { title: 'Home', path: AppRoutes.HOME, element: HomeIcon },
+    { title: 'Profile', path: AppRoutes.page.PROFILE, element: ProfileIcon },
   ];
 
   const handlerOnClickTweet = useCallback(() => {
@@ -47,7 +47,7 @@ export const SideMenu: FC = () => {
         </Navigation>
         {!isMobileView && (
           <User>
-            <Account userName={uid} userEmail={email} />
+            <Account userName={name ?? uid} userEmail={email} />
           </User>
         )}
       </Container>

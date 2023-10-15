@@ -1,5 +1,5 @@
 import { Gender, handler } from './types';
-
+import { NamedExoticComponent } from 'react';
 export interface ITheme {
   dark: IThemeStyles;
   light: IThemeStyles;
@@ -29,16 +29,19 @@ export interface IColor {
   buttonBg: string;
   buttonBg2: string;
   buttonText: string;
+  buttonText2: string;
 
   error: string;
 
   searchBg: string;
   searchLink: string;
+  searchBorder: string;
 
   inputFocus: string;
   inputHover: string;
   inputError: string;
   inputValid: string;
+  inputBg: string;
 
   burgerLine: string;
   burgerBg: string;
@@ -47,6 +50,9 @@ export interface IColor {
 
   modalBg: string;
   modalText: string;
+  modalBorder: string;
+
+  popupBg: string;
 
   themeButtonBorder: string;
   themeButtonBg: string;
@@ -98,8 +104,8 @@ export interface IUserProfileData {
 export interface ISideMenuOption {
   title: string;
   path: string;
-  icon: string;
   onClick?: handler;
+  element: NamedExoticComponent<ILikeIconProps>;
 }
 
 export interface IPost {
@@ -114,4 +120,9 @@ export interface IPost {
 
 export interface IPostDB extends IPost {
   timestamp: object | number;
+}
+
+export interface ILikeIconProps {
+  isActive?: boolean;
+  onClick?: handler;
 }

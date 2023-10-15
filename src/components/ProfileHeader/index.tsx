@@ -2,8 +2,9 @@ import userAvatar from '@assets/icons/avatar.svg';
 import profileBg from '@assets/images/profileBg.webp';
 import { useDispatchTyped, useSelectorTyped } from '@hooks/redux';
 import { useMobile } from '@hooks/window';
+import { firebaseDB } from '@services/database';
 import { setProfilePopup } from '@store/reducers/app';
-import { FC, memo, useMemo } from 'react';
+import { FC, memo, useEffect, useMemo, useState } from 'react';
 
 import { data } from './config';
 import { ProfilePopup } from './Modal';
@@ -25,11 +26,17 @@ import {
 } from './styled';
 
 const ProfileHeaderComponent: FC = () => {
-  const { uid, email } = useSelectorTyped((state) => state.user);
+  const { uid, email, name } = useSelectorTyped((state) => state.user);
   const { profilePopup } = useSelectorTyped((store) => store.app);
   const { tweetCounterText, editButton } = useMemo(getTextContent, []);
+  const { all } = useSelectorTyped((store) => store.posts);
   const dispatch = useDispatchTyped();
   const isMobile = useMobile();
+  const tweetCounter = useMemo(getUserPosts, [all, uid]);
+  const [followings, setFollowings] = useState(0);
+  function getUserPosts() {
+    return all.filter((post) => post.user === uid).length;
+  }
 
   function getTextContent() {
     return { ...data };
@@ -39,9 +46,20 @@ const ProfileHeaderComponent: FC = () => {
     dispatch(setProfilePopup(true));
   }
 
+  async function getFollowings() {
+    const data = await firebaseDB.getUsers('');
+    setFollowings(Object.keys(data).length);
+  }
+
+  useEffect(() => {
+    getFollowings();
+  }, []);
+
   return (
     <Container>
-      <TweetsCounter>13 {tweetCounterText}</TweetsCounter>
+      <TweetsCounter>
+        {tweetCounter} {tweetCounterText}
+      </TweetsCounter>
       <Banner src={profileBg} />
       <Profile>
         <Header>
@@ -49,15 +67,15 @@ const ProfileHeaderComponent: FC = () => {
           {!isMobile && <EditButton onClick={handlerOnClickEditButton}>{editButton}</EditButton>}
         </Header>
         <Body>
-          <Name>{uid}</Name>
+          <Name>{name ?? uid}</Name>
           <Contact>{email}</Contact>
           <Status>Some status</Status>
           <Social>
             <Subscribes>
-              <SubCounter>13</SubCounter> lorem
+              <SubCounter>{followings}</SubCounter> followers
             </Subscribes>
             <Subscribes>
-              <SubCounter>13</SubCounter> lorem
+              <SubCounter>{followings}</SubCounter> following
             </Subscribes>
           </Social>
           {isMobile && <EditButton onClick={handlerOnClickEditButton}>{editButton}</EditButton>}

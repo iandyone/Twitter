@@ -119,12 +119,9 @@ class Database {
 
   async getUsers(userName: string) {
     try {
-      const usersQuery = query(
-        this.userRef,
-        orderByChild('name'),
-        startAt(userName),
-        endAt(userName + '\uf8ff'),
-      );
+      const usersQuery = userName
+        ? query(this.userRef, orderByChild('name'), startAt(userName), endAt(userName + '\uf8ff'))
+        : query(this.userRef);
       const response = await get(usersQuery);
       return response.val();
     } catch (error) {

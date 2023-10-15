@@ -1,6 +1,6 @@
 import { IFooterLink, IUser } from '@appTypes';
-import searchIcon from '@assets/icons/search.svg';
 import { Account } from '@components/Account';
+import { SearchIcon } from '@components/SVG/Search';
 import { AppRoutes } from '@constants/variables';
 import { useDebounce } from '@hooks/common';
 import { useMobile } from '@hooks/window';
@@ -15,7 +15,7 @@ import {
   Results,
   Search,
   SearchContainer,
-  SearchIcon,
+  SearchIconContainer,
   Title,
   Wrapper,
 } from './styled';
@@ -67,7 +67,10 @@ export const SearchBar: FC = () => {
       <Container>
         <SearchContainer>
           <Search>
-            <SearchIcon src={searchIcon} />
+            {/* <SearchIcon src={searchIcon} /> */}
+            <SearchIconContainer>
+              <SearchIcon />
+            </SearchIconContainer>
             <Input value={searchData} onChange={handlerOnChangeSearch} placeholder='Search Users' />
           </Search>
           {users.length > 0 && (

@@ -12,7 +12,7 @@ interface IAppState {
 }
 
 const initialState: IAppState = {
-  theme: 'light',
+  theme: (localStorage.getItem('theme') as Theme) ?? 'light',
   burger: false,
   selectDay: false,
   selectMonth: false,

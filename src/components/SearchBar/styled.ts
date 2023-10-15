@@ -1,6 +1,6 @@
 import { Viewposts } from '@appTypes/enums';
 import { DEFAULT_GAP } from '@constants/variables';
-import { Icon, InputTemplate, LinkTemplate, SidesTemplate, TitleTemplate } from '@styles';
+import { InputTemplate, LinkTemplate, SidesTemplate, TitleTemplate } from '@styles';
 import styled from 'styled-components';
 
 export const Wrapper = styled.aside`
@@ -55,18 +55,18 @@ export const Input = styled(InputTemplate)`
   border-radius: 30px;
   width: 100%;
   height: 48px;
-  padding: 15px 15px 15px 48px;
+  padding: 15px 15px 15px 42px;
   color: ${({ theme }) => theme.colors.text};
   transition: ${({ theme }) => theme.animation.transition};
   font-size: ${({ theme }) => theme.font.size};
-  font-weight: ${({ theme }) => theme.font.medium};
+  font-weight: ${({ theme }) => theme.font.regular};
   background: ${({ theme }) => theme.colors.searchBg};
 `;
 
-export const SearchIcon = styled(Icon)`
+export const SearchIconContainer = styled.div`
   position: absolute;
   top: 50%;
-  left: ${DEFAULT_GAP};
+  left: 15px;
   transform: translateY(-50%);
 `;
 
@@ -75,6 +75,8 @@ export const Results = styled.div`
   flex-direction: column;
   row-gap: 32px;
   background: ${({ theme }) => theme.colors.searchBg};
+  transition: ${({ theme }) => theme.animation.transition};
+  border: 1px solid ${({ theme }) => theme.colors.searchBorder};
   padding: ${DEFAULT_GAP};
   border-radius: 10px;
   width: 100%;

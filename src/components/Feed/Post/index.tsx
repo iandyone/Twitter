@@ -1,6 +1,6 @@
 import userAvatar from '@assets/icons/avatar.svg';
-import deleteIcon from '@assets/icons/trash.svg';
 import { LikeIcon } from '@components/SVG/Like';
+import { XMarkIcon } from '@components/SVG/XMark';
 import { useDispatchTyped, useSelectorTyped } from '@hooks/redux';
 import { firebaseDB } from '@services/database';
 import { updatePostLikes } from '@store/reducers/posts';
@@ -13,7 +13,6 @@ import {
   Body,
   Container,
   Content,
-  DeleteButton,
   Header,
   HeaderContent,
   LikeCounter,
@@ -91,7 +90,7 @@ const PostComponent: FC<IPostProps> = ({ post }) => {
             <UserContact>{email} · </UserContact>
             <PostDate>{postDate}</PostDate>
           </HeaderContent>
-          {isUserPost && <DeleteButton src={deleteIcon} onClick={handlerOnDelete} />}
+          {isUserPost && <XMarkIcon isActive={false} onClick={handlerOnDelete} />}
         </Header>
         <Body>{body}</Body>
         <Likes>
