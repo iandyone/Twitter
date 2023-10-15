@@ -21,8 +21,9 @@ import {
   startAt,
   update,
 } from 'firebase/database';
+import { deleteObject, getDownloadURL, uploadBytes } from 'firebase/storage';
 
-import { database, databaseRefs } from '../../firebase';
+import { createMediaRef, database, databaseRefs } from '../../firebase';
 
 class Database {
   private postsRef;
@@ -148,6 +149,24 @@ class Database {
     updates[`/${userKey}`] = updatedUserData;
     update(this.userRef, updates);
     return updatedUserData;
+  }
+
+  async uploadMedia(postID: number, file: File) {
+    const mediaStorageRef = createMediaRef(postID);
+    const data = await uploadBytes(mediaStorageRef, file);
+    return data;
+  }
+
+  async downloadMedia(postID: number) {
+    const mediaStorageRef = createMediaRef(postID);
+    const data = await getDownloadURL(mediaStorageRef);
+    return data;
+  }
+
+  async removeMedia(postID: number) {
+    const mediaStorageRef = createMediaRef(postID);
+    const data = await deleteObject(mediaStorageRef);
+    return data;
   }
 }
 

@@ -86,3 +86,16 @@ export const LikeCounter = styled.span<{ $isActive: boolean }>`
       color: ${({ theme }) => theme.colors.error};
     `}
 `;
+
+export const MediaContainer = styled.div`
+  display: flex;
+  flex-justify-content: center;
+  align-items: center;
+  margin: 10px 0px;
+`;
+
+export const Media = styled.img`
+  width: 100%;
+  max-height: 250px;
+  object-fit: contain;
+`;

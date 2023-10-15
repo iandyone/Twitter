@@ -6,7 +6,7 @@ import { firebaseDB } from '@services/database';
 import { updatePostLikes } from '@store/reducers/posts';
 import { UserContact } from '@styles';
 import { getDateData, getFormattedPostDate } from '@utils/helpers/date';
-import { FC, memo, useEffect, useMemo, useState } from 'react';
+import { FC, memo, useCallback, useEffect, useMemo, useState } from 'react';
 
 import {
   Avatar,
@@ -17,6 +17,8 @@ import {
   HeaderContent,
   LikeCounter,
   Likes,
+  Media,
+  MediaContainer,
   PostDate,
   User,
 } from './styled';
@@ -24,21 +26,28 @@ import { IPostProps } from './types';
 
 const PostComponent: FC<IPostProps> = ({ post }) => {
   const { uid } = useSelectorTyped((store) => store.user);
-  const { user, email, body, authorAvatar, authName, likes, timestamp } = useMemo(getPostData, [post]);
+  const { user, email, body, authorAvatar, authName, likes, timestamp, media, id } = useMemo(getPostData, [
+    post,
+  ]);
   const [isLiked, setIsLiked] = useState(getLikeStatus);
   const [postLikes, setLikes] = useState(getPostLikes);
-  const dispatch = useDispatchTyped();
-  const isUserPost = user === uid;
-
   const [postDate, setPostDate] = useState<string>(getPostDate);
+  const [mediaURL, setMediaURL] = useState<string>(null);
+  const isUserPost = useMemo(getIsuserPost, [user, uid]);
+  const dispatch = useDispatchTyped();
 
-  useEffect(() => {
-    const intervalID = setInterval(() => {
-      setPostDate(getPostDate());
-    }, 1000);
+  function getIsuserPost() {
+    return user === uid;
+  }
 
-    return () => clearInterval(intervalID);
-  });
+  const downloadPostMedia = useCallback(async () => {
+    if (media) {
+      const data = await firebaseDB.downloadMedia(id);
+      setMediaURL(data);
+
+      return data;
+    }
+  }, [id, media]);
 
   function getPostDate() {
     return getFormattedPostDate(timestamp as number);
@@ -69,16 +78,32 @@ const PostComponent: FC<IPostProps> = ({ post }) => {
     return 0;
   }
 
-  async function handlerOnLike() {
+  async function handlerOnLikePost() {
     const likesList = await firebaseDB.setPostLike(post, uid);
     setIsLiked(!isLiked);
     setLikes(likesList.length);
     dispatch(updatePostLikes({ likes: likesList, postID: post.id }));
   }
 
-  async function handlerOnDelete() {
+  async function handlerOnRemovePost() {
     firebaseDB.removePost(post);
+
+    if (media) {
+      firebaseDB.removeMedia(id);
+    }
   }
+
+  useEffect(() => {
+    downloadPostMedia();
+  }, [downloadPostMedia]);
+
+  useEffect(() => {
+    const intervalID = setInterval(() => {
+      setPostDate(getPostDate());
+    }, 1000);
+
+    return () => clearInterval(intervalID);
+  });
 
   return (
     <Container>
@@ -90,11 +115,16 @@ const PostComponent: FC<IPostProps> = ({ post }) => {
             <UserContact>{email} · </UserContact>
             <PostDate>{postDate}</PostDate>
           </HeaderContent>
-          {isUserPost && <XMarkIcon isActive={false} onClick={handlerOnDelete} />}
+          {isUserPost && <XMarkIcon isActive={false} onClick={handlerOnRemovePost} />}
         </Header>
         <Body>{body}</Body>
+        {media && (
+          <MediaContainer>
+            <Media src={mediaURL} />
+          </MediaContainer>
+        )}
         <Likes>
-          <LikeIcon isActive={isLiked} onClick={handlerOnLike} />
+          <LikeIcon isActive={isLiked} onClick={handlerOnLikePost} />
           {postLikes > 0 && <LikeCounter $isActive={isLiked}>{postLikes}</LikeCounter>}
         </Likes>
       </Content>

@@ -115,6 +115,7 @@ export interface IPost {
   likes: string[] | number;
   authorAvatar?: string;
   authName?: string;
+  media?: boolean;
 }
 
 export interface IPostDB extends IPost {

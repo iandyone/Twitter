@@ -1,11 +1,11 @@
 import { IPost } from '@appTypes';
 import userAvatar from '@assets/icons/avatar.svg';
-import pictureIcon from '@assets/icons/image.svg';
+// import pictureIcon from '@assets/icons/image.svg';
 import { useDispatchTyped, useSelectorTyped } from '@hooks/redux';
 import { firebaseDB } from '@services/database';
 import { setTweetPopup } from '@store/reducers/app';
 import { setUserPosts } from '@store/reducers/posts';
-import { ChangeEvent, FC, FormEvent, memo, useCallback, useState } from 'react';
+import { ChangeEvent, FC, FormEvent, useCallback, useRef, useState } from 'react';
 
 import {
   Avatar,
@@ -14,30 +14,41 @@ import {
   Content,
   Input,
   PictureButton,
-  PictureButtonIcon,
+  // PictureButtonIcon,
   SubmitButton,
 } from './styled';
 
-const TweetAreaComponent: FC = () => {
+export const TweetArea: FC = () => {
   const [tweet, setTweet] = useState('');
   const { email, uid } = useSelectorTyped((store) => store.user);
   const { avatar, name } = useSelectorTyped((store) => store.user);
+  const [media, setMedia] = useState<File>(null);
   const dispatch = useDispatchTyped();
+  const inputFileRef = useRef(null);
 
   async function handlerOnClickSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+
     if (tweet) {
+      const postID = Math.random();
       const post: IPost = {
-        id: Math.random(),
+        id: postID,
+        email,
         body: tweet,
         user: uid,
         authorAvatar: avatar ?? null,
         authName: name ?? null,
         likes: null,
-        email,
+        media: Boolean(media),
       };
 
+      if (media) {
+        await firebaseDB.uploadMedia(postID, media);
+        inputFileRef.current.value = null;
+      }
+
       await firebaseDB.addPost(post);
+
       getCurrentUserPosts();
 
       setTweet('');
@@ -57,14 +68,19 @@ const TweetAreaComponent: FC = () => {
     dispatch(setUserPosts(userPosts));
   }, [dispatch, uid]);
 
+  function handlerOnChangeMedia(e: ChangeEvent<HTMLInputElement>) {
+    const mediaFile = e.target.files[0];
+    setMedia(mediaFile);
+  }
+
   return (
     <Container onSubmit={handlerOnClickSubmit}>
       <Avatar src={avatar ?? userAvatar} />
       <Content>
         <Input placeholder='What`s happening' value={tweet} onChange={handlerOnChange} />
         <Buttons>
-          <PictureButton>
-            <PictureButtonIcon src={pictureIcon} />
+          <PictureButton type='file' ref={inputFileRef} onChange={handlerOnChangeMedia}>
+            {/* <PictureButtonIcon src={pictureIcon} /> */}
           </PictureButton>
           <SubmitButton type='submit'>Tweet</SubmitButton>
         </Buttons>
@@ -72,5 +88,3 @@ const TweetAreaComponent: FC = () => {
     </Container>
   );
 };
-
-export const TweetArea = memo(TweetAreaComponent);

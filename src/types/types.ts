@@ -13,3 +13,5 @@ export type Theme = 'light' | 'dark';
 export type DataSelect = 'day' | 'month' | 'year' | 'gender';
 
 export type Gender = 'male' | 'female';
+
+export type IFile = string | readonly string[] | number;

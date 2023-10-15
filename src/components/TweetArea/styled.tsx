@@ -54,7 +54,7 @@ export const Buttons = styled.div`
   font-weight: ${({ theme }) => theme.font.bold};
 `;
 
-export const PictureButton = styled.button`
+export const PictureButton = styled.input`
   background: transparent;
 `;
 
