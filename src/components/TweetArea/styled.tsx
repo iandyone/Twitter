@@ -49,13 +49,15 @@ export const Input = styled.textarea`
 export const Buttons = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   line-height: 120%;
-  font-style: ${({ theme }) => theme.font.size};
+  font-size: ${({ theme }) => theme.font.size};
   font-weight: ${({ theme }) => theme.font.bold};
 `;
 
-export const PictureButton = styled.input`
+export const FileInput = styled.input`
   background: transparent;
+  display: none;
 `;
 
 export const SubmitButton = styled(ButtonTemplate)`
@@ -86,4 +88,22 @@ export const PictureButtonIcon = styled(Icon)`
     transition: ${({ theme }) => theme.animation.transition};
     transform: ${({ theme }) => theme.animation.transformActive};
   }
+`;
+
+export const ImageIcon = styled.label`
+  display: flex;
+  column-gap: 10px;
+`;
+export const MediaDataContainer = styled.div`
+  display: flex;
+  column-gap: 4px;
+`;
+
+export const MediaData = styled.span`
+  font-weight: ${({ theme }) => theme.font.regular};
+`;
+
+export const RemoveIcon = styled(Icon)`
+  width: 24px;
+  height: 24px;
 `;
