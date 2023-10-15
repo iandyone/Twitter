@@ -98,4 +98,8 @@ export const Media = styled.img`
   width: 100%;
   max-height: 250px;
   object-fit: contain;
+
+  @media (max-width: ${Viewposts.MOBILE}px) {
+    max-height: 200px;
+  }
 `;

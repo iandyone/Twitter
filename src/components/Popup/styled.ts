@@ -27,7 +27,7 @@ export const PopupElement = styled.div<{ $isVisible: boolean }>`
 `;
 
 export const Content = styled.div<{ $isVisible: boolean }>`
-  transition: ${({ theme }) => theme.animation.transition};
+  transition: ${({ theme }) => theme.animations.transition};
   opacity: 0;
 
   ${({ $isVisible }) =>
@@ -38,7 +38,7 @@ export const Content = styled.div<{ $isVisible: boolean }>`
       width: 70vw;
       max-height: auto;
       min-height: 20vw;
-      transition: ${({ theme }) => theme.animation.transition};
+      transition: ${({ theme }) => theme.animations.transition};
       border: 1px solid ${({ theme }) => theme.colors.modalBorder};
       background: ${({ theme }) => theme.colors.modalBg};
       color: ${({ theme }) => theme.colors.text};

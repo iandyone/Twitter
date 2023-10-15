@@ -15,7 +15,7 @@ export const Label = styled(LabelTemplate)`
   height: 14px;
   padding-left: 2px;
   color: ${({ theme }) => theme.colors.text};
-  transition: ${({ theme }) => theme.animation.transition};
+  transition: ${({ theme }) => theme.animations.transition};
 `;
 
 export const Inputelement = styled(InputTemplate).attrs(({ type }) => ({
@@ -24,7 +24,7 @@ export const Inputelement = styled(InputTemplate).attrs(({ type }) => ({
   width: 100%;
   padding: 16px 12px;
   font-size: 14px;
-  transition: ${({ theme }) => theme.animation.transition};
+  transition: ${({ theme }) => theme.animations.transition};
   background: ${({ theme }) => theme.colors.inputBg};
 
   @media (max-width: ${Viewposts.MOBILE}px) {

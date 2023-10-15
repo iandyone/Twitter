@@ -9,7 +9,7 @@ export const Container = styled.div`
 
 export const TweetsCounter = styled.h3`
   font-size: 16px;
-  opacity: ${({ theme }) => theme.animation.opacity};
+  opacity: ${({ theme }) => theme.animations.opacity};
   margin-bottom: 18px;
   padding: 0px ${DEFAULT_GAP};
 
@@ -70,12 +70,12 @@ export const EditButton = styled(ButtonTemplate)`
   background: transparent;
   color: ${({ theme }) => theme.colors.text};
   border: 1px solid ${({ theme }) => theme.colors.text};
-  transition: ${({ theme }) => theme.animation.transition};
+  transition: ${({ theme }) => theme.animations.transition};
   align-self: flex-end;
 
   &:hover {
     color: ${({ theme }) => theme.colors.buttonBg};
-    transition: ${({ theme }) => theme.animation.transition};
+    transition: ${({ theme }) => theme.animations.transition};
   }
 
   @media (max-width: ${Viewposts.TABLET}px) {
@@ -117,7 +117,7 @@ export const TelegramLink = styled.a`
   margin-bottom: ${DEFAULT_GAP};
 
   color: ${({ theme }) => theme.colors.link};
-  transition: ${({ theme }) => theme.animation.transition};
+  transition: ${({ theme }) => theme.animations.transition};
 
   &:hover {
     cursor: pointer;

@@ -9,7 +9,7 @@ export interface IThemeStyles {
   font: IFont;
   colors: IColor;
   spaces?: ISpace;
-  animation?: IAnimation;
+  animations?: IAnimation;
 }
 
 export interface IUserProps {

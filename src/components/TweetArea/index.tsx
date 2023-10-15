@@ -6,7 +6,7 @@ import { useDispatchTyped, useSelectorTyped } from '@hooks/redux';
 import { firebaseDB } from '@services/database';
 import { setTweetPopup } from '@store/reducers/app';
 import { setUserPosts } from '@store/reducers/posts';
-import { ChangeEvent, FC, FormEvent, useCallback, useRef, useState } from 'react';
+import { ChangeEvent, FC, FormEvent, MouseEvent, useCallback, useRef, useState } from 'react';
 
 import {
   Avatar,
@@ -17,7 +17,6 @@ import {
   ImageIcon,
   Input,
   MediaData,
-  MediaDataContainer,
   PictureButtonIcon,
   RemoveIcon,
   SubmitButton,
@@ -48,6 +47,16 @@ export const TweetArea: FC = () => {
     }
   }
 
+  function handlerOnResetMedia(e: MouseEvent<HTMLElement>) {
+    clearMediaStash();
+    e.preventDefault();
+  }
+
+  function clearMediaStash() {
+    inputFileRef.current.value = null;
+    setMedia(null);
+  }
+
   async function handlerOnClickSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
@@ -72,9 +81,10 @@ export const TweetArea: FC = () => {
       await firebaseDB.addPost(post);
 
       getCurrentUserPosts();
+      clearMediaStash();
+      dispatch(setTweetPopup(false));
 
       setTweet('');
-      dispatch(setTweetPopup(false));
     }
   }
 
@@ -87,10 +97,10 @@ export const TweetArea: FC = () => {
           <ImageIcon htmlFor='media'>
             <PictureButtonIcon src={pictureIcon} />
             {media && (
-              <MediaDataContainer>
+              <>
                 <MediaData>{media.name}</MediaData>
-                <RemoveIcon src={removeIcon} />
-              </MediaDataContainer>
+                <RemoveIcon src={removeIcon} onClick={handlerOnResetMedia} />
+              </>
             )}
           </ImageIcon>
           <FileInput type='file' id='media' ref={inputFileRef} onChange={handlerOnChangeMedia} />

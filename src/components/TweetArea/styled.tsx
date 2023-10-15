@@ -35,7 +35,7 @@ export const Input = styled.textarea`
   font-size: 20px;
   line-height: 110%;
   resize: none;
-  transition: ${({ theme }) => theme.animation.transition};
+  transition: ${({ theme }) => theme.animations.transition};
   border-top: 1px solid ${({ theme }) => theme.colors.border};
   font-weight: ${({ theme }) => theme.font.medium};
   background: ${({ theme }) => theme.colors.inputBg};
@@ -64,37 +64,33 @@ export const SubmitButton = styled(ButtonTemplate)`
   height: 40px;
   max-width: 110px;
   font-weight: ${({ theme }) => theme.font.medium};
-  transition: ${({ theme }) => theme.animation.transition};
+  transition: ${({ theme }) => theme.animations.transition};
 
   &:hover {
-    transition: ${({ theme }) => theme.animation.transition};
-    opacity: ${({ theme }) => theme.animation.opacity};
+    transition: ${({ theme }) => theme.animations.transition};
+    opacity: ${({ theme }) => theme.animations.opacity};
   }
 
   &:active {
-    transition: ${({ theme }) => theme.animation.transition};
-    transform: ${({ theme }) => theme.animation.transformActive};
+    transition: ${({ theme }) => theme.animations.transition};
+    transform: ${({ theme }) => theme.animations.transformActive};
   }
 `;
 
 export const PictureButtonIcon = styled(Icon)`
-  transition: ${({ theme }) => theme.animation.transition};
+  transition: ${({ theme }) => theme.animations.transition};
 
   &:hover {
     cursor: pointer;
   }
 
   &:active {
-    transition: ${({ theme }) => theme.animation.transition};
-    transform: ${({ theme }) => theme.animation.transformActive};
+    transition: ${({ theme }) => theme.animations.transition};
+    transform: ${({ theme }) => theme.animations.transformActive};
   }
 `;
 
 export const ImageIcon = styled.label`
-  display: flex;
-  column-gap: 10px;
-`;
-export const MediaDataContainer = styled.div`
   display: flex;
   column-gap: 4px;
 `;
@@ -106,4 +102,18 @@ export const MediaData = styled.span`
 export const RemoveIcon = styled(Icon)`
   width: 24px;
   height: 24px;
+
+  transition: ${({ theme }) => theme.animations.transition};
+
+  &:hover {
+    cursor: pointer;
+    transition: ${({ theme }) => theme.animations.transition};
+    opacity: ${({ theme }) => theme.animations.opacity};
+    border-color: ${({ theme }) => theme.colors.link};
+  }
+
+  &:active {
+    transition: ${({ theme }) => theme.animations.transition};
+    transform: ${({ theme }) => theme.animations.transformActive};
+  }
 `;

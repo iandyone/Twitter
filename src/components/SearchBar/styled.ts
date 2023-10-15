@@ -57,7 +57,7 @@ export const Input = styled(InputTemplate)`
   height: 48px;
   padding: 15px 15px 15px 42px;
   color: ${({ theme }) => theme.colors.text};
-  transition: ${({ theme }) => theme.animation.transition};
+  transition: ${({ theme }) => theme.animations.transition};
   font-size: ${({ theme }) => theme.font.size};
   font-weight: ${({ theme }) => theme.font.regular};
   background: ${({ theme }) => theme.colors.searchBg};
@@ -75,7 +75,7 @@ export const Results = styled.div`
   flex-direction: column;
   row-gap: 32px;
   background: ${({ theme }) => theme.colors.searchBg};
-  transition: ${({ theme }) => theme.animation.transition};
+  transition: ${({ theme }) => theme.animations.transition};
   border: 1px solid ${({ theme }) => theme.colors.searchBorder};
   padding: ${DEFAULT_GAP};
   border-radius: 10px;
@@ -99,6 +99,6 @@ export const Footer = styled.div`
 
 export const Link = styled(LinkTemplate)`
   color: ${({ theme }) => theme.colors.searchLink};
-  transition: ${({ theme }) => theme.animation.transition};
+  transition: ${({ theme }) => theme.animations.transition};
   font-size: 16px;
 `;

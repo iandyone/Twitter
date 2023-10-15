@@ -6,13 +6,13 @@ export const OptionElement = styled.li`
   width: 100%;
   background: ${({ theme }) => theme.colors.bgApp};
   border: 1px solid ${({ theme }) => theme.colors.border};
-  transition: ${({ theme }) => theme.animation.transition};
+  transition: ${({ theme }) => theme.animations.transition};
   border-top: none;
 
   &:hover {
     cursor: pointer;
-    transition: ${({ theme }) => theme.animation.transition};
-    opacity: ${({ theme }) => theme.animation.opacity};
+    transition: ${({ theme }) => theme.animations.transition};
+    opacity: ${({ theme }) => theme.animations.opacity};
     color: ${({ theme }) => theme.colors.borderHover};
   }
 
