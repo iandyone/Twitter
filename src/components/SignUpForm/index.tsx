@@ -5,11 +5,11 @@ import { InputAuth } from '@components/InputAuth';
 import { Select } from '@components/Select';
 import { AppRoutes, PHONE_MASK } from '@constants/variables';
 import { useDispatchTyped } from '@hooks/redux';
+import { firebaseDB } from '@services/database';
 import { logoutUser, setUser } from '@store/reducers/user';
 import { AppContainer, PageWrapper } from '@styles';
 import { getDateData, getDaysAmountInAMonth } from '@utils/helpers/date';
 import { getEmailValidation, getPasswordValidation, getPhoneValidation } from '@utils/helpers/validators';
-import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
 import { ChangeEvent, FC, FormEvent, useCallback, useEffect, useMemo, useReducer, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -30,6 +30,7 @@ export const SignUpForm: FC = () => {
     emailErrorMessage,
     phoneErrorMessage,
     passwordErrorMessage,
+    emailWrongMessage,
   } = useMemo(getTextContent, []);
 
   const initialState: IReducerState = useMemo(getInitialState, []);
@@ -232,40 +233,42 @@ export const SignUpForm: FC = () => {
     if (phoneRef) phoneRef.current.disabled = status;
   }
 
-  function handlerOnSubmit(e: FormEvent) {
+  async function handlerOnSubmit(e: FormEvent) {
+    e.preventDefault();
     const isEmailValid = getEmailValidation(email);
     const isPhoneValid = getPhoneValidation(phone);
     const isPasswordValid = getPasswordValidation(password);
-    const isValidForm = isEmailValid && isPasswordValid && isPhoneValid && day && month && year;
+    const isAccountAlredyExist = await firebaseDB.getIsUserAlredyExist(email);
+    const isValidForm =
+      isEmailValid && isPasswordValid && isPhoneValid && day && month && year && !isAccountAlredyExist;
 
     if (!day) dispatch({ type: ActionsTypes.SET_DAY_ERROR, payload: true });
     if (!month) dispatch({ type: ActionsTypes.SET_MONTH_ERROR, payload: true });
     if (!year) dispatch({ type: ActionsTypes.SET_YEAR_ERROR, payload: true });
     if (!isEmailValid) dispatch({ type: ActionsTypes.SET_EMAIL_ERROR, payload: emailErrorMessage });
+    if (isAccountAlredyExist) dispatch({ type: ActionsTypes.SET_EMAIL_ERROR, payload: emailWrongMessage });
     if (!isPhoneValid) dispatch({ type: ActionsTypes.SET_PHONE_ERROR, payload: phoneErrorMessage });
     if (!isPasswordValid) dispatch({ type: ActionsTypes.SET_PASSWORD_ERROR, payload: passwordErrorMessage });
 
     if (isValidForm) {
-      const auth = getAuth();
-      setInputsDisabled();
+      try {
+        setInputsDisabled();
+        const { uid } = await firebaseDB.getAuthWithEmailAndPass(email, password);
+        const birthMonth = Months[month as keyof typeof Months];
+        const birthDay = Number(day);
+        const birthYear = Number(year);
+        const userBirthday = new Date(birthYear, birthMonth, birthDay).getTime();
 
-      createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          const { uid, email }: IUser = userCredential.user;
-          const birthYear = Number(year);
-          const birthMonth = Months[month as keyof typeof Months];
-          const birthDay = Number(day);
-          const userBirthday = new Date(birthYear, birthMonth, birthDay).getTime();
+        const user: IUser = { uid, email, birthday: userBirthday };
 
-          dispatchRedux(setUser({ uid, email, birthday: userBirthday }));
-          navigate(AppRoutes.page.FEED);
-        })
-        .catch(() => {
-          setInputsDisabled(false);
-          dispatchRedux(logoutUser());
-        });
+        dispatchRedux(setUser(user));
+        await firebaseDB.addUser(user);
+        navigate(AppRoutes.page.FEED);
+      } catch (error) {
+        setInputsDisabled(false);
+        dispatchRedux(logoutUser());
+      }
     }
-    e.preventDefault();
   }
 
   return (

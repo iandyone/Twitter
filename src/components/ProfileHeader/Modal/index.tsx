@@ -1,49 +1,30 @@
 import { IUserProfileData } from '@appTypes';
+import { Genders } from '@appTypes/enums';
 import { Popup } from '@components/Popup';
-import { DEFAULT_GAP } from '@constants/variables';
-import { useDispatchTyped } from '@hooks/redux';
+import { Select } from '@components/Select';
+import { useDispatchTyped, useSelectorTyped } from '@hooks/redux';
+import { firebaseDB } from '@services/database';
+import { setProfilePopup, setSelectGender } from '@store/reducers/app';
 import { setUserProfile } from '@store/reducers/user';
-import { ButtonTemplate, TitleTemplate } from '@styles';
-import { FC, FormEvent, useCallback, useState } from 'react';
-import styled from 'styled-components';
+import { FC, FormEvent, useCallback, useMemo, useState } from 'react';
 
 import { Input } from './Input';
-
-export const Container = styled.article`
-  width: 100%;
-  height: 100%;
-`;
-
-export const Header = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: ${DEFAULT_GAP};
-`;
-
-export const Title = styled(TitleTemplate)`
-  font-size: 24px;
-  text-align: center;
-`;
-
-export const SaveButton = styled(ButtonTemplate)`
-  width: 68px;
-  height: 32px;
-`;
-
-export const Body = styled.form`
-  display: flex;
-  flex-direction: column;
-  row-gap: 10px;
-`;
+import { Body, Container, Header, SaveButton, Title } from './styled';
 
 export const ProfilePopup: FC = () => {
   const [userName, setUserName] = useState('');
   const [userSurname, setUserSurname] = useState('');
   const [userPass, setUserPass] = useState('');
   const [userTelegram, setUserTelegram] = useState('');
+  const getderList = useMemo(getGenderList, []);
 
+  const { gender, uid } = useSelectorTyped((store) => store.user);
+  const [userGender, setUserGender] = useState(gender);
   const dispatch = useDispatchTyped();
+
+  function getGenderList() {
+    return Object.values(Genders);
+  }
 
   const handlerOnChangeUsername = useCallback(
     (name: string) => {
@@ -73,29 +54,52 @@ export const ProfilePopup: FC = () => {
     [setUserTelegram],
   );
 
-  function handlerOnSubmit(e: FormEvent) {
-    const userProfileData: IUserProfileData = {
-      name: userName,
-      surname: userSurname,
-      telegram: userTelegram,
-    };
+  const handlerOnClickUserGender = useCallback(
+    (gender: string) => {
+      setUserGender(gender as Genders);
+      dispatch(setSelectGender(false));
+    },
+    [dispatch],
+  );
 
+  function handlerOnSubmit(e: FormEvent) {
+    const userProfileData: IUserProfileData = {};
+
+    if (userSurname && userName) {
+      userProfileData['name'] = `${userName} ${userSurname}`;
+    } else if (userName) {
+      userProfileData['name'] = userName;
+    } else if (userSurname) {
+      userProfileData['name'] = userSurname;
+    }
+
+    if (userTelegram) userProfileData['telegram'] = userTelegram;
+    if (userGender) userProfileData['gender'] = userGender;
+
+    firebaseDB.updateUserData(userProfileData, uid);
     dispatch(setUserProfile(userProfileData));
+    dispatch(setProfilePopup(false));
     e.preventDefault();
   }
 
   return (
     <Popup>
-      <Container>
+      <Container onSubmit={handlerOnSubmit}>
         <Header>
           <Title>Edit profile</Title>
-          <SaveButton>Save</SaveButton>
+          <SaveButton type='submit'>Save</SaveButton>
         </Header>
-        <Body onSubmit={handlerOnSubmit}>
+        <Body>
           <Input type='text' label='Name' value={userName} onChange={handlerOnChangeUsername} />
           <Input type='text' label='Surname' value={userSurname} onChange={handlerOnChangeUserSurname} />
           <Input type='password' label='Password' value={userPass} onChange={handlerOnChangeUserPass} />
           <Input type='text' label='Telegram' value={userTelegram} onChange={handlerOnChangeUserTelegram} />
+          <Select
+            type='gender'
+            data={getderList}
+            title={userGender ?? 'Ghoose the gender'}
+            onClick={handlerOnClickUserGender}
+          />
         </Body>
       </Container>
     </Popup>

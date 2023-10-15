@@ -7,16 +7,18 @@ interface IAppState {
   selectDay: boolean;
   selectMonth: boolean;
   selectYear: boolean;
+  selectGender: boolean;
   tweetPopup: boolean;
   profilePopup: boolean;
 }
 
 const initialState: IAppState = {
-  theme: 'light',
+  theme: (localStorage.getItem('theme') as Theme) ?? 'light',
   burger: false,
   selectDay: false,
   selectMonth: false,
   selectYear: false,
+  selectGender: false,
   tweetPopup: false,
   profilePopup: false,
 };
@@ -46,6 +48,9 @@ const appSlice = createSlice({
     setProfilePopup(state, action: PayloadAction<boolean>) {
       state.profilePopup = action.payload ?? !state.profilePopup;
     },
+    setSelectGender(state, action: PayloadAction<boolean>) {
+      state.selectGender = action.payload ?? !state.selectGender;
+    },
   },
 });
 
@@ -57,6 +62,7 @@ export const {
   setSelectMonth,
   setSelectDay,
   setSelectYear,
+  setSelectGender,
   setTweetPopup,
   setProfilePopup,
 } = appSlice.actions;

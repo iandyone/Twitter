@@ -3,10 +3,10 @@ import twitterIcon from '@assets/icons/twitter.svg';
 import { InputAuth } from '@components/InputAuth';
 import { AppRoutes } from '@constants/variables';
 import { useDispatchTyped } from '@hooks/redux';
+import { firebaseDB } from '@services/database';
 import { setUser } from '@store/reducers/user';
 import { AppContainer, PageWrapper } from '@styles';
 import { getEmailValidation, getPasswordValidation } from '@utils/helpers/validators';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { ChangeEvent, FC, FormEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -33,6 +33,7 @@ export const LoginForm: FC = () => {
     passwordErrorMessage,
     emailPlaceholder,
     passwordPlaceholder,
+    accountErrorMessage,
   } = useMemo(getTextContent, []);
 
   useEffect(() => {
@@ -73,9 +74,12 @@ export const LoginForm: FC = () => {
     buttonRef.current.disabled = status;
   }
 
-  function handlerOnSubmit(e: FormEvent) {
+  async function handlerOnSubmit(e: FormEvent) {
+    e.preventDefault();
     const isEmailValid = getEmailValidation(email);
     const isPasswordValid = getPasswordValidation(password);
+    const isAccountExist = await firebaseDB.getIsUserAlredyExist(email);
+    const isValidData = isEmailValid && isPasswordValid && isAccountExist;
 
     if (!isEmailValid) {
       setEmailError(emailErrorMessage);
@@ -85,23 +89,24 @@ export const LoginForm: FC = () => {
       setPasswordError(passwordErrorMessage);
     }
 
-    if (isEmailValid && isPasswordValid) {
-      setInputsDisabled();
-      const auth = getAuth();
-
-      signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          const { uid, email }: IUser = userCredential.user;
-          dispatch(setUser({ uid, email }));
-          navigate(AppRoutes.page.FEED);
-        })
-        .catch((error: Error) => {
-          setPasswordError(error.message);
-          setInputsDisabled(false);
-        });
+    if (!isAccountExist) {
+      setEmailError(accountErrorMessage);
+      return;
     }
 
-    e.preventDefault();
+    if (isValidData) {
+      try {
+        setInputsDisabled();
+        const { uid } = await firebaseDB.getSignInWithEmailAndPassword(email, password);
+        const { user } = await firebaseDB.getUserData(uid);
+
+        dispatch(setUser(user as IUser));
+        navigate(AppRoutes.page.FEED);
+      } catch (error) {
+        setPasswordError(passwordErrorMessage);
+        setInputsDisabled(false);
+      }
+    }
   }
 
   return (

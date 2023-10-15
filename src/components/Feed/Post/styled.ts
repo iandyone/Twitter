@@ -23,9 +23,16 @@ export const Content = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1 1 auto;
+  overflow-wrap: anywhere;
 `;
 
 export const Header = styled.div`
+  display: flex;
+  font-size: ${({ theme }) => theme.font.size};
+  justify-content: space-between;
+`;
+
+export const HeaderContent = styled.div`
   display: flex;
   align-items: flex-end;
   column-gap: 5px;
@@ -38,7 +45,11 @@ export const Header = styled.div`
 `;
 
 export const User = styled(TitleTemplate)`
-  font-size: 20px;
+  max-width: 200px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 16px;
 `;
 
 export const PostDate = styled(UserContact)``;
@@ -58,17 +69,7 @@ export const Likes = styled.div`
   column-gap: 5px;
   align-items: flex-end;
   align-self: flex-start;
-  transition: ${({ theme }) => theme.animation.transition};
-
-  &:hover {
-    cursor: pointer;
-    transition: ${({ theme }) => theme.animation.transition};
-  }
-
-  &:active {
-    transition: ${({ theme }) => theme.animation.transition};
-    transform: ${({ theme }) => theme.animation.transformActive};
-  }
+  user-select: none;
 `;
 
 export const LikeCounter = styled.span<{ $isActive: boolean }>`

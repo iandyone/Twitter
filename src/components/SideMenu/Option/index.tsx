@@ -2,9 +2,9 @@ import { ISideMenuOption } from '@appTypes';
 import { FC, memo } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { Container, OptionIcon, OptionTitle } from './styled';
+import { Container, OptionTitle } from './styled';
 
-const OptionComponent: FC<ISideMenuOption> = ({ icon, path, title, onClick }) => {
+const OptionComponent: FC<ISideMenuOption> = ({ path, title, onClick, element: Icon }) => {
   const navigate = useNavigate();
 
   function handerOnClick() {
@@ -14,7 +14,7 @@ const OptionComponent: FC<ISideMenuOption> = ({ icon, path, title, onClick }) =>
 
   return (
     <Container onClick={handerOnClick}>
-      <OptionIcon src={icon} />
+      <Icon isActive={false} />
       <OptionTitle>{title}</OptionTitle>
     </Container>
   );

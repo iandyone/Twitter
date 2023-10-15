@@ -1,5 +1,7 @@
+import { DatabaseRefs } from '@appTypes/enums';
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
+import { getDatabase, ref } from 'firebase/database';
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_API_KEY,
@@ -12,3 +14,11 @@ const firebaseConfig = {
 
 export const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
+
+export const database = getDatabase(app, import.meta.env.VITE_DB_URL);
+
+export const databaseRefs = {
+  posts: ref(database, DatabaseRefs.POSTS),
+  users: ref(database, DatabaseRefs.USERS),
+  userPosts: ref(database, DatabaseRefs.USER_POSTS),
+};

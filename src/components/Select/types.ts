@@ -4,6 +4,6 @@ export interface ISelectComponentProps {
   title: string;
   data: string[];
   onClick: handlerString;
-  isValid: boolean;
+  isValid?: boolean;
   type: DataSelect;
 }

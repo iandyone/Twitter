@@ -7,11 +7,7 @@ import { IFeedProps } from './types';
 const FeedComponent: FC<IFeedProps> = ({ posts }) => {
   return (
     <Container>
-      <List>
-        {posts.map((post) => (
-          <Post post={post} key={post.body} />
-        ))}
-      </List>
+      <List>{posts && posts.map((post) => <Post post={post} key={String(post.timestamp)} />)}</List>
     </Container>
   );
 };

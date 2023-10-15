@@ -3,21 +3,29 @@ import { Feed } from '@components/Feed';
 import { Header } from '@components/Header';
 import { ProfileHeader } from '@components/ProfileHeader';
 import { TweetArea } from '@components/TweetArea';
-import { AppRoutes, mockPosts } from '@constants/variables';
+import { AppRoutes } from '@constants/variables';
 import { useSelectorTyped } from '@hooks/redux';
 import { PageContainer, SubHeader } from '@styles';
-import { FC, useEffect } from 'react';
+import { FC, useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export const ProfilePage: FC = () => {
-  const { isAuthorized } = useSelectorTyped((store) => store.user);
+  const { isAuthorized, uid } = useSelectorTyped((store) => store.user);
+  const { all } = useSelectorTyped((store) => store.posts);
+  const getUserPosts = useCallback(() => {
+    return all.filter((post) => post.user === uid);
+  }, [uid, all]);
+
   const navigate = useNavigate();
+  const [posts, setPosts] = useState(getUserPosts);
 
   useEffect(() => {
-    if (!isAuthorized) {
-      navigate(AppRoutes.HOME);
-    }
+    if (!isAuthorized) navigate(AppRoutes.HOME);
   });
+
+  useEffect(() => {
+    setPosts(getUserPosts());
+  }, [all, getUserPosts]);
 
   return (
     <PageContainer>
@@ -25,8 +33,12 @@ export const ProfilePage: FC = () => {
       <BurgerMenu />
       <ProfileHeader />
       <TweetArea />
-      <SubHeader>Tweets</SubHeader>
-      <Feed posts={mockPosts} />
+      {posts.length !== 0 && (
+        <>
+          <SubHeader>Tweets</SubHeader>
+          <Feed posts={posts} />
+        </>
+      )}
     </PageContainer>
   );
 };

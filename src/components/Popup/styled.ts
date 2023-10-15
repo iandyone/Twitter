@@ -11,9 +11,7 @@ export const PopupElement = styled.div<{ $isVisible: boolean }>`
   left: 0;
   position: relative;
   z-index: 100;
-  background: rgba(0, 0, 0, 0);
   pointer-events: auto;
-  // transition: ${({ theme }) => theme.animation.transition};
 
   ${({ $isVisible }) =>
     $isVisible &&
@@ -24,7 +22,7 @@ export const PopupElement = styled.div<{ $isVisible: boolean }>`
       display: flex;
       align-items: center;
       justify-content: center;
-      background: rgba(0, 0, 0, 0.8);
+      background: ${({ theme }) => theme.colors.popupBg};
     `}
 `;
 
@@ -38,9 +36,10 @@ export const Content = styled.div<{ $isVisible: boolean }>`
       opacity: 1;
       border-radius: 30px;
       width: 70vw;
-      max-height: 39.25vw;
+      max-height: auto;
       min-height: 20vw;
       transition: ${({ theme }) => theme.animation.transition};
+      border: 1px solid ${({ theme }) => theme.colors.modalBorder};
       background: ${({ theme }) => theme.colors.modalBg};
       color: ${({ theme }) => theme.colors.text};
       padding: ${DEFAULT_GAP};

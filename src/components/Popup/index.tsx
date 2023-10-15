@@ -1,6 +1,7 @@
 import Portal from '@components/Portal';
 import { useDispatchTyped, useSelectorTyped } from '@hooks/redux';
 import { setProfilePopup, setTweetPopup } from '@store/reducers/app';
+import { setPageScroll } from '@utils/helpers/common';
 import { FC, memo, MouseEvent, useEffect, useMemo } from 'react';
 
 import { Content, PopupElement } from './styled';
@@ -18,7 +19,7 @@ const PopupComponent: FC<IModalProps> = ({ children }) => {
   function handlerOnClick() {
     dispatch(setProfilePopup(false));
     dispatch(setTweetPopup(false));
-    document.body.style.position = 'static';
+    setPageScroll(true);
   }
 
   function handlerOnClickContent(e: MouseEvent<HTMLElement>) {
@@ -26,10 +27,9 @@ const PopupComponent: FC<IModalProps> = ({ children }) => {
   }
 
   useEffect(() => {
-    document.body.style.position = popupVisability ? 'fixed' : 'static';
-
+    setPageScroll(!popupVisability);
     return () => {
-      if (!popupVisability) document.body.style.position = 'static';
+      if (!popupVisability) setPageScroll(true);
     };
   }, [popupVisability]);
 

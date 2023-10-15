@@ -10,6 +10,6 @@ export type inputTypes = 'text' | 'tel' | 'password' | 'email';
 
 export type Theme = 'light' | 'dark';
 
-export type DataSelect = 'day' | 'month' | 'year';
+export type DataSelect = 'day' | 'month' | 'year' | 'gender';
 
 export type Gender = 'male' | 'female';

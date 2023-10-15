@@ -1,12 +1,14 @@
-import { IPost } from '@appTypes';
-
 export const PHONE_MASK = '+375';
-export const USER_ELEMENT_HEIGHT = '55px';
+export const USER_ELEMENT_HEIGHT = '52px';
 export const DEFAULT_GAP = '20px';
 
 export const colors = {
-  black: '#000',
+  black: '#272727',
+  black2: '#000000cc',
   white: '#fff',
+  white2: '#e7e9ea',
+  white3: '#0000009e',
+  white4: '#242d34cc',
   blue: '#1da1f2',
   gray: '#e4eaed',
   gray2: '#b3b8bb',
@@ -26,30 +28,3 @@ export const AppRoutes = {
     PROFILE: '/page/profile',
   },
 };
-
-export const mockPosts: IPost[] = [
-  {
-    user: { uid: 'Andrei', email: 'iandyone@yahoo.com' },
-    body: 'some post content some post content some post content some post content some post content some post content some post ',
-    date: new Date(),
-    likes: 3,
-  },
-  {
-    user: { uid: 'Julia', email: 'juliait16@gmail.com' },
-    body: 'some post content some post content some post content some post content some post content some post content some ',
-    date: new Date(),
-    likes: 7,
-  },
-  {
-    user: { uid: 'Vladislav', email: 'fidrik.gmail.com' },
-    body: 'some post content some post content some post content some post content some post content some post content ',
-    date: new Date(),
-    likes: 3,
-  },
-  {
-    user: { uid: 'Dasha', email: 'DarioIIIka@mail.ru' },
-    body: 'some post content some post content some post content some post content some post content some post',
-    date: new Date(),
-    likes: 0,
-  },
-];

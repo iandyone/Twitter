@@ -23,7 +23,7 @@ export const Input = styled(InputTemplate).attrs(({ type }) => ({
 }))`
   width: 100%;
   padding: 24px ${DEFAULT_GAP};
-
+  background: ${({ theme }) => theme.colors.inputBg};
   @media (max-width: ${Viewposts.MOBILE}px) {
     padding: 12px 10px;
   }

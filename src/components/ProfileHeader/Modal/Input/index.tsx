@@ -24,6 +24,8 @@ export const Inputelement = styled(InputTemplate).attrs(({ type }) => ({
   width: 100%;
   padding: 16px 12px;
   font-size: 14px;
+  transition: ${({ theme }) => theme.animation.transition};
+  background: ${({ theme }) => theme.colors.inputBg};
 
   @media (max-width: ${Viewposts.MOBILE}px) {
     padding: 12px 10px;

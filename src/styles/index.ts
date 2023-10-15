@@ -43,7 +43,6 @@ body {
   font-family: ${({ theme }) => theme.font.family};
   font-size: ${({ theme }) => theme.font.size};
   color: ${({ theme }) => theme.colors.text};
-  transition: ${({ theme }) => theme.animation.transition};
   background-color: white;
   scroll-behavior: smooth;
 }
@@ -157,7 +156,7 @@ input::-webkit-inner-spin-button {
 `;
 
 export const AppContainer = styled.div`
-  max-width: 19 ${DEFAULT_GAP};
+  max-width: 1920px;
   margin: 0 auto;
   box-sizing: content-box;
   padding: 0 ${DEFAULT_GAP};
@@ -167,6 +166,8 @@ export const AppContainer = styled.div`
 
 export const PageWrapper = styled.div`
   min-height: 100vh;
+  transition: ${({ theme }) => theme.animation.transition};
+  background-color: ${({ theme }) => theme.colors.bgApp};
 `;
 
 export const Icon = styled.img`
@@ -293,6 +294,7 @@ export const UserData = styled.div`
 export const UserAvatar = styled(Icon)`
   width: ${USER_ELEMENT_HEIGHT};
   height: ${USER_ELEMENT_HEIGHT};
+  border-radius: 50%;
 `;
 
 export const UserInfo = styled.div`
@@ -322,6 +324,8 @@ export const UserEmail = styled.p`
 
 export const PageContainer = styled.section`
   width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -329,7 +333,7 @@ export const PageContainer = styled.section`
 `;
 
 export const UserContact = styled.span`
-  font-size: ${({ theme }) => theme.font.size};
+  font-size: 16px;
   font-weight: ${({ theme }) => theme.font.regular};
   opacity: ${({ theme }) => theme.animation.opacity};
 `;
