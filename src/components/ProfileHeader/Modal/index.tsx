@@ -12,13 +12,13 @@ import { Input } from './Input';
 import { Body, Container, Header, SaveButton, Title } from './styled';
 
 export const ProfilePopup: FC = () => {
-  const [userName, setUserName] = useState('');
+  const { gender, uid, name, telegram } = useSelectorTyped((store) => store.user);
+  const [userName, setUserName] = useState(name ?? uid);
   const [userSurname, setUserSurname] = useState('');
   const [userPass, setUserPass] = useState('');
-  const [userTelegram, setUserTelegram] = useState('');
+  const [userTelegram, setUserTelegram] = useState(telegram ?? '');
   const getderList = useMemo(getGenderList, []);
 
-  const { gender, uid } = useSelectorTyped((store) => store.user);
   const [userGender, setUserGender] = useState(gender);
   const dispatch = useDispatchTyped();
 

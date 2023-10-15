@@ -1,5 +1,4 @@
 import { Viewposts } from '@appTypes/enums';
-import arrow from '@assets/icons/arrow.svg';
 import { DEFAULT_GAP } from '@constants/variables';
 import styled, { css } from 'styled-components';
 
@@ -7,6 +6,10 @@ export const Container = styled.div`
   position: relative;
   flex: 1 1 auto;
   z-index: 10;
+`;
+
+export const TitleContainer = styled.div`
+  position: relative;
 `;
 
 export const Title = styled.h3<{ $isActive?: boolean; $isValid?: boolean }>`
@@ -32,24 +35,27 @@ export const Title = styled.h3<{ $isActive?: boolean; $isValid?: boolean }>`
     transition: ${({ theme }) => theme.animation.transition};
     border-color: ${({ theme }) => theme.colors.link};
   }
+`;
 
-  &:before {
-    content: '';
-    position: absolute;
-    right: ${DEFAULT_GAP};
-    top: 30%;
-    width: 28px;
-    height: 28px;
-    background: url('${arrow}') center no-repeat;
-    transition: ${({ theme }) => theme.animation.transition};
+export const IconContainer = styled.div<{ $isActive?: boolean; $isValid?: boolean }>`
+  position: absolute;
+  right: ${DEFAULT_GAP};
+  top: 40%;
+  width: 28px;
+  height: 28px;
+  transition: ${({ theme }) => theme.animation.transition};
+  width: 18px;
+  height: 11px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-    ${({ $isActive }) =>
+  ${({ $isActive }) =>
     $isActive &&
-      css`
-        transform: rotate(180deg);
-        transition: ${({ theme }) => theme.animation.transition};
-      `}
-  }
+    css`
+      transform: rotate(180deg);
+      transition: ${({ theme }) => theme.animation.transition};
+    `};
 `;
 
 export const Options = styled.ul`

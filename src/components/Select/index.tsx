@@ -1,9 +1,10 @@
+import { ArrowIcon } from '@components/SVG/Arrow';
 import { useDispatchTyped, useSelectorTyped } from '@hooks/redux';
 import { setSelectDay, setSelectGender, setSelectMonth, setSelectYear } from '@store/reducers/app';
 import { FC, memo, useMemo } from 'react';
 
 import { Option } from './Option';
-import { Container, Options, Title } from './styled';
+import { Container, IconContainer, Options, Title, TitleContainer } from './styled';
 import { ISelectComponentProps } from './types';
 
 const SelectComponent: FC<ISelectComponentProps> = ({ title, data, onClick, isValid, type }) => {
@@ -50,9 +51,14 @@ const SelectComponent: FC<ISelectComponentProps> = ({ title, data, onClick, isVa
 
   return (
     <Container>
-      <Title $isActive={isVisible} $isValid={isValid} onClick={handlerOnClick}>
-        {title}
-      </Title>
+      <TitleContainer>
+        <Title $isValid={isValid} onClick={handlerOnClick}>
+          {title}
+        </Title>
+        <IconContainer $isActive={isVisible}>
+          <ArrowIcon />
+        </IconContainer>
+      </TitleContainer>
       {isVisible && (
         <Options>
           {data.map((option) => (
