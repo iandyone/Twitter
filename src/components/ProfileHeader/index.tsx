@@ -17,7 +17,7 @@ import {
   EditButton,
   Header,
   Name,
-  Profile,
+  ProfileElement,
   Social,
   SubCounter,
   Subscribes,
@@ -25,7 +25,7 @@ import {
   TweetsCounter,
 } from './styled';
 
-const ProfileHeaderComponent: FC = () => {
+const ProfileComponent: FC = () => {
   const { uid, email, name, avatar, telegram } = useSelectorTyped((state) => state.user);
   const { profilePopup } = useSelectorTyped((store) => store.app);
   const { tweetCounterText, editButton } = useMemo(getTextContent, []);
@@ -62,7 +62,7 @@ const ProfileHeaderComponent: FC = () => {
         {tweetCounter} {tweetCounterText}
       </TweetsCounter>
       <Banner src={profileBg} />
-      <Profile>
+      <ProfileElement>
         <Header>
           <Avatar src={avatar ?? userAvatar} />
           {!isMobile && <EditButton onClick={handlerOnClickEditButton}>{editButton}</EditButton>}
@@ -83,10 +83,10 @@ const ProfileHeaderComponent: FC = () => {
           </Social>
           {isMobile && <EditButton onClick={handlerOnClickEditButton}>{editButton}</EditButton>}
         </Body>
-      </Profile>
+      </ProfileElement>
       {profilePopup && <ProfilePopup />}
     </Container>
   );
 };
 
-export const ProfileHeader = memo(ProfileHeaderComponent);
+export const Profile = memo(ProfileComponent);

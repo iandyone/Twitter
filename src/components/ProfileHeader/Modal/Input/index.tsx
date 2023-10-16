@@ -1,7 +1,6 @@
 import { ChangeEvent, FC, memo } from 'react';
 
-import { Container } from '../styled';
-import { Inputelement, Label } from './styled';
+import { Container, Inputelement, Label } from './styled';
 import { IInputProps } from './types';
 
 export const InputComponent: FC<IInputProps> = ({ type, label, onChange, value, error }) => {

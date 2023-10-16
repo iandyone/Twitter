@@ -1,7 +1,7 @@
 import { BurgerMenu } from '@components/BurgerMenu';
 import { Feed } from '@components/Feed';
 import { Header } from '@components/Header';
-import { ProfileHeader } from '@components/ProfileHeader';
+import { Profile } from '@components/ProfileHeader';
 import { TweetArea } from '@components/TweetArea';
 import { AppRoutes } from '@constants/variables';
 import { useSelectorTyped } from '@hooks/redux';
@@ -31,7 +31,7 @@ export const ProfilePage: FC = () => {
     <PageContainer>
       <Header title='Profile' />
       <BurgerMenu />
-      <ProfileHeader />
+      <Profile />
       <TweetArea />
       {posts.length !== 0 && (
         <>

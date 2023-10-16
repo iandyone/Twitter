@@ -44,8 +44,8 @@ export const ProfilePopup: FC = () => {
 
   const handlerOnChangeUserPass = useCallback(
     (pass: string) => {
-      setIsNewPassValid(true);
       setUserPass(pass);
+      setIsNewPassValid(true);
     },
     [setUserPass],
   );
@@ -66,6 +66,7 @@ export const ProfilePopup: FC = () => {
   );
 
   async function handlerOnSubmit(e: FormEvent) {
+    e.preventDefault();
     const userProfileData: IUserProfileData = {};
 
     if (userSurname && userName) {
@@ -78,10 +79,12 @@ export const ProfilePopup: FC = () => {
 
     if (userPass) {
       const isPasswordValid = getPasswordValidation(userPass);
+
       if (isPasswordValid) {
         firebaseDB.updateUserPassword(userPass);
       } else {
         setIsNewPassValid(false);
+        return;
       }
     }
     if (userTelegram) userProfileData['telegram'] = userTelegram;
@@ -90,7 +93,6 @@ export const ProfilePopup: FC = () => {
     firebaseDB.updateUserData(userProfileData, uid);
     dispatch(setUserProfile(userProfileData));
     dispatch(setProfilePopup(false));
-    e.preventDefault();
   }
 
   return (

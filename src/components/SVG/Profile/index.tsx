@@ -9,7 +9,7 @@ const ProfileIconComponent: FC<ILikeIconProps> = ({ isActive = false, onClick })
   const { theme } = useSelectorTyped((store) => store.app);
 
   function handlerOnClick() {
-    onClick();
+    if (onClick) onClick();
   }
 
   const getFillColor = useCallback(() => {

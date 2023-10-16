@@ -35,7 +35,7 @@ export const Banner = styled.img`
   }
 `;
 
-export const Profile = styled.article`
+export const ProfileElement = styled.article`
   margin-top: -70px;
   position: relative;
   z-index: 10;
