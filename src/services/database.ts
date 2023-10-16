@@ -1,5 +1,6 @@
 import { IPost, IPostDB, IUser, IUserProfileData } from '@appTypes';
 import { DatabaseRefs } from '@appTypes/enums';
+import { createMediaRef, database, databaseRefs } from '@config/firebase';
 import { getLikesList } from '@utils/helpers/common';
 import {
   createUserWithEmailAndPassword,
@@ -23,8 +24,6 @@ import {
   update,
 } from 'firebase/database';
 import { deleteObject, getDownloadURL, uploadBytes } from 'firebase/storage';
-
-import { createMediaRef, database, databaseRefs } from '../../firebase';
 
 class Database {
   private postsRef;

@@ -18,7 +18,7 @@ export default defineConfig({
       { find: '@reducers', replacement: path.resolve(__dirname, 'src', 'store', 'reducers') },
       { find: '@pages', replacement: path.resolve(__dirname, 'src', 'pages') },
       { find: '@appTypes', replacement: path.resolve(__dirname, 'src', 'types') },
-      { find: '@config', replacement: path.resolve(__dirname, 'src', 'config') },
+      { find: '@config', replacement: path.resolve(__dirname, 'config') },
     ],
   },
 });

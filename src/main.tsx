@@ -1,4 +1,4 @@
-import '../firebase';
+import '@config/firebase';
 
 import { App } from '@components/App';
 import ErrorBoundary from '@components/ErrorBoundary';
