@@ -6,6 +6,7 @@ import { useDispatchTyped, useSelectorTyped } from '@hooks/redux';
 import { firebaseDB } from '@services/database';
 import { setProfilePopup, setSelectGender } from '@store/reducers/app';
 import { setUserProfile } from '@store/reducers/user';
+import { getPasswordValidation } from '@utils/helpers/validators';
 import { FC, FormEvent, useCallback, useMemo, useState } from 'react';
 
 import { Input } from './Input';
@@ -17,6 +18,7 @@ export const ProfilePopup: FC = () => {
   const [userSurname, setUserSurname] = useState('');
   const [userPass, setUserPass] = useState('');
   const [userTelegram, setUserTelegram] = useState(telegram ?? '');
+  const [isNewPassValid, setIsNewPassValid] = useState(true);
   const getderList = useMemo(getGenderList, []);
 
   const [userGender, setUserGender] = useState(gender);
@@ -42,6 +44,7 @@ export const ProfilePopup: FC = () => {
 
   const handlerOnChangeUserPass = useCallback(
     (pass: string) => {
+      setIsNewPassValid(true);
       setUserPass(pass);
     },
     [setUserPass],
@@ -62,7 +65,7 @@ export const ProfilePopup: FC = () => {
     [dispatch],
   );
 
-  function handlerOnSubmit(e: FormEvent) {
+  async function handlerOnSubmit(e: FormEvent) {
     const userProfileData: IUserProfileData = {};
 
     if (userSurname && userName) {
@@ -73,6 +76,14 @@ export const ProfilePopup: FC = () => {
       userProfileData['name'] = userSurname;
     }
 
+    if (userPass) {
+      const isPasswordValid = getPasswordValidation(userPass);
+      if (isPasswordValid) {
+        firebaseDB.updateUserPassword(userPass);
+      } else {
+        setIsNewPassValid(false);
+      }
+    }
     if (userTelegram) userProfileData['telegram'] = userTelegram;
     if (userGender) userProfileData['gender'] = userGender;
 
@@ -92,7 +103,13 @@ export const ProfilePopup: FC = () => {
         <Body>
           <Input type='text' label='Name' value={userName} onChange={handlerOnChangeUsername} />
           <Input type='text' label='Surname' value={userSurname} onChange={handlerOnChangeUserSurname} />
-          <Input type='password' label='Password' value={userPass} onChange={handlerOnChangeUserPass} />
+          <Input
+            type='password'
+            label='Password'
+            value={userPass}
+            onChange={handlerOnChangeUserPass}
+            error={!isNewPassValid}
+          />
           <Input type='text' label='Telegram' value={userTelegram} onChange={handlerOnChangeUserTelegram} />
           <Select
             type='gender'

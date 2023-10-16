@@ -1,4 +1,5 @@
 import { Layout } from '@components/Layout';
+import { databaseRefs } from '@config/firebase';
 import { AppRoutes } from '@constants/variables';
 import { useDispatchTyped, useSelectorTyped } from '@hooks/redux';
 import { FeedPage } from '@pages/feed';
@@ -15,8 +16,6 @@ import { DataSnapshot, onChildAdded, onChildRemoved } from 'firebase/database';
 import { FC, useCallback, useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import styled, { ThemeProvider } from 'styled-components';
-
-import { databaseRefs } from '../../../firebase';
 
 export const Wrapper = styled.section``;
 

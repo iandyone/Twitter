@@ -1,5 +1,6 @@
 import { IPost, IPostDB, IUser, IUserProfileData } from '@appTypes';
 import { DatabaseRefs } from '@appTypes/enums';
+import { createMediaRef, database, databaseRefs } from '@config/firebase';
 import { getLikesList } from '@utils/helpers/common';
 import {
   createUserWithEmailAndPassword,
@@ -7,6 +8,7 @@ import {
   GoogleAuthProvider,
   signInWithEmailAndPassword,
   signInWithPopup,
+  updatePassword,
 } from 'firebase/auth';
 import {
   endAt,
@@ -22,8 +24,6 @@ import {
   update,
 } from 'firebase/database';
 import { deleteObject, getDownloadURL, uploadBytes } from 'firebase/storage';
-
-import { createMediaRef, database, databaseRefs } from '../../firebase';
 
 class Database {
   private postsRef;
@@ -167,6 +167,19 @@ class Database {
     const mediaStorageRef = createMediaRef(postID);
     const data = await deleteObject(mediaStorageRef);
     return data;
+  }
+
+  async updateUserPassword(pass: string) {
+    try {
+      const user = this.auth.currentUser;
+
+      if (user) {
+        const data = await updatePassword(user, pass);
+        return data;
+      }
+    } catch (error) {
+      return null;
+    }
   }
 }
 
