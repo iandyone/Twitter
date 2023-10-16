@@ -7,6 +7,7 @@ import {
   GoogleAuthProvider,
   signInWithEmailAndPassword,
   signInWithPopup,
+  updatePassword,
 } from 'firebase/auth';
 import {
   endAt,
@@ -167,6 +168,19 @@ class Database {
     const mediaStorageRef = createMediaRef(postID);
     const data = await deleteObject(mediaStorageRef);
     return data;
+  }
+
+  async updateUserPassword(pass: string) {
+    try {
+      const user = this.auth.currentUser;
+
+      if (user) {
+        const data = await updatePassword(user, pass);
+        return data;
+      }
+    } catch (error) {
+      return null;
+    }
   }
 }
 

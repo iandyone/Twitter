@@ -1,45 +1,10 @@
-import { Viewposts } from '@appTypes/enums';
-import { handlerString, inputTypes } from '@appTypes/types';
-import { InputTemplate, LabelTemplate } from '@styles';
 import { ChangeEvent, FC, memo } from 'react';
-import styled from 'styled-components';
 
-export const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  row-gap: 6px;
-`;
+import { Container } from '../styled';
+import { Inputelement, Label } from './styled';
+import { IInputProps } from './types';
 
-export const Label = styled(LabelTemplate)`
-  line-height: 120%;
-  height: 14px;
-  padding-left: 2px;
-  color: ${({ theme }) => theme.colors.text};
-  transition: ${({ theme }) => theme.animations.transition};
-`;
-
-export const Inputelement = styled(InputTemplate).attrs(({ type }) => ({
-  type,
-}))`
-  width: 100%;
-  padding: 16px 12px;
-  font-size: 14px;
-  transition: ${({ theme }) => theme.animations.transition};
-  background: ${({ theme }) => theme.colors.inputBg};
-
-  @media (max-width: ${Viewposts.MOBILE}px) {
-    padding: 12px 10px;
-  }
-`;
-
-export interface IInputProps {
-  type: inputTypes;
-  label: string;
-  onChange: handlerString;
-  value: string;
-}
-
-export const InputComponent: FC<IInputProps> = ({ type, label, onChange, value }) => {
+export const InputComponent: FC<IInputProps> = ({ type, label, onChange, value, error }) => {
   function handlerOnChange(e: ChangeEvent<HTMLInputElement>) {
     const value = e.target.value;
     if (value.length < 50) {
@@ -50,7 +15,7 @@ export const InputComponent: FC<IInputProps> = ({ type, label, onChange, value }
   return (
     <Container>
       <Label>{label}</Label>
-      <Inputelement type={type} onChange={handlerOnChange} value={value} />
+      <Inputelement type={type} onChange={handlerOnChange} value={value} $error={error} />
     </Container>
   );
 };
