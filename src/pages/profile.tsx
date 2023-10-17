@@ -28,7 +28,7 @@ export const ProfilePage: FC = () => {
   }, [all, getUserPosts]);
 
   return (
-    <PageContainer>
+    <PageContainer data-testid='profile-page'>
       <Header title='Profile' />
       <BurgerMenu />
       <Profile />

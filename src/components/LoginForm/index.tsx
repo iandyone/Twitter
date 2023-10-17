@@ -127,6 +127,7 @@ export const LoginForm: FC = () => {
               required={true}
               label={emailError}
               ref={emailRef}
+              testID='login-form-email'
             />
             <InputAuth
               type='password'
@@ -139,8 +140,11 @@ export const LoginForm: FC = () => {
               required={true}
               label={passwordError}
               ref={passwordRef}
+              testID='login-form-password'
             />
-            <Button ref={buttonRef}>{button}</Button>
+            <Button ref={buttonRef} data-testid='login-form-submit'>
+              {button}
+            </Button>
           </Form>
           <Link to={AppRoutes.REGISTRATION}>{link}</Link>
         </Body>

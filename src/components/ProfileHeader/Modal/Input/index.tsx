@@ -3,7 +3,7 @@ import { ChangeEvent, FC, memo } from 'react';
 import { Container, Inputelement, Label } from './styled';
 import { IInputProps } from './types';
 
-export const InputComponent: FC<IInputProps> = ({ type, label, onChange, value, error }) => {
+export const InputComponent: FC<IInputProps> = ({ type, label, onChange, value, error, testID }) => {
   function handlerOnChange(e: ChangeEvent<HTMLInputElement>) {
     const value = e.target.value;
     if (value.length < 50) {
@@ -14,7 +14,13 @@ export const InputComponent: FC<IInputProps> = ({ type, label, onChange, value, 
   return (
     <Container>
       <Label>{label}</Label>
-      <Inputelement type={type} onChange={handlerOnChange} value={value} $error={error} />
+      <Inputelement
+        type={type}
+        onChange={handlerOnChange}
+        value={value}
+        $error={error}
+        data-testid={testID}
+      />
     </Container>
   );
 };

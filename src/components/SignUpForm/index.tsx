@@ -289,6 +289,7 @@ export const SignUpForm: FC = () => {
               $isNotEmpty={Boolean(email)}
               required={true}
               ref={emailRef}
+              testID='signup-input-email'
             />
             <InputAuth
               type='tel'
@@ -302,6 +303,7 @@ export const SignUpForm: FC = () => {
               $isNotEmpty={Boolean(phone)}
               required={true}
               ref={phoneRef}
+              testID='signup-input-phone'
             />
             <InputAuth
               type='password'
@@ -314,6 +316,7 @@ export const SignUpForm: FC = () => {
               $isNotEmpty={Boolean(password)}
               required={true}
               ref={passwordRef}
+              testID='signup-input-password'
             />
             <Link to={AppRoutes.HOME}>{link}</Link>
             <Subtitle>{subtitle}</Subtitle>
@@ -325,6 +328,7 @@ export const SignUpForm: FC = () => {
                 data={monthList}
                 onClick={setUserMonth}
                 type='month'
+                testID='signup-select-month'
               />
               <Select
                 title={day ?? 'Day'}
@@ -332,6 +336,7 @@ export const SignUpForm: FC = () => {
                 data={daysList}
                 onClick={setUserDate}
                 type='day'
+                testID='signup-select-day'
               />
               <Select
                 title={year ?? 'Year'}
@@ -339,9 +344,10 @@ export const SignUpForm: FC = () => {
                 data={yearList}
                 onClick={setUserYear}
                 type='year'
+                testID='signup-select-year'
               />
             </Container>
-            <Button type='submit' ref={buttonRef}>
+            <Button type='submit' ref={buttonRef} data-testid='signup-button'>
               {button}
             </Button>
           </Form>

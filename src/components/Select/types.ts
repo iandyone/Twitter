@@ -6,4 +6,5 @@ export interface ISelectComponentProps {
   onClick: handlerString;
   isValid?: boolean;
   type: DataSelect;
+  testID?: string;
 }

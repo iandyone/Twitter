@@ -57,31 +57,42 @@ const ProfileComponent: FC = () => {
   }, []);
 
   return (
-    <Container>
+    <Container data-testid='profile'>
       <TweetsCounter>
         {tweetCounter} {tweetCounterText}
       </TweetsCounter>
       <Banner src={profileBg} />
       <ProfileElement>
         <Header>
-          <Avatar src={avatar ?? userAvatar} />
-          {!isMobile && <EditButton onClick={handlerOnClickEditButton}>{editButton}</EditButton>}
+          <Avatar src={avatar ?? userAvatar} data-testid='profile-avatar' />
+          {!isMobile && (
+            <EditButton onClick={handlerOnClickEditButton} data-testid='profile-edit-button'>
+              {editButton}
+            </EditButton>
+          )}
         </Header>
         <Body>
-          <Name>{name ?? uid}</Name>
-          <Contact>{email}</Contact>
+          <Name data-testid='profile-user-name'>{name ?? uid}</Name>
+          <Contact data-testid='profile-user-email'>{email}</Contact>
           {telegram && (
-            <TelegramLink href={`https://t.me/${telegram}`} target='_blank'>{`@${telegram}`}</TelegramLink>
+            <TelegramLink
+              href={`https://t.me/${telegram}`}
+              target='_blank'
+              data-testid='profile-user-telegram'>{`@${telegram}`}</TelegramLink>
           )}
           <Social>
-            <Subscribes>
+            <Subscribes data-testid='profile-user-subs'>
               <SubCounter>{followings}</SubCounter> followers
             </Subscribes>
             <Subscribes>
               <SubCounter>{followings}</SubCounter> following
             </Subscribes>
           </Social>
-          {isMobile && <EditButton onClick={handlerOnClickEditButton}>{editButton}</EditButton>}
+          {isMobile && (
+            <EditButton onClick={handlerOnClickEditButton} data-testid='profile-edit-button'>
+              {editButton}
+            </EditButton>
+          )}
         </Body>
       </ProfileElement>
       {profilePopup && <ProfilePopup />}

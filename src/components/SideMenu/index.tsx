@@ -20,8 +20,8 @@ export const SideMenu: FC = () => {
   const isMobileView = useMobile();
 
   const sideMenuOptions: ISideMenuOption[] = [
-    { title: 'Home', path: AppRoutes.HOME, element: HomeIcon },
-    { title: 'Profile', path: AppRoutes.page.PROFILE, element: ProfileIcon },
+    { title: 'Home', path: AppRoutes.HOME, testID: 'route-button-home', element: HomeIcon },
+    { title: 'Profile', path: AppRoutes.page.PROFILE, testID: 'route-button-profile', element: ProfileIcon },
   ];
 
   const handlerOnClickTweet = useCallback(() => {
@@ -43,7 +43,9 @@ export const SideMenu: FC = () => {
               <Option {...option} key={option.title} onClick={handlerOnClickOption} />
             ))}
           </Menu>
-          <TweetButton onClick={handlerOnClickTweet}>Tweet</TweetButton>
+          <TweetButton onClick={handlerOnClickTweet} data-testid='tweet-popup-button'>
+            Tweet
+          </TweetButton>
         </Navigation>
         {!isMobileView && (
           <User>

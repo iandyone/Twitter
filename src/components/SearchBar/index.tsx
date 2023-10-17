@@ -70,7 +70,7 @@ export const SearchBar: FC = () => {
             <SearchIconContainer>
               <SearchIcon />
             </SearchIconContainer>
-            <Input value={searchData} onChange={handlerOnChangeSearch} placeholder='Search Users' />
+            <Input value={searchData} onChange={handlerOnChangeSearch} placeholder='Search Twitters' />
           </Search>
           {users.length > 0 && (
             <Results>

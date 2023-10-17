@@ -15,15 +15,19 @@ const AccountComponent: FC<IAccountProps> = ({ userName, userEmail, avatar, with
   }
 
   return (
-    <Container>
+    <Container data-testid='account'>
       <UserData>
         <UserAvatar src={avatar ?? userAvatar} />
         <UserInfo>
-          <UserName>{userName}</UserName>
-          <UserEmail>{userEmail}</UserEmail>
+          <UserName data-testid='account-name'>{userName}</UserName>
+          <UserEmail data-testid='account-email'>{userEmail}</UserEmail>
         </UserInfo>
       </UserData>
-      {withLogout && <LogOutButton onClick={handlerOnLogOut}>Log out</LogOutButton>}
+      {withLogout && (
+        <LogOutButton onClick={handlerOnLogOut} data-testid='account-button-logout'>
+          Log out
+        </LogOutButton>
+      )}
     </Container>
   );
 };

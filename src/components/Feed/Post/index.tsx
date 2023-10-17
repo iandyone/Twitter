@@ -106,26 +106,30 @@ const PostComponent: FC<IPostProps> = ({ post }) => {
   });
 
   return (
-    <Container>
+    <Container data-testid='post'>
       <Avatar src={authorAvatar ?? userAvatar} />
       <Content>
         <Header>
           <HeaderContent>
-            <User>{authName ?? user}</User>
-            <UserContact>{email} · </UserContact>
+            <User data-testid='post-author-name'>{authName ?? user}</User>
+            <UserContact data-testid='post-author-email'>{email} · </UserContact>
             <PostDate>{postDate}</PostDate>
           </HeaderContent>
           {isUserPost && <XMarkIcon isActive={false} onClick={handlerOnRemovePost} />}
         </Header>
         <Body>{body}</Body>
         {media && (
-          <MediaContainer>
+          <MediaContainer data-testid='post-media'>
             <Media src={mediaURL} />
           </MediaContainer>
         )}
         <Likes>
           <LikeIcon isActive={isLiked} onClick={handlerOnLikePost} />
-          {postLikes > 0 && <LikeCounter $isActive={isLiked}>{postLikes}</LikeCounter>}
+          {postLikes > 0 && (
+            <LikeCounter $isActive={isLiked} data-testid='like-counter'>
+              {postLikes}
+            </LikeCounter>
+          )}
         </Likes>
       </Content>
     </Container>

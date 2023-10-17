@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { Container, OptionTitle } from './styled';
 
-const OptionComponent: FC<ISideMenuOption> = ({ path, title, onClick, element: Icon }) => {
+const OptionComponent: FC<ISideMenuOption> = ({ path, title, onClick, testID, element: Icon }) => {
   const navigate = useNavigate();
 
   function handerOnClick() {
@@ -13,7 +13,7 @@ const OptionComponent: FC<ISideMenuOption> = ({ path, title, onClick, element: I
   }
 
   return (
-    <Container onClick={handerOnClick}>
+    <Container onClick={handerOnClick} data-testid={testID}>
       <Icon isActive={false} />
       <OptionTitle>{title}</OptionTitle>
     </Container>

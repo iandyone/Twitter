@@ -71,11 +71,16 @@ export const SignIn: FC = () => {
             <Title>{title}</Title>
             <Subtitle>{subtitle}</Subtitle>
             <Buttons>
-              <Button to={AppRoutes.REGISTRATION} onClick={handlerOnClickGoogle}>
+              <Button
+                to={AppRoutes.REGISTRATION}
+                onClick={handlerOnClickGoogle}
+                data-testid='auth-button-google'>
                 <GoogleIcon src={googleIcon} />
                 {withGoogleButton}
               </Button>
-              <Button to={AppRoutes.REGISTRATION}>{withEmailButton}</Button>
+              <Button to={AppRoutes.REGISTRATION} data-testid='auth-button-email'>
+                {withEmailButton}
+              </Button>
             </Buttons>
             <Links>
               <Text>
@@ -84,7 +89,10 @@ export const SignIn: FC = () => {
                 <Link to={AppRoutes.HOME}> Cookie Use</Link>.
               </Text>
               <Text>
-                Already have an account? <Link to={AppRoutes.LOGIN}>Log in</Link>
+                Already have an account?{' '}
+                <Link to={AppRoutes.LOGIN} data-testid='auth-button-login'>
+                  Log in
+                </Link>
               </Text>
             </Links>
           </Content>

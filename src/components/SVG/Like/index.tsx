@@ -36,7 +36,7 @@ const LikeIconComponent: FC<ILikeIconProps> = ({ isActive = false, onClick }) =>
   }, [theme, getFillColor]);
 
   return (
-    <Container onClick={handlerOnClick}>
+    <Container onClick={handlerOnClick} data-testid='like-button'>
       <svg width='24' height='24' viewBox='0 0 24 24' fill={fillColor}>
         <g id='like'>
           <mask id='mask0_1265_138' maskUnits='userSpaceOnUse' x='0' y='0' width='24' height='24'>
