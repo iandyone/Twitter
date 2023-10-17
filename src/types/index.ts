@@ -105,6 +105,7 @@ export interface ISideMenuOption {
   path: string;
   onClick?: handler;
   element: NamedExoticComponent<ILikeIconProps>;
+  testID?: string;
 }
 
 export interface IPost {

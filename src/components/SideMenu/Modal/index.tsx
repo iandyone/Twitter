@@ -7,7 +7,7 @@ import { Container, Title } from './styled';
 export const TweetPopup: FC = () => {
   return (
     <Popup>
-      <Container>
+      <Container data-testid='tweet-popup'>
         <Title>New Tweet</Title>
         <TweetArea />
       </Container>

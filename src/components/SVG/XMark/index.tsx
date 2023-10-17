@@ -36,7 +36,7 @@ const XMarkIconComponent: FC<ILikeIconProps> = ({ isActive = false, onClick }) =
   }, [theme, getFillColor]);
 
   return (
-    <Container onClick={handlerOnClick}>
+    <Container onClick={handlerOnClick} data-testid='post-remove-button'>
       <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24px' height='24px'>
         <path
           fill={fillColor}
