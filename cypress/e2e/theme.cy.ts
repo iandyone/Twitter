@@ -26,8 +26,8 @@ describe('Theme test', () => {
       cy.get('@pass').should('be.visible');
       cy.get('@submit').should('be.visible');
 
-      cy.get('@email').type(email);
-      cy.get('@pass').type(password);
+      cy.get('@email').type(email).should('have.value', email);
+      cy.get('@pass').type(password).should('have.value', password);
       cy.get('@submit').click();
 
       cy.get('[data-testid=theme-switcher]').as('switcher');

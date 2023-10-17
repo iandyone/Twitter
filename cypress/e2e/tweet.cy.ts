@@ -18,8 +18,8 @@ describe('Tweets test', () => {
       cy.get('@pass').should('be.visible');
       cy.get('@submit').should('be.visible');
 
-      cy.get('@email').type(email);
-      cy.get('@pass').type(password);
+      cy.get('@email').type(email).should('have.value', email);
+      cy.get('@pass').type(password).should('have.value', password);
       cy.get('@submit').click();
 
       cy.get('[data-testid=tweet-area]').as('area');
@@ -57,7 +57,7 @@ describe('Tweets test', () => {
     cy.get('[data-testid=tweet-input]').as('input');
     cy.get('[data-testid=tweet-submit-button]').as('submit');
 
-    cy.get('@input').eq(1).type(`${postText}`);
+    cy.get('@input').eq(1).type(postText).should('have.value', postText);
     cy.get('@submit').eq(1).click();
     cy.get('[data-testid=route-button-home]').click();
   });
@@ -97,7 +97,7 @@ describe('Tweets test', () => {
     cy.get('@filename').should('be.visible').should('have.text', 'media.jpg');
     cy.get('@remove').should('be.visible');
 
-    cy.get('@input').type(`${postText}`);
+    cy.get('@input').type(postText).should('have.value', postText);
     cy.get('[data-testid=tweet-submit-button]').click();
     cy.get('[data-testid=post-media]').should('be.visible');
 

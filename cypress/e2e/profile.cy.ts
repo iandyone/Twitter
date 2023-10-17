@@ -31,8 +31,8 @@ describe('Profile test', () => {
       cy.get('@pass').should('be.visible');
       cy.get('@submit').should('be.visible');
 
-      cy.get('@email').type(email);
-      cy.get('@pass').type(password);
+      cy.get('@email').type(email).should('have.value', email);
+      cy.get('@pass').type(password).should('have.value', password);
       cy.get('@submit').click();
 
       cy.get('[data-testid=route-button-profile]').should('be.visible').click();
@@ -78,9 +78,9 @@ describe('Profile test', () => {
       cy.get('@selectGender').should('be.visible');
       cy.get('@save').should('be.visible');
 
-      cy.get('@inputName').clear().type(name);
-      cy.get('@inputSurname').clear().type(surname);
-      cy.get('@inputTg').clear().type(telegram);
+      cy.get('@inputName').clear().type(name).should('have.value', name);
+      cy.get('@inputSurname').clear().type(surname).should('have.value', surname);
+      cy.get('@inputTg').clear().type(telegram).should('have.value', telegram);
 
       cy.get('@selectGender').click();
       cy.get(`[data-testid=select-option-${female}]`).click();
@@ -109,7 +109,7 @@ describe('Profile test', () => {
       cy.get('@edit').click();
       cy.get('[data-testid=profile-input-password').as('inputPass');
       cy.get('[data-testid=profile-button-save]').as('save');
-      cy.get('@inputPass').clear().type(passwordNew);
+      cy.get('@inputPass').clear().type(passwordNew).should('have.value', passwordNew);
       cy.get('@save').click();
       cy.get('@logout').click();
 
@@ -119,8 +119,8 @@ describe('Profile test', () => {
       cy.get('[data-testid=login-form-email]').as('email');
       cy.get('[data-testid=login-form-pass]').as('pass');
       cy.get('[data-testid=login-form-submit]').as('submit');
-      cy.get('@email').type(email);
-      cy.get('@pass').type(passwordNew);
+      cy.get('@email').type(email).should('have.value', email);
+      cy.get('@pass').type(passwordNew).should('have.value', passwordNew);
       cy.get('@submit').click();
 
       cy.get('[data-testid=feed-page]').as('page');
@@ -128,7 +128,7 @@ describe('Profile test', () => {
 
       cy.get('[data-testid=route-button-profile]').should('be.visible').click();
       cy.get('@edit').click();
-      cy.get('@inputPass').clear().type(password);
+      cy.get('@inputPass').clear().type(password).should('have.value', password);
       cy.get('@save').click();
     });
   });
