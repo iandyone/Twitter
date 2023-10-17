@@ -12,7 +12,7 @@ describe('Tweets test', () => {
       cy.get('@login').click();
 
       cy.get('[data-testid=login-form-email]').as('email');
-      cy.get('[data-testid=login-form-pass]').as('pass');
+      cy.get('[data-testid=login-form-password]').as('pass');
       cy.get('[data-testid=login-form-submit]').as('submit');
       cy.get('@email').should('be.visible');
       cy.get('@pass').should('be.visible');

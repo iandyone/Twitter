@@ -140,7 +140,7 @@ export const LoginForm: FC = () => {
               required={true}
               label={passwordError}
               ref={passwordRef}
-              testID='login-form-pass'
+              testID='login-form-password'
             />
             <Button ref={buttonRef} data-testid='login-form-submit'>
               {button}

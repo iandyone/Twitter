@@ -25,7 +25,7 @@ describe('Profile test', () => {
       cy.get('@login').click();
 
       cy.get('[data-testid=login-form-email]').as('email');
-      cy.get('[data-testid=login-form-pass]').as('pass');
+      cy.get('[data-testid=login-form-password]').as('pass');
       cy.get('[data-testid=login-form-submit]').as('submit');
       cy.get('@email').should('be.visible');
       cy.get('@pass').should('be.visible');
@@ -117,7 +117,7 @@ describe('Profile test', () => {
       cy.get('@login').click();
 
       cy.get('[data-testid=login-form-email]').as('email');
-      cy.get('[data-testid=login-form-pass]').as('pass');
+      cy.get('[data-testid=login-form-password]').as('pass');
       cy.get('[data-testid=login-form-submit]').as('submit');
       cy.get('@email').type(email).should('have.value', email);
       cy.get('@pass').type(passwordNew).should('have.value', passwordNew);
