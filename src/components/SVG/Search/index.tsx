@@ -1,11 +1,11 @@
-import { ILikeIconProps } from '@appTypes';
+import { IIconComponentProps } from '@appTypes';
 import { colors } from '@constants/variables';
 import { useSelectorTyped } from '@hooks/redux';
 import { FC, memo, useCallback, useEffect, useState } from 'react';
 
 import { Container } from './styled';
 
-const SearchIconComponent: FC<ILikeIconProps> = ({ isActive = false }) => {
+const SearchIconComponent: FC<IIconComponentProps> = ({ isActive = false }) => {
   const { theme } = useSelectorTyped((store) => store.app);
 
   const getFillColor = useCallback(() => {

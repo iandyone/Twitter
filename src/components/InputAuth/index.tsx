@@ -1,21 +1,7 @@
-import { handler, handlerChange, inputTypes } from '@appTypes/types';
 import { forwardRef, Ref } from 'react';
 
 import { Input, InputContainer, Label } from './styled';
-
-interface IInputAuthProps {
-  type: inputTypes;
-  label: string;
-  value: string;
-  placeholder: string;
-  onChange: handlerChange;
-  onBlur: handler;
-  onFocus?: handler;
-  $error: boolean;
-  $isNotEmpty: boolean;
-  required?: boolean;
-  testID?: string;
-}
+import { IInputAuthProps } from './types';
 
 export const InputAuth = forwardRef(
   (

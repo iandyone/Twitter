@@ -15,9 +15,9 @@ import { theme } from '@styles/theme';
 import { DataSnapshot, onChildAdded, onChildRemoved } from 'firebase/database';
 import { FC, useCallback, useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import styled, { ThemeProvider } from 'styled-components';
+import { ThemeProvider } from 'styled-components';
 
-export const Wrapper = styled.section``;
+import { Wrapper } from './styled';
 
 export const App: FC = () => {
   const {

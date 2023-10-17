@@ -104,7 +104,7 @@ export interface ISideMenuOption {
   title: string;
   path: string;
   onClick?: handler;
-  element: NamedExoticComponent<ILikeIconProps>;
+  element: NamedExoticComponent<IIconComponentProps>;
   testID?: string;
 }
 
@@ -123,7 +123,7 @@ export interface IPostDB extends IPost {
   timestamp: object | number;
 }
 
-export interface ILikeIconProps {
+export interface IIconComponentProps {
   isActive?: boolean;
   onClick?: handler;
 }

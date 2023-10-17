@@ -1,11 +1,11 @@
-import { ILikeIconProps } from '@appTypes';
+import { IIconComponentProps } from '@appTypes';
 import { colors } from '@constants/variables';
 import { useSelectorTyped } from '@hooks/redux';
 import { FC, memo, useCallback, useEffect, useState } from 'react';
 
 import { Container } from './styled';
 
-const XMarkIconComponent: FC<ILikeIconProps> = ({ isActive = false, onClick }) => {
+const XMarkIconComponent: FC<IIconComponentProps> = ({ isActive = false, onClick }) => {
   const { theme } = useSelectorTyped((store) => store.app);
 
   function handlerOnClick() {

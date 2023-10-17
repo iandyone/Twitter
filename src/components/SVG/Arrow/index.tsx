@@ -1,11 +1,11 @@
-import { ILikeIconProps } from '@appTypes';
+import { IIconComponentProps } from '@appTypes';
 import { colors } from '@constants/variables';
 import { useSelectorTyped } from '@hooks/redux';
 import { FC, memo, useCallback, useEffect, useState } from 'react';
 
 import { Container } from './styled';
 
-const ArrowIconComponent: FC<ILikeIconProps> = () => {
+const ArrowIconComponent: FC<IIconComponentProps> = () => {
   const { theme } = useSelectorTyped((store) => store.app);
 
   const getFillColor = useCallback(() => {
