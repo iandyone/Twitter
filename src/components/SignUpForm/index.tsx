@@ -35,7 +35,7 @@ export const SignUpForm: FC = () => {
 
   const initialState: IReducerState = useMemo(getInitialState, []);
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { month: currentMonth, year: currentYear } = getDateData(new Date());
+  const { year: currentYear } = getDateData(new Date());
   const {
     day,
     month,
@@ -51,7 +51,7 @@ export const SignUpForm: FC = () => {
     phoneError,
   } = state;
 
-  const { daysList, monthList, yearList } = useMemo(getSelectLists, [currentMonth, currentYear]);
+  const { daysList, monthList, yearList } = useMemo(getSelectLists, [currentYear, month]);
   const dispatchRedux = useDispatchTyped();
   const navigate = useNavigate();
 
@@ -105,7 +105,7 @@ export const SignUpForm: FC = () => {
     const daysList = [];
     const yearList = [];
     const monthList = Object.keys(Months).filter((month) => month.length > 2);
-    const daysInAMonth = getDaysAmountInAMonth(new Date(currentYear, currentMonth));
+    const daysInAMonth = getDaysAmountInAMonth(new Date(currentYear, Months[month as keyof typeof Months]));
 
     for (let day = 1; day <= daysInAMonth; ++day) {
       daysList.push(String(day));

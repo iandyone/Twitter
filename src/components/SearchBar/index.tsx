@@ -28,15 +28,17 @@ export const SearchBar: FC = () => {
   const [users, setUsers] = useState<IUser[]>([]);
 
   function getLinks(): IFooterLink[] {
+    const currentYear = new Date().getFullYear();
+
     return [
       { text: 'Terms of Service', to: AppRoutes.HOME },
       { text: 'Cookie Policy', to: AppRoutes.HOME },
       { text: 'Imprint', to: AppRoutes.HOME },
       { text: 'Ads Info', to: AppRoutes.HOME },
       { text: 'Vacancy', to: AppRoutes.HOME },
-      { text: 'About', to: AppRoutes.HOME },
+      { text: 'About Twitter', to: AppRoutes.HOME },
       { text: 'Privacy Policy', to: AppRoutes.HOME },
-      { text: '© 2023 Twitter, Inc.', to: AppRoutes.HOME },
+      { text: `© ${currentYear} Twitter, Inc.`, to: AppRoutes.HOME },
     ];
   }
 
