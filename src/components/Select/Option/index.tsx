@@ -1,19 +1,18 @@
-import { handlerString } from '@appTypes/types';
 import { FC, memo } from 'react';
 
 import { OptionElement } from './styled';
+import { IOptionProps } from './types';
 
-interface IOptionProps {
-  option: string;
-  handler: handlerString;
-}
-
-const OptionComponent: FC<IOptionProps> = ({ option, handler }) => {
+const OptionComponent: FC<IOptionProps> = ({ option, handler, testID }) => {
   function handlerOnClick() {
     handler(option);
   }
 
-  return <OptionElement onClick={handlerOnClick}>{option}</OptionElement>;
+  return (
+    <OptionElement onClick={handlerOnClick} data-testid={testID}>
+      {option}
+    </OptionElement>
+  );
 };
 
 export const Option = memo(OptionComponent);

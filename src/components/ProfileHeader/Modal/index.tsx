@@ -97,27 +97,49 @@ export const ProfilePopup: FC = () => {
 
   return (
     <Popup>
-      <Container onSubmit={handlerOnSubmit}>
+      <Container onSubmit={handlerOnSubmit} data-testid='profile-popup'>
         <Header>
           <Title>Edit profile</Title>
-          <SaveButton type='submit'>Save</SaveButton>
+          <SaveButton type='submit' data-testid='profile-button-save'>
+            Save
+          </SaveButton>
         </Header>
         <Body>
-          <Input type='text' label='Name' value={userName} onChange={handlerOnChangeUsername} />
-          <Input type='text' label='Surname' value={userSurname} onChange={handlerOnChangeUserSurname} />
+          <Input
+            type='text'
+            label='Name'
+            value={userName}
+            onChange={handlerOnChangeUsername}
+            testID='profile-input-name'
+          />
+          <Input
+            type='text'
+            label='Surname'
+            value={userSurname}
+            onChange={handlerOnChangeUserSurname}
+            testID='profile-input-surname'
+          />
           <Input
             type='password'
             label='Password'
             value={userPass}
             onChange={handlerOnChangeUserPass}
             error={!isNewPassValid}
+            testID='profile-input-password'
           />
-          <Input type='text' label='Telegram' value={userTelegram} onChange={handlerOnChangeUserTelegram} />
+          <Input
+            type='text'
+            label='Telegram'
+            value={userTelegram}
+            onChange={handlerOnChangeUserTelegram}
+            testID='profile-input-telegram'
+          />
           <Select
             type='gender'
             data={getderList}
             title={userGender ?? 'Ghoose the gender'}
             onClick={handlerOnClickUserGender}
+            testID='profile-select-gender'
           />
         </Body>
       </Container>

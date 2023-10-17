@@ -7,7 +7,7 @@ import { Option } from './Option';
 import { Container, IconContainer, Options, Title, TitleContainer } from './styled';
 import { ISelectComponentProps } from './types';
 
-const SelectComponent: FC<ISelectComponentProps> = ({ title, data, onClick, isValid, type }) => {
+const SelectComponent: FC<ISelectComponentProps> = ({ title, data, onClick, isValid, type, testID }) => {
   const { selectDay, selectMonth, selectYear, selectGender } = useSelectorTyped((store) => store.app);
   const { action, isVisible } = useMemo(getControls, [type, getAction, getControls]);
   const dispatch = useDispatchTyped();
@@ -52,7 +52,7 @@ const SelectComponent: FC<ISelectComponentProps> = ({ title, data, onClick, isVa
   return (
     <Container>
       <TitleContainer>
-        <Title $isValid={isValid} onClick={handlerOnClick}>
+        <Title $isValid={isValid} onClick={handlerOnClick} data-testid={testID}>
           {title}
         </Title>
         <IconContainer $isActive={isVisible}>
@@ -62,7 +62,12 @@ const SelectComponent: FC<ISelectComponentProps> = ({ title, data, onClick, isVa
       {isVisible && (
         <Options>
           {data.map((option) => (
-            <Option option={option} handler={handlerOnClickOption} key={option} />
+            <Option
+              option={option}
+              handler={handlerOnClickOption}
+              key={option}
+              testID={`select-option-${option}`}
+            />
           ))}
         </Options>
       )}

@@ -6,4 +6,5 @@ export interface IInputProps {
   onChange: handlerString;
   value: string;
   error?: boolean;
+  testID?: string;
 }
