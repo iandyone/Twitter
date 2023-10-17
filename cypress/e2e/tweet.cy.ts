@@ -3,29 +3,34 @@ const postText = 'Сypress tweet';
 describe('Tweets test', () => {
   it('Tweet area should be visible on the feed page', () => {
     cy.visit('http://localhost:5173');
-    cy.get('[data-testid=auth-button-login]').as('login');
-    cy.get('@login').should('be.visible');
-    cy.get('@login').click();
 
-    cy.get('[data-testid=login-form-email]').as('email');
-    cy.get('[data-testid=login-form-pass]').as('pass');
-    cy.get('[data-testid=login-form-submit]').as('submit');
-    cy.get('@email').should('be.visible');
-    cy.get('@pass').should('be.visible');
-    cy.get('@submit').should('be.visible');
+    cy.fixture('account.json').then((data: ITestAccount) => {
+      const { email, password } = data.account;
 
-    cy.get('@email').type('cypress@cy.io');
-    cy.get('@pass').type('cypress173');
-    cy.get('@submit').click();
+      cy.get('[data-testid=auth-button-login]').as('login');
+      cy.get('@login').should('be.visible');
+      cy.get('@login').click();
 
-    cy.get('[data-testid=tweet-area]').as('area');
-    cy.get('[data-testid=tweet-upload-media-label]').as('label');
-    cy.get('[data-testid=tweet-upload-media-button]').as('media');
-    cy.get('[data-testid=tweet-submit-button]').as('submit');
+      cy.get('[data-testid=login-form-email]').as('email');
+      cy.get('[data-testid=login-form-pass]').as('pass');
+      cy.get('[data-testid=login-form-submit]').as('submit');
+      cy.get('@email').should('be.visible');
+      cy.get('@pass').should('be.visible');
+      cy.get('@submit').should('be.visible');
 
-    cy.get('@area').should('be.visible');
-    cy.get('@label').should('be.visible');
-    cy.get('@submit').should('be.visible');
+      cy.get('@email').type(email);
+      cy.get('@pass').type(password);
+      cy.get('@submit').click();
+
+      cy.get('[data-testid=tweet-area]').as('area');
+      cy.get('[data-testid=tweet-upload-media-label]').as('label');
+      cy.get('[data-testid=tweet-upload-media-button]').as('media');
+      cy.get('[data-testid=tweet-submit-button]').as('submit');
+
+      cy.get('@area').should('be.visible');
+      cy.get('@label').should('be.visible');
+      cy.get('@submit').should('be.visible');
+    });
   });
 
   it('Tweet area should be visible on the profile page', () => {
@@ -78,10 +83,10 @@ describe('Tweets test', () => {
     cy.get('[data-testid=tweet-input]').as('input');
     cy.get('[data-testid=tweet-upload-media-button]').as('media');
 
-    cy.fixture('example.jpg').then((fileContent) => {
+    cy.fixture('media.jpg').then((fileContent) => {
       cy.get('@media').attachFile({
         fileContent: fileContent,
-        fileName: 'example.jpg',
+        fileName: 'media.jpg',
         mimeType: 'image/jpg',
       });
     });
@@ -89,7 +94,7 @@ describe('Tweets test', () => {
     cy.get('[data-testid=tweet-filename]').as('filename');
     cy.get('[data-testid=tweet-filename-remove-button]').as('remove');
 
-    cy.get('@filename').should('be.visible').should('have.text', 'example.jpg');
+    cy.get('@filename').should('be.visible').should('have.text', 'media.jpg');
     cy.get('@remove').should('be.visible');
 
     cy.get('@input').type(`${postText}`);

@@ -1,27 +1,47 @@
+interface ITestAccount {
+  account: {
+    name: 'string';
+    surname: 'string';
+    email: 'string';
+    telegram: 'string';
+    password: 'string';
+    passwordNew: 'string';
+  };
+  gender: {
+    male: 'male';
+    female: 'female';
+  };
+}
+
 describe('Theme test', () => {
   it('theme button should be on the screen', () => {
     cy.visit('http://localhost:5173');
-    cy.get('[data-testid=auth-button-login]').as('login');
-    cy.get('@login').should('be.visible');
-    cy.get('@login').click();
 
-    cy.get('[data-testid=login-form-email]').as('email');
-    cy.get('[data-testid=login-form-pass]').as('pass');
-    cy.get('[data-testid=login-form-submit]').as('submit');
-    cy.get('@email').should('be.visible');
-    cy.get('@pass').should('be.visible');
-    cy.get('@submit').should('be.visible');
+    cy.fixture('account.json').then((data: ITestAccount) => {
+      const { email, password } = data.account;
 
-    cy.get('@email').type('cypress@cy.io');
-    cy.get('@pass').type('cypress173');
-    cy.get('@submit').click();
+      cy.get('[data-testid=auth-button-login]').as('login');
+      cy.get('@login').should('be.visible');
+      cy.get('@login').click();
 
-    cy.get('[data-testid=theme-switcher]').as('switcher');
-    cy.get('[data-testid=theme-toggler]').as('toggler');
-    cy.get('[data-testid=feed-page]').as('page');
-    cy.get('@switcher').should('be.visible');
-    cy.get('@toggler').should('be.visible');
-    cy.get('@page').should('be.visible');
+      cy.get('[data-testid=login-form-email]').as('email');
+      cy.get('[data-testid=login-form-pass]').as('pass');
+      cy.get('[data-testid=login-form-submit]').as('submit');
+      cy.get('@email').should('be.visible');
+      cy.get('@pass').should('be.visible');
+      cy.get('@submit').should('be.visible');
+
+      cy.get('@email').type(email);
+      cy.get('@pass').type(password);
+      cy.get('@submit').click();
+
+      cy.get('[data-testid=theme-switcher]').as('switcher');
+      cy.get('[data-testid=theme-toggler]').as('toggler');
+      cy.get('[data-testid=feed-page]').as('page');
+      cy.get('@switcher').should('be.visible');
+      cy.get('@toggler').should('be.visible');
+      cy.get('@page').should('be.visible');
+    });
   });
 
   it('theme button should toggle the app theme', () => {
