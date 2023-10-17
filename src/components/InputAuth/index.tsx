@@ -14,6 +14,7 @@ interface IInputAuthProps {
   $error: boolean;
   $isNotEmpty: boolean;
   required?: boolean;
+  testID?: string;
 }
 
 export const InputAuth = forwardRef(
@@ -29,6 +30,7 @@ export const InputAuth = forwardRef(
       $error,
       $isNotEmpty,
       required,
+      testID,
     }: IInputAuthProps,
     ref: Ref<HTMLInputElement>,
   ) => {
@@ -46,6 +48,7 @@ export const InputAuth = forwardRef(
           ref={ref}
           required={required}
           onFocus={onFocus}
+          data-testid={testID}
         />
       </InputContainer>
     );

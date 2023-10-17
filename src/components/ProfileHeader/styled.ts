@@ -93,6 +93,10 @@ export const Name = styled(UserName)`
   text-overflow: ellipsis;
   font-weight: ${({ theme }) => theme.font.bold};
   width: 100%;
+
+  @media (max-width: ${Viewposts.MOBILE}px) {
+    text-align: center;
+  }
 `;
 
 export const Body = styled.div`
