@@ -1,16 +1,11 @@
 interface ITestAccount {
-  account: {
-    name: 'string';
-    surname: 'string';
-    email: 'string';
-    telegram: 'string';
-    password: 'string';
-    passwordNew: 'string';
-  };
-  gender: {
-    male: 'male';
-    female: 'female';
-  };
+  name: string;
+  surname: string;
+  email: string;
+  telegram: string;
+  password: string;
+  passwordNew: string;
+  phone: string;
 }
 
 describe('Theme test', () => {
@@ -18,7 +13,7 @@ describe('Theme test', () => {
     cy.visit('http://localhost:5173');
 
     cy.fixture('account.json').then((data: ITestAccount) => {
-      const { email, password } = data.account;
+      const { email, password } = data;
 
       cy.get('[data-testid=auth-button-login]').as('login');
       cy.get('@login').should('be.visible');

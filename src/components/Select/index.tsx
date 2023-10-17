@@ -66,7 +66,7 @@ const SelectComponent: FC<ISelectComponentProps> = ({ title, data, onClick, isVa
               option={option}
               handler={handlerOnClickOption}
               key={option}
-              testID={`select-option-${option}`}
+              testID={`select-option-${option.toLowerCase()}`}
             />
           ))}
         </Options>

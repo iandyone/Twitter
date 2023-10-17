@@ -1,14 +1,9 @@
 {
-  "account": {
-    "name": "Cypress",
-    "surname": "Testing",
-    "email": "cypress@cy.io",
-    "telegram": "cypress",
-    "password": "cypress173",
-    "passwordNew": "qwerty173"
-  },
-  "gender": {
-    "male": "male",
-    "female": "female"
-  }
+  "name": "Cypress",
+  "surname": "Testing",
+  "email": "cypress@cy.io",
+  "telegram": "cypress",
+  "password": "cypress173",
+  "passwordNew": "qwerty173",
+  "phone": "291234567"
 }

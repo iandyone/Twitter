@@ -1,24 +1,24 @@
 interface ITestAccount {
-  account: {
-    name: 'string';
-    surname: 'string';
-    email: 'string';
-    telegram: 'string';
-    password: 'string';
-    passwordNew: 'string';
-  };
-  gender: {
-    male: 'male';
-    female: 'female';
-  };
+  name: string;
+  surname: string;
+  email: string;
+  telegram: string;
+  password: string;
+  passwordNew: string;
+  phone: string;
 }
+
+const genders = {
+  male: 'male',
+  female: 'female',
+};
 
 describe('Profile test', () => {
   it('Profie should be visible on the pfofile page', () => {
     cy.visit('http://localhost:5173');
 
     cy.fixture('account.json').then((data: ITestAccount) => {
-      const { email, password } = data.account;
+      const { email, password } = data;
 
       cy.get('[data-testid=auth-button-login]').as('login');
       cy.get('@login').should('be.visible');
@@ -61,9 +61,8 @@ describe('Profile test', () => {
 
   it('Should edit the profile data', () => {
     cy.fixture('account.json').then((data: ITestAccount) => {
-      const { account, gender } = data;
-      const { name, surname, email, telegram } = account;
-      const { female, male } = gender;
+      const { name, surname, email, telegram } = data;
+      const { female, male } = genders;
 
       cy.get('[data-testid=profile-input-name]').as('inputName');
       cy.get('[data-testid=profile-input-surname]').as('inputSurname');
@@ -102,7 +101,7 @@ describe('Profile test', () => {
 
   it('Should update user password', () => {
     cy.fixture('account.json').then((data: ITestAccount) => {
-      const { email, password, passwordNew } = data.account;
+      const { email, password, passwordNew } = data;
 
       cy.get('[data-testid=profile-edit-button]').as('edit');
       cy.get('[data-testid=account-button-logout]').as('logout');

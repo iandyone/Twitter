@@ -36,7 +36,7 @@ export const InputAuth = forwardRef(
   ) => {
     return (
       <InputContainer>
-        <Label>{label}</Label>
+        <Label data-testid={testID + '-error'}>{label}</Label>
         <Input
           type={type}
           value={value}
