@@ -12,7 +12,10 @@
     "prettier": "npx prettier --write **/*.{ts,tsx,json}",
     "prepare": "husky install",
     "predeploy": "yarn build",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist",
+    "cypress": "cypress open",
+    "cypress:test": "cypress run",
+    "test": "start-server-and-test start http://localhost:5173 cypress:test"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.7",
@@ -45,6 +48,7 @@
     "husky": "^8.0.3",
     "lint-staged": "^14.0.1",
     "prettier": "3.0.3",
+    "start-server-and-test": "^2.0.1",
     "typescript": "^5.0.2",
     "vite": "^4.4.5"
   },
