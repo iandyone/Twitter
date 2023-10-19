@@ -9,7 +9,6 @@ export const MenuContainer = styled.div`
     position: absolute;
     top: 22px;
     right: 20px;
-    height: 100%;
   }
 `;
 

@@ -36,8 +36,6 @@ export const Content = styled.div<{ $isVisible: boolean }>`
       opacity: 1;
       border-radius: 30px;
       width: 70vw;
-      max-height: auto;
-      min-height: 20vw;
       transition: ${({ theme }) => theme.animations.transition};
       border: 1px solid ${({ theme }) => theme.colors.modalBorder};
       background: ${({ theme }) => theme.colors.modalBg};

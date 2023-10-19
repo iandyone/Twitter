@@ -20,6 +20,7 @@ export const colors = {
 
 export const AppRoutes = {
   HOME: '/',
+  UNKNOWN: '*',
   SIGNIN: '/signin',
   LOGIN: '/login',
   REGISTRATION: '/registration',

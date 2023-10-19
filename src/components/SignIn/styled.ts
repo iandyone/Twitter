@@ -45,6 +45,8 @@ export const Content = styled.div`
   flex-direction: column;
   row-gap: 30px;
   padding-top: 12vh;
+  position: relative;
+  z-index: 10;
 
   @media (max-width: ${Viewposts.DESKTOP}px) {
     padding-top: 5%;

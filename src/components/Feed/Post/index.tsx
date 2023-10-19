@@ -3,11 +3,13 @@ import { LikeIcon } from '@components/SVG/Like';
 import { XMarkIcon } from '@components/SVG/XMark';
 import { useDispatchTyped, useSelectorTyped } from '@hooks/redux';
 import { firebaseDB } from '@services/database';
+import { setConfirmPopup } from '@store/reducers/app';
 import { updatePostLikes } from '@store/reducers/posts';
 import { UserContact } from '@styles';
 import { getDateData, getFormattedPostDate } from '@utils/helpers/date';
 import { FC, memo, useCallback, useEffect, useMemo, useState } from 'react';
 
+import { ConfirmPopup } from './Modal';
 import {
   Avatar,
   Body,
@@ -33,8 +35,11 @@ const PostComponent: FC<IPostProps> = ({ post }) => {
   const [postLikes, setLikes] = useState(getPostLikes);
   const [postDate, setPostDate] = useState<string>(getPostDate);
   const [mediaURL, setMediaURL] = useState<string>(null);
+  const [willRemoved, setWillRemoved] = useState(false);
   const isUserPost = useMemo(getIsuserPost, [user, uid]);
   const dispatch = useDispatchTyped();
+
+  const { confirmPopup } = useSelectorTyped((store) => store.app);
 
   function getIsuserPost() {
     return user === uid;
@@ -86,12 +91,23 @@ const PostComponent: FC<IPostProps> = ({ post }) => {
   }
 
   async function handlerOnRemovePost() {
+    setWillRemoved(true);
+    dispatch(setConfirmPopup(true));
+  }
+
+  const confirmRemovingPost = useCallback(() => {
     firebaseDB.removePost(post);
 
     if (media) {
       firebaseDB.removeMedia(id);
     }
-  }
+
+    setWillRemoved(false);
+  }, [id, media, post]);
+
+  const rejectRemovingPost = useCallback(() => {
+    setWillRemoved(false);
+  }, []);
 
   useEffect(() => {
     downloadPostMedia();
@@ -132,6 +148,9 @@ const PostComponent: FC<IPostProps> = ({ post }) => {
           )}
         </Likes>
       </Content>
+      {confirmPopup && willRemoved && (
+        <ConfirmPopup onConfirm={confirmRemovingPost} onReject={rejectRemovingPost} />
+      )}
     </Container>
   );
 };

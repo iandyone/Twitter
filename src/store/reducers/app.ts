@@ -10,6 +10,7 @@ interface IAppState {
   selectGender: boolean;
   tweetPopup: boolean;
   profilePopup: boolean;
+  confirmPopup: boolean;
 }
 
 const initialState: IAppState = {
@@ -21,6 +22,7 @@ const initialState: IAppState = {
   selectGender: false,
   tweetPopup: false,
   profilePopup: false,
+  confirmPopup: false,
 };
 
 const appSlice = createSlice({
@@ -51,6 +53,9 @@ const appSlice = createSlice({
     setSelectGender(state, action: PayloadAction<boolean>) {
       state.selectGender = action.payload ?? !state.selectGender;
     },
+    setConfirmPopup(state, action: PayloadAction<boolean>) {
+      state.confirmPopup = action.payload ?? !state.confirmPopup;
+    },
   },
 });
 
@@ -65,4 +70,5 @@ export const {
   setSelectGender,
   setTweetPopup,
   setProfilePopup,
+  setConfirmPopup,
 } = appSlice.actions;

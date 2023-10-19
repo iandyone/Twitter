@@ -35,6 +35,7 @@ export const App: FC = () => {
     if (selectDay) dispatch(setSelectDay(false));
     if (selectMonth) dispatch(setSelectMonth(false));
     if (selectYear) dispatch(setSelectYear(false));
+    if (selectYear) dispatch(setSelectYear(false));
   }
 
   const handlerChildAddedPosts = useCallback(
@@ -71,6 +72,7 @@ export const App: FC = () => {
             <Route path={AppRoutes.page.FEED} element={<FeedPage />} />
             <Route path={AppRoutes.page.PROFILE} element={<ProfilePage />} />
           </Route>
+          <Route path={AppRoutes.UNKNOWN} element={<HomePage />} />
         </Routes>
       </ThemeProvider>
     </Wrapper>
