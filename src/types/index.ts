@@ -1,5 +1,7 @@
-import { Gender, handler } from './types';
 import { NamedExoticComponent } from 'react';
+
+import { Gender, handler } from './types';
+
 export interface ITheme {
   dark: IThemeStyles;
   light: IThemeStyles;
@@ -105,7 +107,8 @@ export interface ISideMenuOption {
   path: string;
   onClick?: handler;
   element: NamedExoticComponent<IIconComponentProps>;
-  testID?: string;
+  active: boolean;
+  testID: string;
 }
 
 export interface IPost {

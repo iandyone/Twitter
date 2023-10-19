@@ -26,7 +26,7 @@ export const Toggler = styled.div<{ $theme: Theme }>`
   left: -2px;
   top: -1px;
   border: 2px solid ${({ theme }) => theme.colors.themeButtonBorder};
-  transform: translateX(${({ $theme }) => ($theme === 'light' ? '0px' : '24px')});
+  transform: translateX(${({ $theme }) => ($theme === 'light' ? '0' : '24px')});
   transition: transform 0.2s ease;
   transition: ${({ theme }) => theme.animations.transition};
 `;

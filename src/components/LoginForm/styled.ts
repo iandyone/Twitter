@@ -30,7 +30,7 @@ export const Title = styled(TitleTemplate)`
 
   @media (max-width: ${Viewposts.MOBILE}px) {
     font-size: 36px;
-    margin-bottom: 0px;
+    margin-bottom: 0;
   }
 `;
 
@@ -41,7 +41,7 @@ export const TwitterIcon = styled(Icon)`
   margin-bottom: 36px;
 
   @media (max-width: ${Viewposts.MOBILE}px) {
-    margin-bottom: 0px;
+    margin-bottom: 0;
   }
 `;
 
@@ -49,7 +49,7 @@ export const Form = styled(FormTemplate)`
   margin-bottom: 24px;
 
   @media (max-width: ${Viewposts.MOBILE}px) {
-    margin-bottom: 0px;
+    margin-bottom: 0;
   }
 }
 `;
@@ -83,7 +83,7 @@ export const Button = styled(ButtonTemplate)`
   }
 
   @media (max-width: ${Viewposts.MOBILE}px) {
-    margin-bottom: 0px;
+    margin-bottom: 0;
   }
 `;
 

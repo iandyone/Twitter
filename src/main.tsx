@@ -9,7 +9,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 import { store } from './store';
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
+ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <ErrorBoundary>
       <Provider store={store}>

@@ -29,7 +29,7 @@ export const Container = styled(SidesTemplate)`
 
   @media (max-width: ${Viewposts.TABLET}px) {
     row-gap: ${DEFAULT_GAP};
-    padding: ${DEFAULT_GAP} 0px;
+    padding: ${DEFAULT_GAP} 0;
     position: static;
     width: 100%;
   }

@@ -63,7 +63,6 @@ export const Options = styled.ul`
   background: ${({ theme }) => theme.colors.bgApp};
   max-height: 250px;
   overflow-y: auto;
-  position: absolute;
 
   @media (max-width: ${Viewposts.TABLET_MEDIUM}px) {
     position: static;

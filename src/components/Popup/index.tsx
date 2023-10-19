@@ -1,7 +1,7 @@
 import Portal from '@components/Portal';
 import { useDispatchTyped, useSelectorTyped } from '@hooks/redux';
 import { setConfirmPopup, setProfilePopup, setTweetPopup } from '@store/reducers/app';
-import { setPageScroll } from '@utils/helpers/common';
+import { setPageScroll } from '@utils/helpers/lists';
 import { FC, memo, MouseEvent, useEffect, useMemo } from 'react';
 
 import { Content, PopupElement } from './styled';

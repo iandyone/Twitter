@@ -172,7 +172,7 @@ export const PageWrapper = styled.div`
 
 export const Icon = styled.img`
   @media (max-width: ${Viewposts.DESKTOP}px) {
-    margin-bottom: 0px;
+    margin-bottom: 0;
   }
 `;
 
@@ -180,7 +180,6 @@ export const PageBody = styled.div`
   display: flex;
   flex-direction: column;
   margin: 0 auto;
-  height: 100vh;
 `;
 
 export const TitleTemplate = styled.h1`
@@ -329,7 +328,7 @@ export const PageContainer = styled.section`
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  padding: ${DEFAULT_GAP} 0px;
+  padding: ${DEFAULT_GAP} 0;
 `;
 
 export const UserContact = styled.span`

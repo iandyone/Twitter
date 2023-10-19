@@ -2,7 +2,7 @@ import { IFooterLink, IUser } from '@appTypes';
 import { Account } from '@components/Account';
 import { SearchIcon } from '@components/SVG/Search';
 import { AppRoutes } from '@constants/variables';
-import { useDebounce } from '@hooks/common';
+import { useDebounce } from '@hooks/timers';
 import { useMobile } from '@hooks/window';
 import { firebaseDB } from '@services/database';
 import { ChangeEvent, FC, useCallback, useEffect, useMemo, useState } from 'react';

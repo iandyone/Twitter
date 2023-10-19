@@ -11,10 +11,10 @@ export const TweetsCounter = styled.h3`
   font-size: 16px;
   opacity: ${({ theme }) => theme.animations.opacity};
   margin-bottom: 18px;
-  padding: 0px ${DEFAULT_GAP};
+  padding: 0 ${DEFAULT_GAP};
 
   @media (max-width: ${Viewposts.TABLET}px) {
-    padding: 0px;
+    padding: 0;
   }
 `;
 
@@ -29,7 +29,7 @@ export const Banner = styled.img`
   }
 
   @media (max-width: ${Viewposts.TABLET}px) {
-    padding: 0px;
+    padding: 0;
     width: calc(100% + 40px);
     transform: translatex(-20px);
   }
@@ -50,7 +50,7 @@ export const Header = styled.div`
   margin-bottom: 10px;
 
   @media (max-width: ${Viewposts.TABLET}px) {
-    padding-right: 0px;
+    padding-right: 0;
   }
 
   @media (max-width: ${Viewposts.MOBILE}px) {
@@ -106,10 +106,10 @@ export const Body = styled.div`
   row-gap: 8px;
 
   @media (max-width: ${Viewposts.TABLET}px) {
-    padding: 0px;
+    padding: 0;
   }
   @media (max-width: ${Viewposts.MOBILE}px) {
-    padding: 0px;
+    padding: 0;
     align-items: center;
   }
 `;

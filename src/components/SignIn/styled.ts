@@ -8,7 +8,6 @@ export const Body = styled.div`
   display: flex;
   flex-direction: column;
   margin: 0 auto;
-  height: 100vh;
 `;
 
 export const Main = styled.main`
@@ -74,7 +73,7 @@ export const TwitterIcon = styled(Icon)`
 
   @media (max-width: ${Viewposts.TABLET}px) {
     align-self: center;
-    margin-bottom: 0px;
+    margin-bottom: 0;
   }
 `;
 
@@ -109,12 +108,12 @@ export const Subtitle = styled.p`
   @media (max-width: ${Viewposts.TABLET}px) {
     font-size: 40px;
     text-align: center;
-    margin-bottom: 0px;
+    margin-bottom: 0;
   }
   @media (max-width: ${Viewposts.TABLET_SMALL}px) {
     font-size: 30px;
     text-align: center;
-    margin-bottom: 0px;
+    margin-bottom: 0;
   }
 `;
 

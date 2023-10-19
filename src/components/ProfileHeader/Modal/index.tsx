@@ -2,6 +2,7 @@ import { IUserProfileData } from '@appTypes';
 import { Genders } from '@appTypes/enums';
 import { Popup } from '@components/Popup';
 import { Select } from '@components/Select';
+import { NAME_MAX_LENGTH } from '@constants/variables';
 import { useDispatchTyped, useSelectorTyped } from '@hooks/redux';
 import { firebaseDB } from '@services/database';
 import { setProfilePopup, setSelectGender } from '@store/reducers/app';
@@ -19,20 +20,16 @@ export const ProfilePopup: FC = () => {
   const [userPass, setUserPass] = useState('');
   const [userTelegram, setUserTelegram] = useState(telegram ?? '');
   const [isNewPassValid, setIsNewPassValid] = useState(true);
-  const getderList = useMemo(getGenderList, []);
+  const getderList = useMemo(() => Object.values(Genders), [Genders]);
 
   const [userGender, setUserGender] = useState(gender);
   const dispatch = useDispatchTyped();
-
-  function getGenderList() {
-    return Object.values(Genders);
-  }
 
   const handlerOnChangeUsername = useCallback(
     (name: string) => {
       setUserName(name);
     },
-    [setUserName],
+    [name],
   );
 
   const handlerOnChangeUserSurname = useCallback(
@@ -108,7 +105,7 @@ export const ProfilePopup: FC = () => {
           <Input
             type='text'
             label='Name'
-            value={userName}
+            value={userName.slice(0, NAME_MAX_LENGTH)}
             onChange={handlerOnChangeUsername}
             testID='profile-input-name'
           />

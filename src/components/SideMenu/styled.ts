@@ -66,7 +66,7 @@ export const TwitterIcon = styled(Icon)`
   height: 40px;
 
   @media (max-width: ${Viewposts.MOBILE}px) {
-    margin-bottom: 0px;
+    margin-bottom: 0;
   }
 `;
 

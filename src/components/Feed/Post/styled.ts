@@ -6,7 +6,7 @@ import styled, { css } from 'styled-components';
 export const Container = styled.article`
   display: flex;
   column-gap: 15px;
-  padding: ${DEFAULT_GAP} 0px;
+  padding: ${DEFAULT_GAP} 0;
 
   &:not(:first-child) {
     border-top: 1px solid ${({ theme }) => theme.colors.border};
@@ -91,7 +91,7 @@ export const MediaContainer = styled.div`
   display: flex;
   flex-justify-content: center;
   align-items: center;
-  margin: 10px 0px;
+  margin: 10px 0;
 `;
 
 export const Media = styled.img`

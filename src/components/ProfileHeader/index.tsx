@@ -1,5 +1,6 @@
 import userAvatar from '@assets/icons/avatar.svg';
 import profileBg from '@assets/images/profileBg.webp';
+import { NAME_MAX_LENGTH } from '@constants/variables';
 import { useDispatchTyped, useSelectorTyped } from '@hooks/redux';
 import { useMobile } from '@hooks/window';
 import { firebaseDB } from '@services/database';
@@ -34,6 +35,12 @@ const ProfileComponent: FC = () => {
   const isMobile = useMobile();
   const tweetCounter = useMemo(getUserPosts, [all, uid]);
   const [followings, setFollowings] = useState(0);
+  const userName = useMemo(getUserName, [uid, name]);
+
+  function getUserName() {
+    const userName = name ?? uid;
+    return userName.slice(0, NAME_MAX_LENGTH);
+  }
 
   function getUserPosts() {
     return all.filter((post) => post.user === uid).length;
@@ -72,7 +79,7 @@ const ProfileComponent: FC = () => {
           )}
         </Header>
         <Body>
-          <Name data-testid='profile-user-name'>{name ?? uid}</Name>
+          <Name data-testid='profile-user-name'>{userName}</Name>
           <Contact data-testid='profile-user-email'>{email}</Contact>
           {telegram && (
             <TelegramLink

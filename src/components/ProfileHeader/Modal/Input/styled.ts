@@ -8,7 +8,7 @@ export const Container = styled.div`
   row-gap: 6px;
 `;
 
-export const Label = styled(LabelTemplate)`
+export const Title = styled(LabelTemplate)`
   line-height: 120%;
   height: 14px;
   padding-left: 2px;
@@ -35,3 +35,5 @@ export const Inputelement = styled(InputTemplate).attrs(({ type }) => ({
     padding: 12px 10px;
   }
 `;
+
+export const Label = styled(LabelTemplate)``;

@@ -25,5 +25,5 @@ export const footerLinks: IFooterLink[] = [
   { text: 'Developers', to: AppRoutes.HOME },
   { text: 'Directory', to: AppRoutes.HOME },
   { text: 'Settings', to: AppRoutes.HOME },
-  { text: '© 2021 Twitter, Inc.', to: AppRoutes.HOME },
+  { text: `© ${new Date().getFullYear()} Twitter, Inc.`, to: AppRoutes.HOME },
 ];

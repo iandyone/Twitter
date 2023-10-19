@@ -1,7 +1,7 @@
 import { Popup } from '@components/Popup';
 import { useDispatchTyped } from '@hooks/redux';
 import { setConfirmPopup } from '@store/reducers/app';
-import { setPageScroll } from '@utils/helpers/common';
+import { setPageScroll } from '@utils/helpers/lists';
 import { FC, memo } from 'react';
 
 import { Button, Buttons, Container, Title } from './styled';

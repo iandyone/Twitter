@@ -9,12 +9,12 @@ export const Container = styled.header`
   align-items: center;
 
   @media (min-width: ${Viewposts.TABLET}px) {
-    padding: 0px ${DEFAULT_GAP};
+    padding: 0 ${DEFAULT_GAP};
   }
 
   @media (max-width: ${Viewposts.TABLET}px) {
     padding-right: 40px;
-    padding-left: 0px;
+    padding-left: 0;
   }
 `;
 

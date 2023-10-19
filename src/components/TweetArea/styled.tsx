@@ -6,7 +6,7 @@ import styled from 'styled-components';
 export const Container = styled.form`
   display: flex;
   position: relative;
-  padding: ${DEFAULT_GAP} 0px;
+  padding: ${DEFAULT_GAP} 0;
   border-bottom: 1px solid ${({ theme }) => theme.colors.border};
 
   @media (min-width: ${Viewposts.TABLET}px) {

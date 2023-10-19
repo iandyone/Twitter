@@ -1,6 +1,7 @@
 export const PHONE_MASK = '+375';
 export const USER_ELEMENT_HEIGHT = '52px';
 export const DEFAULT_GAP = '20px';
+export const NAME_MAX_LENGTH = 20;
 
 export const colors = {
   black: '#272727',
@@ -14,8 +15,8 @@ export const colors = {
   gray2: '#b3b8bb',
   gray3: '#eff3f4',
   gray4: '#536471',
-  red: 'red',
-  green: 'green',
+  red: '#ff4949',
+  green: '#58e967',
 };
 
 export const AppRoutes = {

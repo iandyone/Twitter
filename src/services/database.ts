@@ -1,7 +1,7 @@
 import { IPost, IPostDB, IUser, IUserProfileData } from '@appTypes';
 import { DatabaseRefs } from '@appTypes/enums';
 import { createMediaRef, database, databaseRefs } from '@config/firebase';
-import { getLikesList } from '@utils/helpers/common';
+import { getLikesList } from '@utils/helpers/lists';
 import {
   createUserWithEmailAndPassword,
   getAuth,

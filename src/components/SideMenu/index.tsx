@@ -8,6 +8,7 @@ import { useDispatchTyped, useSelectorTyped } from '@hooks/redux';
 import { useMobile } from '@hooks/window';
 import { setMobileMenu, setTweetPopup } from '@store/reducers/app';
 import { FC, useCallback } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import { TweetPopup } from './Modal';
 import { Option } from './Option';
@@ -18,10 +19,23 @@ export const SideMenu: FC = () => {
   const { tweetPopup } = useSelectorTyped((store) => store.app);
   const dispatch = useDispatchTyped();
   const isMobileView = useMobile();
+  const location = useLocation();
 
   const sideMenuOptions: ISideMenuOption[] = [
-    { title: 'Home', path: AppRoutes.HOME, testID: 'route-button-home', element: HomeIcon },
-    { title: 'Profile', path: AppRoutes.page.PROFILE, testID: 'route-button-profile', element: ProfileIcon },
+    {
+      title: 'Home',
+      path: AppRoutes.HOME,
+      testID: 'route-button-home',
+      active: location.pathname === AppRoutes.page.FEED,
+      element: HomeIcon,
+    },
+    {
+      title: 'Profile',
+      path: AppRoutes.page.PROFILE,
+      testID: 'route-button-profile',
+      active: location.pathname === AppRoutes.page.PROFILE,
+      element: ProfileIcon,
+    },
   ];
 
   const handlerOnClickTweet = useCallback(() => {

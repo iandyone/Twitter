@@ -33,7 +33,7 @@ export const TwitterIcon = styled(Icon)`
   margin-bottom: 42px;
 
   @media (max-width: ${Viewposts.MOBILE}px) {
-    margin-bottom: 0px;
+    margin-bottom: 0;
   }
 `;
 
@@ -51,7 +51,7 @@ export const Link = styled(LinkTemplate)`
   margin-bottom: 18px;
 
   @media (max-width: ${Viewposts.MOBILE}px) {
-    margin-bottom: 0px;
+    margin-bottom: 0;
   }
 `;
 
@@ -61,7 +61,7 @@ export const Subtitle = styled(SubtitleTemplate)`
   margin-bottom: ${marginBottom};
 
   @media (max-width: ${Viewposts.TABLET_MEDIUM}px) {
-    margin-bottom: 0px;
+    margin-bottom: 0;
   }
 `;
 
@@ -73,7 +73,7 @@ export const Text = styled.p`
   margin-bottom: ${marginBottom};
 
   @media (max-width: ${Viewposts.TABLET_MEDIUM}px) {
-    margin-bottom: 0px;
+    margin-bottom: 0;
   }
 `;
 
@@ -102,6 +102,6 @@ export const Button = styled(ButtonTemplate)`
   }
 
   @media (max-width: ${Viewposts.MOBILE}px) {
-    margin-bottom: 0px;
+    margin-bottom: 0;
   }
 `;
