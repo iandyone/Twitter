@@ -2,7 +2,7 @@ import { BurgerMenu } from '@components/BurgerMenu';
 import { Feed } from '@components/Feed';
 import { Header } from '@components/Header';
 import { TweetArea } from '@components/TweetArea';
-import { AppRoutes } from '@constants/variables';
+import { AppRoutes } from '@constants';
 import { useDispatchTyped, useSelectorTyped } from '@hooks/redux';
 import { firebaseDB } from '@services/database';
 import { setUserPosts } from '@store/reducers/posts';
@@ -33,7 +33,7 @@ export const FeedPage: FC = () => {
   }, [uid, getCurrentUserPosts]);
 
   return (
-    <PageContainer data-testid='feed-page' className={theme}>
+    <PageContainer data-testid='feed-page' data-theme={theme}>
       <Header title='Home' />
       <TweetArea />
       <Feed posts={posts} />

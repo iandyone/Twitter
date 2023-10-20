@@ -1,11 +1,18 @@
-import { NAME_MAX_LENGTH } from '@constants/variables';
+import { NAME_MAX_LENGTH } from '@constants';
 import { ChangeEvent, FC, memo, useMemo } from 'react';
 
+import { data } from './config';
 import { Container, Inputelement, Label, Title } from './styled';
 import { IInputProps } from './types';
 
 export const InputComponent: FC<IInputProps> = ({ type, label, onChange, value, error, testID }) => {
-  const errorMessage = useMemo(getErrorMessage, [type]);
+  const { emailErrorMessage, passwordErrorMessage, phoneErrorMessage } = data;
+  const errorMessage = useMemo(getErrorMessage, [
+    type,
+    emailErrorMessage,
+    passwordErrorMessage,
+    phoneErrorMessage,
+  ]);
 
   function handlerOnChange(e: ChangeEvent<HTMLInputElement>) {
     const value = e.target.value;
@@ -17,15 +24,15 @@ export const InputComponent: FC<IInputProps> = ({ type, label, onChange, value, 
 
   function getErrorMessage() {
     if (type === 'password') {
-      return 'The password must be at least 6 characters long and contain a digit';
+      return passwordErrorMessage;
     }
 
     if (type === 'tel') {
-      return 'Invalid phone number';
+      return phoneErrorMessage;
     }
 
     if (type === 'email') {
-      return 'Wrong email';
+      return emailErrorMessage;
     }
 
     return '';

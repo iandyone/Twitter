@@ -1,5 +1,4 @@
-import { Viewposts } from '@appTypes/enums';
-import { DEFAULT_GAP } from '@constants/variables';
+import { Viewports } from '@appTypes/enums';
 import { css, styled } from 'styled-components';
 
 export const PopupElement = styled.div<{ $isVisible: boolean }>`
@@ -40,11 +39,11 @@ export const Content = styled.div<{ $isVisible: boolean }>`
       border: 1px solid ${({ theme }) => theme.colors.modalBorder};
       background: ${({ theme }) => theme.colors.modalBg};
       color: ${({ theme }) => theme.colors.text};
-      padding: ${DEFAULT_GAP};
+      padding: ${({ theme }) => theme.spaces.gap.ss};
       display: flex;
       justify-content: center;
 
-      @media (max-width: ${Viewposts.TABLET}px) {
+      @media (max-width: ${Viewports.TABLET}px) {
         max-height: fit-content;
       }
     `};

@@ -1,5 +1,4 @@
-import { Viewposts } from '@appTypes/enums';
-import { DEFAULT_GAP } from '@constants/variables';
+import { Viewports } from '@appTypes/enums';
 import { ButtonTemplate, TitleTemplate } from '@styles';
 import styled from 'styled-components';
 
@@ -13,11 +12,11 @@ export const Container = styled.div`
 `;
 
 export const Title = styled(TitleTemplate)`
-  font-size: 22px;
+  font-size: ${({ theme }) => theme.font.size.ml};
   text-align: center;
 
-  @media (max-width: ${Viewposts.MOBILE}px) {
-    font-size: ${({ theme }) => theme.font.size};
+  @media (max-width: ${Viewports.MOBILE}px) {
+    font-size: ${({ theme }) => theme.font.size.sm};
   }
 `;
 
@@ -25,9 +24,9 @@ export const Buttons = styled.div`
   display: flex;
   justify-content: center;
   width: 100%;
-  column-gap: ${DEFAULT_GAP};
+  column-gap: ${({ theme }) => theme.spaces.gap.ss};
 
-  @media (max-width: ${Viewposts.MOBILE}px) {
+  @media (max-width: ${Viewports.MOBILE}px) {
     max-width: none;
   }
 `;
@@ -37,7 +36,7 @@ export const Button = styled(ButtonTemplate)`
   width: 100%;
   max-width: 185px;
 
-  @media (max-width: ${Viewposts.MOBILE}px) {
+  @media (max-width: ${Viewports.MOBILE}px) {
     max-width: none;
     height: 38px;
   }

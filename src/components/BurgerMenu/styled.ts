@@ -1,10 +1,10 @@
-import { Viewposts } from '@appTypes/enums';
+import { Viewports } from '@appTypes/enums';
 import styled, { css } from 'styled-components';
 
 export const MenuContainer = styled.div`
   display: none;
 
-  @media (max-width: ${Viewposts.TABLET}px) {
+  @media (max-width: ${Viewports.TABLET}px) {
     display: block;
     position: absolute;
     top: 22px;

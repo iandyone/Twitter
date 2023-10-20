@@ -1,8 +1,7 @@
-import { DEFAULT_GAP } from '@constants/variables';
 import styled from 'styled-components';
 
 export const OptionElement = styled.li`
-  padding: 16px ${DEFAULT_GAP};
+  padding: 16px ${({ theme }) => theme.spaces.gap.ss};
   width: 100%;
   background: ${({ theme }) => theme.colors.bgApp};
   border: 1px solid ${({ theme }) => theme.colors.border};

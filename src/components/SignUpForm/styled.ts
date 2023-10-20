@@ -1,14 +1,5 @@
-import { Viewposts } from '@appTypes/enums';
-import { DEFAULT_GAP } from '@constants/variables';
-import {
-  ButtonTemplate,
-  FormTemplate,
-  Icon,
-  LinkTemplate,
-  PageBody,
-  SubtitleTemplate,
-  TitleTemplate,
-} from '@styles';
+import { Viewports } from '@appTypes/enums';
+import { ButtonTemplate, Icon, LinkTemplate, PageBody, SubtitleTemplate, TitleTemplate } from '@styles';
 import styled from 'styled-components';
 
 const marginBottom = '32px';
@@ -21,8 +12,8 @@ export const Body = styled(PageBody)`
   width: 100%;
   max-width: 680px;
 
-  @media (max-width: ${Viewposts.MOBILE}px) {
-    row-gap: ${DEFAULT_GAP};
+  @media (max-width: ${Viewports.MOBILE}px) {
+    row-gap: ${({ theme }) => theme.spaces.gap.ss};
   }
 `;
 
@@ -32,17 +23,17 @@ export const TwitterIcon = styled(Icon)`
   height: 40px;
   margin-bottom: 42px;
 
-  @media (max-width: ${Viewposts.MOBILE}px) {
+  @media (max-width: ${Viewports.MOBILE}px) {
     margin-bottom: 0;
   }
 `;
 
 export const Title = styled(TitleTemplate)`
-  font-size: 30px;
+  font-size: ${({ theme }) => theme.font.size.sl};
   align-self: flex-start;
 `;
 
-export const Form = styled(FormTemplate)`
+export const Form = styled.form`
   margin-bottom: 24px;
 `;
 
@@ -50,29 +41,29 @@ export const Link = styled(LinkTemplate)`
   align-self: flex-start;
   margin-bottom: 18px;
 
-  @media (max-width: ${Viewposts.MOBILE}px) {
+  @media (max-width: ${Viewports.MOBILE}px) {
     margin-bottom: 0;
   }
 `;
 
 export const Subtitle = styled(SubtitleTemplate)`
-  font-size: ${({ theme }) => theme.font.size};
+  font-size: ${({ theme }) => theme.font.size.sm};
   align-self: flex-start;
   margin-bottom: ${marginBottom};
 
-  @media (max-width: ${Viewposts.TABLET_MEDIUM}px) {
+  @media (max-width: ${Viewports.TABLET_MEDIUM}px) {
     margin-bottom: 0;
   }
 `;
 
 export const Text = styled.p`
-  font-size: 16px;
+  font-size: ${({ theme }) => theme.font.size.s};
   font-weight: 400;
   line-height: 150%;
   opacity: ${({ theme }) => theme.animations.opacity};
   margin-bottom: ${marginBottom};
 
-  @media (max-width: ${Viewposts.TABLET_MEDIUM}px) {
+  @media (max-width: ${Viewports.TABLET_MEDIUM}px) {
     margin-bottom: 0;
   }
 `;
@@ -84,7 +75,7 @@ export const Container = styled.div`
   grid-template-columns: 2fr 1fr 1fr;
   column-gap: 22px;
 
-  @media (max-width: ${Viewposts.TABLET_MEDIUM}px) {
+  @media (max-width: ${Viewports.TABLET_MEDIUM}px) {
     display: flex;
     flex-direction: column;
     row-gap: 24px;
@@ -101,7 +92,7 @@ export const Button = styled(ButtonTemplate)`
     transition: ${({ theme }) => theme.animations.transition};
   }
 
-  @media (max-width: ${Viewposts.MOBILE}px) {
+  @media (max-width: ${Viewports.MOBILE}px) {
     margin-bottom: 0;
   }
 `;

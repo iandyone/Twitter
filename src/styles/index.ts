@@ -1,10 +1,10 @@
-import { Viewposts } from '@appTypes/enums';
+import { Viewports } from '@appTypes/enums';
 import robotoBlack from '@assets/fonts/Roboto/Roboto-Black.ttf';
 import robotoBold from '@assets/fonts/Roboto/Roboto-Bold.ttf';
 import robotoLight from '@assets/fonts/Roboto/Roboto-Light.ttf';
 import robotoMedium from '@assets/fonts/Roboto/Roboto-Medium.ttf';
 import robotoRegular from '@assets/fonts/Roboto/Roboto-Regular.ttf';
-import { colors, DEFAULT_GAP, USER_ELEMENT_HEIGHT } from '@constants/variables';
+import { colors } from '@constants';
 import { Link } from 'react-router-dom';
 import styled, { createGlobalStyle, css } from 'styled-components';
 
@@ -41,7 +41,7 @@ body {
   line-height: 1;
   font-weight:  ${({ theme }) => theme.font.regular};
   font-family: ${({ theme }) => theme.font.family};
-  font-size: ${({ theme }) => theme.font.size};
+  font-size: ${({ theme }) => theme.font.size.sm};
   color: ${({ theme }) => theme.colors.text};
   background-color: white;
   scroll-behavior: smooth;
@@ -86,6 +86,13 @@ ul li {
 
 img {
   vertical-align: top;
+}
+
+form {
+  display: flex;
+  row-gap: 16px;
+  flex-direction: column;
+  width: 100%;
 }
 
 h1,
@@ -159,7 +166,7 @@ export const AppContainer = styled.div`
   max-width: 1920px;
   margin: 0 auto;
   box-sizing: content-box;
-  padding: 0 ${DEFAULT_GAP};
+  padding: 0 ${({ theme }) => theme.spaces.gap.ss};
   overflow-x: hidden;
   min-height: 100vh;
 `;
@@ -171,7 +178,7 @@ export const PageWrapper = styled.div`
 `;
 
 export const Icon = styled.img`
-  @media (max-width: ${Viewposts.DESKTOP}px) {
+  @media (max-width: ${Viewports.DESKTOP}px) {
     margin-bottom: 0;
   }
 `;
@@ -201,9 +208,9 @@ export const ButtonTemplate = styled.button`
   align-items: center;
   border-radius: 76px;
   width: 100%;
-  color: ${({ theme }) => theme.colors.buttonText};
-  font-size: ${({ theme }) => theme.font.size};
-  background: ${({ theme }) => theme.colors.buttonBg};
+  color: ${({ theme }) => theme.colors.buttonTextPrimary};
+  font-size: ${({ theme }) => theme.font.size.sm};
+  background: ${({ theme }) => theme.colors.buttonBgPrimary};
   transition: ${({ theme }) => theme.animations.transition};
 
   &:hover {
@@ -232,7 +239,7 @@ export const InputTemplate = styled.input<{ $error?: boolean; $isNotEmpty?: bool
   border-radius: 6px;
   border: 1px solid ${({ theme }) => theme.colors.border};
   color: ${({ theme }) => theme.colors.text};
-  font-size: ${({ theme }) => theme.font.size};
+  font-size: ${({ theme }) => theme.font.size.sm};
   transition: ${({ theme }) => theme.animations.transition};
 
   &:focus {
@@ -261,38 +268,30 @@ export const InputTemplate = styled.input<{ $error?: boolean; $isNotEmpty?: bool
     `}
 `;
 
-export const FormTemplate = styled.form`
-  display: flex;
-  row-gap: 16px;
-  flex-direction: column;
-  width: 100%;
-}
-`;
-
 export const SidesTemplate = styled.div`
-  padding: ${DEFAULT_GAP};
+  padding: ${({ theme }) => theme.spaces.gap.ss};
   width: 100%;
   margin: 0 auto;
   min-height: 100vh;
 
-  @media (max-width: ${Viewposts.DESKTOP}px) {
-    padding: ${DEFAULT_GAP} ${DEFAULT_GAP};
+  @media (max-width: ${Viewports.DESKTOP}px) {
+    padding: ${({ theme }) => theme.spaces.gap.ss} ${({ theme }) => theme.spaces.gap.ss};
   }
 
-  @media (max-width: ${Viewposts.TABLET}px) {
+  @media (max-width: ${Viewports.TABLET}px) {
     min-height: auto;
   }
 `;
 
 export const UserData = styled.div`
   display: flex;
-  column-gap: 10px;
+  column-gap: ${({ theme }) => theme.spaces.gap.sm};
   width: 100%;
 `;
 
 export const UserAvatar = styled(Icon)`
-  width: ${USER_ELEMENT_HEIGHT};
-  height: ${USER_ELEMENT_HEIGHT};
+  width: ${({ theme }) => theme.spaces.avatarHeight};
+  height: ${({ theme }) => theme.spaces.avatarHeight};
   border-radius: 50%;
 `;
 
@@ -300,13 +299,13 @@ export const UserInfo = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  row-gap: 10px;
-  font-size: 16px;
+  row-gap: ${({ theme }) => theme.spaces.gap.sm};
+  font-size: ${({ theme }) => theme.font.size.s};
   overflow: hidden;
 `;
 
 export const UserName = styled(TitleTemplate)`
-  font-size: 16px;
+  font-size: ${({ theme }) => theme.font.size.s};
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -328,35 +327,35 @@ export const PageContainer = styled.section`
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  padding: ${DEFAULT_GAP} 0;
+  padding: ${({ theme }) => theme.spaces.gap.ss} 0;
 `;
 
 export const UserContact = styled.span`
-  font-size: 16px;
+  font-size: ${({ theme }) => theme.font.size.s};
   font-weight: ${({ theme }) => theme.font.regular};
   opacity: ${({ theme }) => theme.animations.opacity};
 `;
 
 export const SubHeader = styled(TitleTemplate)`
-  padding: ${DEFAULT_GAP} 90px;
-  font-size: ${({ theme }) => theme.font.size};
+  padding: ${({ theme }) => theme.spaces.gap.ss} 90px;
+  font-size: ${({ theme }) => theme.font.size.sm};
   border-bottom: 1px solid ${({ theme }) => theme.colors.border};
   align-self: flex-start;
   margin-bottom: 40px;
 
-  @media (max-width: ${Viewposts.TABLET}px) {
-    margin-bottom: ${DEFAULT_GAP};
+  @media (max-width: ${Viewports.TABLET}px) {
+    margin-bottom: ${({ theme }) => theme.spaces.gap.ss};
   }
-  @media (max-width: ${Viewposts.MOBILE}px) {
+  @media (max-width: ${Viewports.MOBILE}px) {
     align-self: center;
     width: 100%;
     text-align: center;
-    padding: ${DEFAULT_GAP} 0;
+    padding: ${({ theme }) => theme.spaces.gap.ss} 0;
   }
 `;
 
 export const LabelTemplate = styled.label`
   color: ${({ theme }) => theme.colors.error};
   transition: ${({ theme }) => theme.animations.transition};
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.font.size.xs};
 `;

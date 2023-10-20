@@ -21,8 +21,8 @@ describe('Registration tests', () => {
       cy.get('[data-testid=login-form-password]').as('password');
       cy.get('[data-testid=login-form-submit]').as('submit');
 
-      cy.get('@email').clear().type(email).should('have.value', email);
-      cy.get('@password').clear().type(password).should('have.value', password);
+      cy.get('@email').type(email).should('have.value', email);
+      cy.get('@password').type(password).should('have.value', password);
 
       cy.get('@submit').click();
 
@@ -52,7 +52,7 @@ describe('Registration tests', () => {
       cy.get('@password').clear().type(password).should('have.value', password);
       cy.get('@submit').click();
 
-      cy.get('@email').clear().type(email).should('have.value', email);
+      cy.get('@email').type(email).should('have.value', email);
       cy.get('@password').clear().type(password).should('have.value', password);
       cy.get('@submit').click();
 
@@ -109,7 +109,9 @@ describe('Registration tests', () => {
       cy.get('@password').clear().type(invalidPassword).should('have.value', invalidPassword);
       cy.get('@submit').click();
 
-      cy.get('@password').clear().type(password).should('have.value', password);
+      cy.get('@password').clear();
+      cy.wait(200);
+      cy.get('@password').type(password).should('have.value', password);
       cy.get('@submit').click();
 
       cy.get('[data-testid=feed-page]').as('page');

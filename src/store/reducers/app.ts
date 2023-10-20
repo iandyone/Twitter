@@ -29,32 +29,32 @@ const appSlice = createSlice({
   name: 'appReducer',
   initialState,
   reducers: {
-    setTheme(state, action: PayloadAction<Theme>) {
-      state.theme = action.payload;
+    setTheme(state, { payload }: PayloadAction<Theme>) {
+      state.theme = payload;
     },
-    setMobileMenu(state, action: PayloadAction<boolean>) {
-      state.burger = action.payload ?? !state.burger;
+    setMobileMenu(state, { payload }: PayloadAction<boolean>) {
+      state.burger = payload ?? !state.burger;
     },
-    setSelectDay(state, action: PayloadAction<boolean>) {
-      state.selectDay = action.payload ?? !state.selectDay;
+    setSelectDay(state, { payload }: PayloadAction<boolean>) {
+      state.selectDay = payload ?? !state.selectDay;
     },
-    setSelectMonth(state, action: PayloadAction<boolean>) {
-      state.selectMonth = action.payload ?? !state.selectMonth;
+    setSelectMonth(state, { payload }: PayloadAction<boolean>) {
+      state.selectMonth = payload ?? !state.selectMonth;
     },
-    setSelectYear(state, action: PayloadAction<boolean>) {
-      state.selectYear = action.payload ?? !state.selectYear;
+    setSelectYear(state, { payload }: PayloadAction<boolean>) {
+      state.selectYear = payload ?? !state.selectYear;
     },
-    setTweetPopup(state, action: PayloadAction<boolean>) {
-      state.tweetPopup = action.payload ?? !state.tweetPopup;
+    setTweetPopup(state, { payload }: PayloadAction<boolean>) {
+      state.tweetPopup = payload ?? !state.tweetPopup;
     },
-    setProfilePopup(state, action: PayloadAction<boolean>) {
-      state.profilePopup = action.payload ?? !state.profilePopup;
+    setProfilePopup(state, { payload }: PayloadAction<boolean>) {
+      state.profilePopup = payload ?? !state.profilePopup;
     },
-    setSelectGender(state, action: PayloadAction<boolean>) {
-      state.selectGender = action.payload ?? !state.selectGender;
+    setSelectGender(state, { payload }: PayloadAction<boolean>) {
+      state.selectGender = payload ?? !state.selectGender;
     },
-    setConfirmPopup(state, action: PayloadAction<boolean>) {
-      state.confirmPopup = action.payload ?? !state.confirmPopup;
+    setConfirmPopup(state, { payload }: PayloadAction<boolean>) {
+      state.confirmPopup = payload ?? !state.confirmPopup;
     },
   },
 });

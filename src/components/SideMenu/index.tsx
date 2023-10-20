@@ -1,9 +1,10 @@
 import { ISideMenuOption } from '@appTypes';
+import HomeIcon from '@assets/icons/home.svg?react';
+import ProfileIcon from '@assets/icons/profile.svg?react';
 import twitterIcon from '@assets/icons/twitter.svg';
 import { Account } from '@components/Account';
-import { HomeIcon } from '@components/SVG/Home';
-import { ProfileIcon } from '@components/SVG/Profile';
-import { AppRoutes } from '@constants/variables';
+// import { ProfileIcon } from '@components/SVG/Profile';
+import { AppRoutes } from '@constants';
 import { useDispatchTyped, useSelectorTyped } from '@hooks/redux';
 import { useMobile } from '@hooks/window';
 import { setMobileMenu, setTweetPopup } from '@store/reducers/app';

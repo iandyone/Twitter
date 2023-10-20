@@ -1,5 +1,5 @@
 import { SignIn } from '@components/SignIn';
-import { AppRoutes } from '@constants/variables';
+import { AppRoutes } from '@constants';
 import { useSelectorTyped } from '@hooks/redux';
 import { FC, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';

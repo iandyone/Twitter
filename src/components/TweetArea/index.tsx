@@ -8,6 +8,7 @@ import { setTweetPopup } from '@store/reducers/app';
 import { setUserPosts } from '@store/reducers/posts';
 import { ChangeEvent, FC, FormEvent, MouseEvent, useCallback, useRef, useState } from 'react';
 
+import { data } from './config';
 import {
   Avatar,
   Buttons,
@@ -24,9 +25,9 @@ import {
 
 export const TweetArea: FC = () => {
   const [tweet, setTweet] = useState('');
-  const { email, uid } = useSelectorTyped((store) => store.user);
-  const { avatar, name } = useSelectorTyped((store) => store.user);
+  const { email, uid, avatar, name } = useSelectorTyped((store) => store.user);
   const [media, setMedia] = useState<File>(null);
+  const { buttonSubmitText } = data;
   const dispatch = useDispatchTyped();
   const inputFileRef = useRef(null);
 
@@ -120,7 +121,7 @@ export const TweetArea: FC = () => {
             data-testid='tweet-upload-media-button'
           />
           <SubmitButton type='submit' data-testid='tweet-submit-button'>
-            Tweet
+            {buttonSubmitText}
           </SubmitButton>
         </Buttons>
       </Content>

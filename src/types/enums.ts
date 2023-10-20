@@ -13,7 +13,7 @@ export enum Months {
   DECEMBER,
 }
 
-export enum Viewposts {
+export enum Viewports {
   DESKTOP = 1400,
   DESKTOP_MEDIUM = 1200,
   TABLET = 992,

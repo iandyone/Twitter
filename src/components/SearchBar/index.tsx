@@ -1,13 +1,15 @@
-import { IFooterLink, IUser } from '@appTypes';
-import { Account } from '@components/Account';
-import { SearchIcon } from '@components/SVG/Search';
-import { AppRoutes } from '@constants/variables';
+import { IFooterLink, IPostDB, IUser } from '@appTypes';
+import SearchIcon from '@assets/icons/search.svg?react';
+import { AppRoutes, colors } from '@constants';
+import { useFillColor } from '@hooks/animations';
 import { useDebounce } from '@hooks/timers';
 import { useMobile } from '@hooks/window';
 import { firebaseDB } from '@services/database';
 import { ChangeEvent, FC, useCallback, useEffect, useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
+import { data } from './config';
+import { Posts } from './Posts';
 import {
   Container,
   Footer,
@@ -19,6 +21,7 @@ import {
   Title,
   Wrapper,
 } from './styled';
+import { Users } from './Users';
 
 export const SearchBar: FC = () => {
   const isMobileView = useMobile();
@@ -26,6 +29,15 @@ export const SearchBar: FC = () => {
   const [searchData, setSearchData] = useState('');
   const debouncedValue = useDebounce(searchData);
   const [users, setUsers] = useState<IUser[]>([]);
+  const [posts, setPosts] = useState<IPostDB[]>([]);
+  const { gray, white } = colors;
+  const fillColor = useFillColor({ dark: gray, light: white });
+  const location = useLocation();
+  const { placeholderPosts, placeholderUsers } = data;
+
+  const pathname = useMemo(() => {
+    return location.pathname;
+  }, [location.pathname]);
 
   function getLinks(): IFooterLink[] {
     const currentYear = new Date().getFullYear();
@@ -42,18 +54,29 @@ export const SearchBar: FC = () => {
     ];
   }
 
-  const getUsers = useCallback(async () => {
-    if (debouncedValue.length >= 2) {
+  const findUsers = useCallback(async () => {
+    if (searchData.length > 0 && debouncedValue.length >= 2) {
       const users = await firebaseDB.getUsers(debouncedValue);
       if (users) {
         const userList: IUser[] = Object.values(users);
-
         setUsers(userList);
       }
       return;
     }
     setUsers([]);
-  }, [debouncedValue]);
+  }, [debouncedValue, searchData]);
+
+  const findPosts = useCallback(async () => {
+    if (searchData.length > 0 && debouncedValue.length >= 2) {
+      const posts = await firebaseDB.getPosts(searchData);
+      if (posts) {
+        const postsList: IPostDB[] = Object.values(posts);
+        setPosts(postsList);
+      }
+      return;
+    }
+    setPosts([]);
+  }, [searchData, debouncedValue]);
 
   const handlerOnChangeSearch = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -61,8 +84,19 @@ export const SearchBar: FC = () => {
   }, []);
 
   useEffect(() => {
-    getUsers();
-  }, [debouncedValue, getUsers]);
+    if (pathname === AppRoutes.page.FEED) {
+      findUsers();
+    }
+    if (pathname === AppRoutes.page.PROFILE) {
+      findPosts();
+    }
+  }, [debouncedValue, findUsers, findPosts, pathname]);
+
+  useEffect(() => {
+    setSearchData('');
+    setUsers([]);
+    setPosts([]);
+  }, [pathname]);
 
   return (
     <Wrapper>
@@ -70,22 +104,19 @@ export const SearchBar: FC = () => {
         <SearchContainer>
           <Search>
             <SearchIconContainer>
-              <SearchIcon />
+              <SearchIcon fill={fillColor} />
             </SearchIconContainer>
-            <Input value={searchData} onChange={handlerOnChangeSearch} placeholder='Search Twitters' />
+            <Input
+              value={searchData}
+              onChange={handlerOnChangeSearch}
+              placeholder={pathname === AppRoutes.page.FEED ? placeholderUsers : placeholderPosts}
+            />
           </Search>
-          {users.length > 0 && (
+          {(users.length > 0 || posts.length > 0) && (
             <Results>
               <Title>Search results</Title>
-              {users.map(({ email, uid, name, avatar }) => (
-                <Account
-                  userName={name ?? uid}
-                  userEmail={email}
-                  withLogout={false}
-                  key={uid}
-                  avatar={avatar}
-                />
-              ))}
+              <Users users={users} />
+              <Posts posts={posts} />
             </Results>
           )}
         </SearchContainer>

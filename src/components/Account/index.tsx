@@ -4,11 +4,19 @@ import { logoutUser } from '@store/reducers/user';
 import { UserAvatar, UserData, UserEmail, UserInfo, UserName } from '@styles';
 import { FC, memo } from 'react';
 
+import { data } from './config';
 import { Container, LogOutButton } from './styled';
 import { IAccountProps } from './types';
 
-const AccountComponent: FC<IAccountProps> = ({ userName, userEmail, avatar, withLogout = true }) => {
+const AccountComponent: FC<IAccountProps> = ({
+  userName,
+  userEmail,
+  avatar,
+  withLogout = true,
+  post = null,
+}) => {
   const dispatch = useDispatchTyped();
+  const { logoutButtonText } = data;
 
   function handlerOnLogOut() {
     dispatch(logoutUser());
@@ -23,9 +31,10 @@ const AccountComponent: FC<IAccountProps> = ({ userName, userEmail, avatar, with
           <UserEmail data-testid='account-email'>{userEmail}</UserEmail>
         </UserInfo>
       </UserData>
+      {post && <div>{post}</div>}
       {withLogout && (
         <LogOutButton onClick={handlerOnLogOut} data-testid='account-button-logout'>
-          Log out
+          {logoutButtonText}
         </LogOutButton>
       )}
     </Container>

@@ -1,15 +1,6 @@
-import { Viewposts } from '@appTypes/enums';
-import { DEFAULT_GAP } from '@constants/variables';
-import {
-  ButtonTemplate,
-  FormTemplate,
-  Icon,
-  InputTemplate,
-  LinkTemplate,
-  PageBody,
-  TitleTemplate,
-} from '@styles';
-import styled from 'styled-components';
+import { Viewports } from '@appTypes/enums';
+import { ButtonTemplate, Icon, InputTemplate, LinkTemplate, PageBody, TitleTemplate } from '@styles';
+import styled, { css } from 'styled-components';
 
 export const Body = styled(PageBody)`
   padding-top: 60px;
@@ -19,17 +10,17 @@ export const Body = styled(PageBody)`
   width: 100%;
   max-width: 480px;
 
-  @media (max-width: ${Viewposts.MOBILE}px) {
-    row-gap: ${DEFAULT_GAP};
+  @media (max-width: ${Viewports.MOBILE}px) {
+    row-gap: ${({ theme }) => theme.spaces.gap.ss};
   }
 `;
 
 export const Title = styled(TitleTemplate)`
-  font-size: 42px;
+  font-size: ${({ theme }) => theme.font.size.xl2};
   margin-bottom: 36px;
 
-  @media (max-width: ${Viewposts.MOBILE}px) {
-    font-size: 36px;
+  @media (max-width: ${Viewports.MOBILE}px) {
+    font-size: ${({ theme }) => theme.font.size.vl};
     margin-bottom: 0;
   }
 `;
@@ -40,15 +31,15 @@ export const TwitterIcon = styled(Icon)`
   height: 40px;
   margin-bottom: 36px;
 
-  @media (max-width: ${Viewposts.MOBILE}px) {
+  @media (max-width: ${Viewports.MOBILE}px) {
     margin-bottom: 0;
   }
 `;
 
-export const Form = styled(FormTemplate)`
+export const Form = styled.form`
   margin-bottom: 24px;
 
-  @media (max-width: ${Viewposts.MOBILE}px) {
+  @media (max-width: ${Viewports.MOBILE}px) {
     margin-bottom: 0;
   }
 }
@@ -58,16 +49,28 @@ export const InputContainer = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  row-gap: 5px;
+  row-gap: ${({ theme }) => theme.spaces.gap.xs};
 `;
 
-export const Input = styled(InputTemplate).attrs(({ type }) => ({
-  type,
-}))`
+export const Input = styled(InputTemplate)<{ $error: boolean }>`
   width: 100%;
-  padding: 24px ${DEFAULT_GAP};
+  padding: 24px ${({ theme }) => theme.spaces.gap.ss};
 
-  @media (max-width: ${Viewposts.MOBILE}px) {
+  ${({ $error }) =>
+    $error &&
+    css`
+      border: 1px solid ${({ theme }) => theme.colors.error};
+    `}
+
+  @media (max-width: ${Viewports.MOBILE}px) {
+    padding: 12px 10px;
+  }
+
+  width: 100%;
+  padding: 24px ${({ theme }) => theme.spaces.gap.ss};
+  background: ${({ theme }) => theme.colors.inputBg};
+
+  @media (max-width: ${Viewports.MOBILE}px) {
     padding: 12px 10px;
   }
 `;
@@ -82,7 +85,7 @@ export const Button = styled(ButtonTemplate)`
     transition: ${({ theme }) => theme.animations.transition};
   }
 
-  @media (max-width: ${Viewposts.MOBILE}px) {
+  @media (max-width: ${Viewports.MOBILE}px) {
     margin-bottom: 0;
   }
 `;
@@ -94,7 +97,7 @@ export const Link = styled(LinkTemplate)`
 export const Label = styled.label`
   color: ${({ theme }) => theme.colors.error};
   transition: ${({ theme }) => theme.animations.transition};
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.font.size.xs};
   line-height: 120%;
   height: 14px;
 `;

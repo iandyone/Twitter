@@ -2,20 +2,6 @@ import { Months } from '@appTypes/enums';
 
 import { getDaysAmountInAMonth } from './date';
 
-export function getLikesList(likes: string[], uid: string) {
-  if (!likes) {
-    return [uid];
-  }
-
-  const isAledyLikes = likes.includes(uid);
-
-  return isAledyLikes ? likes.filter((id) => id !== uid) : [...likes, uid];
-}
-
-export function setPageScroll(flag: boolean) {
-  document.body.style.position = flag ? 'static' : 'fixed';
-}
-
 export function getSelectLists(month: string) {
   const legalAge = 18;
   const currentYear = new Date().getFullYear();
@@ -34,4 +20,8 @@ export function getSelectLists(month: string) {
   }
 
   return { daysList, monthList, yearList };
+}
+
+export function setPageScroll(flag: boolean) {
+  document.body.style.position = flag ? 'static' : 'fixed';
 }

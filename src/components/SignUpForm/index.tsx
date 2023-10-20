@@ -3,7 +3,7 @@ import { Months } from '@appTypes/enums';
 import twitterIcon from '@assets/icons/twitter.svg';
 import { InputAuth } from '@components/InputAuth';
 import { Select } from '@components/Select';
-import { AppRoutes, PHONE_MASK } from '@constants/variables';
+import { AppRoutes, PHONE_MASK } from '@constants';
 import { useDispatchTyped } from '@hooks/redux';
 import { firebaseDB } from '@services/database';
 import { logoutUser, setUser } from '@store/reducers/user';
@@ -31,7 +31,7 @@ export const SignUpForm: FC = () => {
     phoneErrorMessage,
     passwordErrorMessage,
     emailWrongMessage,
-  } = useMemo(getTextContent, []);
+  } = data;
 
   const initialState: IReducerState = useMemo(getInitialState, []);
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -119,10 +119,6 @@ export const SignUpForm: FC = () => {
     };
 
     return state;
-  }
-
-  function getTextContent() {
-    return { ...data };
   }
 
   const handlerOnChangeEmail = useCallback(

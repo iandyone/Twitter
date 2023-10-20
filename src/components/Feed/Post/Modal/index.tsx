@@ -4,11 +4,13 @@ import { setConfirmPopup } from '@store/reducers/app';
 import { setPageScroll } from '@utils/helpers/lists';
 import { FC, memo } from 'react';
 
+import { data } from './config';
 import { Button, Buttons, Container, Title } from './styled';
 import { IConfirmPopupProps } from './types';
 
 const ConfirmPopupComponent: FC<IConfirmPopupProps> = ({ onConfirm, onReject }) => {
   const dispatch = useDispatchTyped();
+  const { confirmMessage, confirmButtonText, rejectButtonText } = data;
 
   function handlerOnConfirm() {
     onConfirm();
@@ -25,13 +27,13 @@ const ConfirmPopupComponent: FC<IConfirmPopupProps> = ({ onConfirm, onReject }) 
   return (
     <Popup>
       <Container data-testid='confirm-popup'>
-        <Title>Do you really want to remote the post?</Title>
+        <Title>{confirmMessage}</Title>
         <Buttons>
           <Button data-testid='confirm-button-yes' onClick={handlerOnConfirm}>
-            Yes
+            {confirmButtonText}
           </Button>
           <Button data-testid='confirm-button-no' onClick={handlerOnReject}>
-            No
+            {rejectButtonText}
           </Button>
         </Buttons>
       </Container>

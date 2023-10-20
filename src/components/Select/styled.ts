@@ -1,5 +1,4 @@
-import { Viewposts } from '@appTypes/enums';
-import { DEFAULT_GAP } from '@constants/variables';
+import { Viewports } from '@appTypes/enums';
 import styled, { css } from 'styled-components';
 
 export const Container = styled.div`
@@ -14,13 +13,13 @@ export const TitleContainer = styled.div`
 
 export const Title = styled.h3<{ $isActive?: boolean; $isValid?: boolean }>`
   width: 100%;
-  padding: 24px ${DEFAULT_GAP};
+  padding: 24px ${({ theme }) => theme.spaces.gap.ss};
   border-radius: 6px;
   position: relative;
-  font-size: ${({ theme }) => theme.font.size};
+  font-size: ${({ theme }) => theme.font.size.sm};
   border: 1px solid ${({ theme }) => theme.colors.border};
   color: ${({ theme }) => theme.colors.text};
-  font-size: ${({ theme }) => theme.font.size};
+  font-size: ${({ theme }) => theme.font.size.sm};
   transition: ${({ theme }) => theme.animations.transition};
 
   ${({ $isValid }) =>
@@ -39,7 +38,7 @@ export const Title = styled.h3<{ $isActive?: boolean; $isValid?: boolean }>`
 
 export const IconContainer = styled.div<{ $isActive?: boolean; $isValid?: boolean }>`
   position: absolute;
-  right: ${DEFAULT_GAP};
+  right: ${({ theme }) => theme.spaces.gap.ss};
   top: 40%;
   width: 28px;
   height: 28px;
@@ -64,7 +63,7 @@ export const Options = styled.ul`
   max-height: 250px;
   overflow-y: auto;
 
-  @media (max-width: ${Viewposts.TABLET_MEDIUM}px) {
+  @media (max-width: ${Viewports.TABLET_MEDIUM}px) {
     position: static;
   }
 `;

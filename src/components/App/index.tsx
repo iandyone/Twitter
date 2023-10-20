@@ -1,13 +1,13 @@
 import { Layout } from '@components/Layout';
 import { databaseRefs } from '@config/firebase';
-import { AppRoutes } from '@constants/variables';
+import { AppRoutes } from '@constants';
 import { useDispatchTyped, useSelectorTyped } from '@hooks/redux';
 import { FeedPage } from '@pages/feed';
 import { HomePage } from '@pages/home';
 import { LoginPage } from '@pages/login';
 import { ProfilePage } from '@pages/profile';
 import { SignInPage } from '@pages/signIn';
-import { SignUpPage } from '@pages/signUp';
+import { SignUpPage } from '@pages/signUp/index';
 import { setMobileMenu, setSelectDay, setSelectMonth, setSelectYear } from '@store/reducers/app';
 import { removePost, setFeedPosts } from '@store/reducers/posts';
 import { GlobalStyles } from '@styles';
@@ -16,8 +16,6 @@ import { DataSnapshot, onChildAdded, onChildRemoved } from 'firebase/database';
 import { FC, useCallback, useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
-
-import { Wrapper } from './styled';
 
 export const App: FC = () => {
   const {
@@ -60,7 +58,7 @@ export const App: FC = () => {
   }, [handlerChildAddedPosts, handlerOnPostRemoved]);
 
   return (
-    <Wrapper onClick={handlerOnClickApp} id='wrapper'>
+    <div onClick={handlerOnClickApp} id='wrapper'>
       <ThemeProvider theme={theme[currentTheme]}>
         <GlobalStyles />
         <Routes>
@@ -75,6 +73,6 @@ export const App: FC = () => {
           <Route path={AppRoutes.UNKNOWN} element={<HomePage />} />
         </Routes>
       </ThemeProvider>
-    </Wrapper>
+    </div>
   );
 };

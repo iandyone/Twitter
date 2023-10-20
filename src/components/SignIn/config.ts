@@ -1,5 +1,5 @@
 import { IFooterLink } from '@appTypes';
-import { AppRoutes } from '@constants/variables';
+import { AppRoutes } from '@constants';
 
 export const data = {
   title: 'Happening now',

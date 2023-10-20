@@ -1,5 +1,4 @@
-import { Viewposts } from '@appTypes/enums';
-import { DEFAULT_GAP } from '@constants/variables';
+import { Viewports } from '@appTypes/enums';
 import { InputTemplate, LinkTemplate, SidesTemplate, TitleTemplate } from '@styles';
 import styled from 'styled-components';
 
@@ -17,19 +16,19 @@ export const Container = styled(SidesTemplate)`
   overflow: hidden;
   width: 300px;
 
-  @media (max-width: ${Viewposts.DESKTOP}px) {
+  @media (max-width: ${Viewports.DESKTOP}px) {
     width: 270px;
   }
-  @media (max-width: ${Viewposts.DESKTOP_MEDIUM}px) {
+  @media (max-width: ${Viewports.DESKTOP_MEDIUM}px) {
     max-width: none;
     min-width: none;
     width: 270px;
     align-items: flex-start;
   }
 
-  @media (max-width: ${Viewposts.TABLET}px) {
-    row-gap: ${DEFAULT_GAP};
-    padding: ${DEFAULT_GAP} 0;
+  @media (max-width: ${Viewports.TABLET}px) {
+    row-gap: ${({ theme }) => theme.spaces.gap.ss};
+    padding: ${({ theme }) => theme.spaces.gap.ss} 0;
     position: static;
     width: 100%;
   }
@@ -38,14 +37,14 @@ export const Container = styled(SidesTemplate)`
 export const SearchContainer = styled.div`
   display: flex;
   flex-direction: column;
-  row-gap: ${DEFAULT_GAP};
+  row-gap: ${({ theme }) => theme.spaces.gap.ss};
   width: 100%;
 `;
 
 export const Search = styled.div`
   position: relative;
 
-  @media (max-width: ${Viewposts.TABLET}px) {
+  @media (max-width: ${Viewports.TABLET}px) {
     max-width: none;
     width: 100%;
   }
@@ -58,7 +57,7 @@ export const Input = styled(InputTemplate)`
   padding: 15px 15px 15px 42px;
   color: ${({ theme }) => theme.colors.text};
   transition: ${({ theme }) => theme.animations.transition};
-  font-size: ${({ theme }) => theme.font.size};
+  font-size: ${({ theme }) => theme.font.size.sm};
   font-weight: ${({ theme }) => theme.font.regular};
   background: ${({ theme }) => theme.colors.searchBg};
 `;
@@ -77,12 +76,12 @@ export const Results = styled.div`
   background: ${({ theme }) => theme.colors.searchBg};
   transition: ${({ theme }) => theme.animations.transition};
   border: 1px solid ${({ theme }) => theme.colors.searchBorder};
-  padding: ${DEFAULT_GAP};
+  padding: ${({ theme }) => theme.spaces.gap.ss};
   border-radius: 10px;
   width: 100%;
 `;
 export const Title = styled(TitleTemplate)`
-  font-size: 24px;
+  font-size: ${({ theme }) => theme.font.size.l};
   font-weight: ${({ theme }) => theme.font.bold};
 `;
 
@@ -90,9 +89,9 @@ export const Footer = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  gap: 10px;
+  gap: ${({ theme }) => theme.spaces.gap.sm};
 
-  @media (max-width: ${Viewposts.DESKTOP}px) {
+  @media (max-width: ${Viewports.DESKTOP}px) {
     flex-direction: column;
   }
 `;
@@ -100,5 +99,5 @@ export const Footer = styled.div`
 export const Link = styled(LinkTemplate)`
   color: ${({ theme }) => theme.colors.searchLink};
   transition: ${({ theme }) => theme.animations.transition};
-  font-size: 16px;
+  font-size: ${({ theme }) => theme.font.size.s};
 `;

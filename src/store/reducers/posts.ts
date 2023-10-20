@@ -15,21 +15,21 @@ const userSlice = createSlice({
   name: 'postsReducer',
   initialState,
   reducers: {
-    setUserPosts(state, action: PayloadAction<IPostDB[]>) {
-      state.currentUser = action.payload;
+    setUserPosts(state, { payload }: PayloadAction<IPostDB[]>) {
+      state.currentUser = payload;
     },
 
-    setFeedPosts(state, action: PayloadAction<IPostDB>) {
-      const isPostExists = state.posts.find(({ timestamp }) => timestamp === action.payload.timestamp);
+    setFeedPosts(state, { payload }: PayloadAction<IPostDB>) {
+      const isPostExists = state.posts.find(({ timestamp }) => timestamp === payload.timestamp);
 
       if (!isPostExists) {
-        const postsList: IPostDB[] = [...state.posts, action.payload];
+        const postsList: IPostDB[] = [...state.posts, payload];
         state.posts = postsList.sort((a, b) => (b.timestamp as number) - (a.timestamp as number));
       }
     },
 
-    updatePostLikes(state, action: PayloadAction<{ postID: number; likes: string[] }>) {
-      const { likes, postID } = action.payload;
+    updatePostLikes(state, { payload }: PayloadAction<{ postID: number; likes: string[] }>) {
+      const { likes, postID } = payload;
       const post = state.posts.find((post) => post.id === postID);
       post.likes = likes;
 
@@ -39,8 +39,8 @@ const userSlice = createSlice({
       state.posts = updatedPostList.sort((a, b) => (b.timestamp as number) - (a.timestamp as number));
     },
 
-    removePost(state, action: PayloadAction<IPostDB>) {
-      const { id } = action.payload;
+    removePost(state, { payload }: PayloadAction<IPostDB>) {
+      const { id } = payload;
       const updatedPostList = state.posts.filter((post) => post.id !== id);
 
       state.posts = updatedPostList.sort((a, b) => (b.timestamp as number) - (a.timestamp as number));
