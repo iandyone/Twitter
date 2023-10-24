@@ -1,5 +1,6 @@
 import userAvatar from '@assets/icons/avatar.svg';
 import profileBg from '@assets/images/profileBg.webp';
+import { NAME_MAX_LENGTH } from '@constants';
 import { useDispatchTyped, useSelectorTyped } from '@hooks/redux';
 import { useMobile } from '@hooks/window';
 import { firebaseDB } from '@services/database';
@@ -29,14 +30,21 @@ const ProfileComponent: FC = () => {
   const { uid, email, name, avatar, telegram } = useSelectorTyped((state) => state.user);
   const { profilePopup } = useSelectorTyped((store) => store.app);
   const { tweetCounterText, editButton } = useMemo(getTextContent, []);
-  const { all } = useSelectorTyped((store) => store.posts);
+  const { posts } = useSelectorTyped((store) => store.posts);
   const dispatch = useDispatchTyped();
   const isMobile = useMobile();
-  const tweetCounter = useMemo(getUserPosts, [all, uid]);
+  const tweetCounter = useMemo(getUserPosts, [posts, uid]);
   const [followings, setFollowings] = useState(0);
+  const userName = useMemo(getUserName, [uid, name]);
+  const telegramURL = import.meta.env.VITE_TG;
+
+  function getUserName() {
+    const user = name ?? uid;
+    return user ? user.slice(0, NAME_MAX_LENGTH) : null;
+  }
 
   function getUserPosts() {
-    return all.filter((post) => post.user === uid).length;
+    return posts.filter((post) => post.user === uid).length;
   }
 
   function getTextContent() {
@@ -72,11 +80,11 @@ const ProfileComponent: FC = () => {
           )}
         </Header>
         <Body>
-          <Name data-testid='profile-user-name'>{name ?? uid}</Name>
+          <Name data-testid='profile-user-name'>{userName}</Name>
           <Contact data-testid='profile-user-email'>{email}</Contact>
           {telegram && (
             <TelegramLink
-              href={`https://t.me/${telegram}`}
+              href={telegramURL + telegram}
               target='_blank'
               data-testid='profile-user-telegram'>{`@${telegram}`}</TelegramLink>
           )}

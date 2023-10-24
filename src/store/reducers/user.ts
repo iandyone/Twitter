@@ -19,8 +19,8 @@ const userSlice = createSlice({
   name: 'userReducer',
   initialState,
   reducers: {
-    setUser(state, action: PayloadAction<IUser>) {
-      const { uid, email, birthday, avatar, name, gender, telegram } = action.payload;
+    setUser(state, { payload }: PayloadAction<IUser>) {
+      const { uid, email, birthday, avatar, name, gender, telegram } = payload;
       state.uid = uid;
       state.email = email;
       state.birthday = birthday;
@@ -35,8 +35,8 @@ const userSlice = createSlice({
       state.email = null;
       state.isAuthorized = false;
     },
-    setUserProfile(state, action: PayloadAction<IUserProfileData>) {
-      const { gender, name, telegram } = action.payload;
+    setUserProfile(state, { payload }: PayloadAction<IUserProfileData>) {
+      const { gender, name, telegram } = payload;
       if (gender) state.gender = gender;
       if (name) state.name = name;
       if (telegram) state.telegram = telegram;

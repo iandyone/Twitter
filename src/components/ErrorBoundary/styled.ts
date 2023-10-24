@@ -10,6 +10,4 @@ export const Spinner = styled.div`
   animation: spinAnimation 1s linear infinite;
 `;
 
-export const Message = styled.p`
-  font-size: 22px;
-`;
+export const Message = styled.p``;

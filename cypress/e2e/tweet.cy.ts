@@ -1,5 +1,15 @@
 const postText = 'Сypress tweet';
 
+interface ITestAccount {
+  name: string;
+  surname: string;
+  email: string;
+  telegram: string;
+  password: string;
+  passwordNew: string;
+  phone: string;
+}
+
 describe('Tweets test', () => {
   it('Tweet area should be visible on the feed page', () => {
     cy.visit('http://localhost:5173');
@@ -75,6 +85,13 @@ describe('Tweets test', () => {
     cy.get('@remove').should('be.visible').click();
 
     cy.get('[data-testid=post]').eq(0).as('post');
+    cy.get('[data-testid=confirm-popup]').as('modal');
+    cy.get('@modal').should('be.visible');
+    cy.get('[data-testid=confirm-button-yes]').as('yes');
+    cy.get('[data-testid=confirm-button-yes]').should('be.visible');
+    cy.get('@yes').should('be.visible');
+    cy.get('@yes').click();
+
     cy.get('@post').should('not.have.text', `${postText}`);
   });
 

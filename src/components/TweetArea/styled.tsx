@@ -1,16 +1,15 @@
-import { Viewposts } from '@appTypes/enums';
-import { DEFAULT_GAP } from '@constants/variables';
+import { Viewports } from '@appTypes/enums';
 import { ButtonTemplate, Icon, UserAvatar } from '@styles';
 import styled from 'styled-components';
 
 export const Container = styled.form`
   display: flex;
   position: relative;
-  padding: ${DEFAULT_GAP} 0px;
+  padding: ${({ theme }) => theme.spaces.gap.ss} 0;
   border-bottom: 1px solid ${({ theme }) => theme.colors.border};
 
-  @media (min-width: ${Viewposts.TABLET}px) {
-    padding: ${DEFAULT_GAP};
+  @media (min-width: ${Viewports.TABLET}px) {
+    padding: ${({ theme }) => theme.spaces.gap.ss};
   }
 `;
 
@@ -23,7 +22,7 @@ export const Content = styled.div`
 export const Avatar = styled(UserAvatar)`
   transform: translateY(-10px);
 
-  @media (max-width: ${Viewposts.MOBILE}px) {
+  @media (max-width: ${Viewports.MOBILE}px) {
     display: none;
   }
 `;
@@ -32,7 +31,7 @@ export const Input = styled.textarea`
   padding: 10px;
   width: 100%;
   min-height: 100px;
-  font-size: 20px;
+  font-size: ${({ theme }) => theme.font.size.ss};
   line-height: 110%;
   resize: none;
   transition: ${({ theme }) => theme.animations.transition};
@@ -41,8 +40,8 @@ export const Input = styled.textarea`
   background: ${({ theme }) => theme.colors.inputBg};
   color: ${({ theme }) => theme.colors.text};
 
-  @media (max-width: ${Viewposts.MOBILE}px) {
-    font-size: 16px;
+  @media (max-width: ${Viewports.MOBILE}px) {
+    font-size: ${({ theme }) => theme.font.size.s};
   }
 `;
 
@@ -51,7 +50,7 @@ export const Buttons = styled.div`
   justify-content: space-between;
   align-items: center;
   line-height: 120%;
-  font-size: ${({ theme }) => theme.font.size};
+  font-size: ${({ theme }) => theme.font.size.sm};
   font-weight: ${({ theme }) => theme.font.bold};
 `;
 

@@ -1,7 +1,6 @@
 import { IPost, IPostDB, IUser, IUserProfileData } from '@appTypes';
 import { DatabaseRefs } from '@appTypes/enums';
 import { createMediaRef, database, databaseRefs } from '@config/firebase';
-import { getLikesList } from '@utils/helpers/common';
 import {
   createUserWithEmailAndPassword,
   getAuth,
@@ -43,6 +42,16 @@ class Database {
     const postKey = Object.keys(post)[0];
 
     return { post, postKey };
+  }
+
+  private getLikesList(likes: string[], uid: string) {
+    if (!likes) {
+      return [uid];
+    }
+
+    const isAledyLikes = likes.includes(uid);
+
+    return isAledyLikes ? likes.filter((id) => id !== uid) : [...likes, uid];
   }
 
   async getUserData(uid: string) {
@@ -117,7 +126,7 @@ class Database {
     const { post, postKey } = await this.getPostData(id);
 
     const updates: { [key: string]: object } = {};
-    const likesList = getLikesList(post[postKey].likes, uid);
+    const likesList = this.getLikesList(post[postKey].likes, uid);
 
     updates[`/${postKey}/likes`] = likesList;
     update(this.postsRef, updates);
@@ -135,6 +144,17 @@ class Database {
         ? query(this.userRef, orderByChild('name'), startAt(userName), endAt(userName + '\uf8ff'))
         : query(this.userRef);
       const response = await get(usersQuery);
+      return response.val();
+    } catch (error) {
+      return {};
+    }
+  }
+
+  async getPosts(body: string) {
+    try {
+      const postsQuery = query(this.postsRef, orderByChild('body'), startAt(body), endAt(body + '\uf8ff'));
+
+      const response = await get(postsQuery);
       return response.val();
     } catch (error) {
       return {};

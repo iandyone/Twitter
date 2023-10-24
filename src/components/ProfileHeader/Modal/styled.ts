@@ -1,4 +1,3 @@
-import { DEFAULT_GAP } from '@constants/variables';
 import { ButtonTemplate, TitleTemplate } from '@styles';
 import styled from 'styled-components';
 
@@ -11,11 +10,11 @@ export const Header = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: ${DEFAULT_GAP};
+  margin-bottom: ${({ theme }) => theme.spaces.gap.ss};
 `;
 
 export const Title = styled(TitleTemplate)`
-  font-size: 24px;
+  font-size: ${({ theme }) => theme.font.size.l};
   text-align: center;
 `;
 
@@ -27,5 +26,5 @@ export const SaveButton = styled(ButtonTemplate)`
 export const Body = styled.div`
   display: flex;
   flex-direction: column;
-  row-gap: 10px;
+  row-gap: ${({ theme }) => theme.spaces.gap.sm};
 `;

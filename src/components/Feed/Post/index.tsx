@@ -1,13 +1,18 @@
 import userAvatar from '@assets/icons/avatar.svg';
-import { LikeIcon } from '@components/SVG/Like';
-import { XMarkIcon } from '@components/SVG/XMark';
+import LikeIcon from '@assets/icons/like.svg?react';
+import XMarkIcon from '@assets/icons/xMark.svg?react';
+import { colors } from '@constants';
+// import { colors } from '@constants';
+import { useFillColor } from '@hooks/animations';
 import { useDispatchTyped, useSelectorTyped } from '@hooks/redux';
 import { firebaseDB } from '@services/database';
+import { setConfirmPopup } from '@store/reducers/app';
 import { updatePostLikes } from '@store/reducers/posts';
 import { UserContact } from '@styles';
 import { getDateData, getFormattedPostDate } from '@utils/helpers/date';
 import { FC, memo, useCallback, useEffect, useMemo, useState } from 'react';
 
+import { ConfirmPopup } from './Modal';
 import {
   Avatar,
   Body,
@@ -15,6 +20,7 @@ import {
   Content,
   Header,
   HeaderContent,
+  IconContainer,
   LikeCounter,
   Likes,
   Media,
@@ -33,8 +39,18 @@ const PostComponent: FC<IPostProps> = ({ post }) => {
   const [postLikes, setLikes] = useState(getPostLikes);
   const [postDate, setPostDate] = useState<string>(getPostDate);
   const [mediaURL, setMediaURL] = useState<string>(null);
+  const [willRemoved, setWillRemoved] = useState(false);
   const isUserPost = useMemo(getIsuserPost, [user, uid]);
   const dispatch = useDispatchTyped();
+  const removeIconFillColor = useFillColor();
+
+  const getStartFillColor = useCallback(() => {
+    const { red, gray } = colors;
+    return isLiked ? red : gray;
+  }, [isLiked]);
+
+  const { confirmPopup } = useSelectorTyped((store) => store.app);
+  const [fillColor, setFillColor] = useState(getStartFillColor);
 
   function getIsuserPost() {
     return user === uid;
@@ -86,12 +102,23 @@ const PostComponent: FC<IPostProps> = ({ post }) => {
   }
 
   async function handlerOnRemovePost() {
+    setWillRemoved(true);
+    dispatch(setConfirmPopup(true));
+  }
+
+  const confirmRemovingPost = useCallback(() => {
     firebaseDB.removePost(post);
 
     if (media) {
       firebaseDB.removeMedia(id);
     }
-  }
+
+    setWillRemoved(false);
+  }, [id, media, post]);
+
+  const rejectRemovingPost = useCallback(() => {
+    setWillRemoved(false);
+  }, []);
 
   useEffect(() => {
     downloadPostMedia();
@@ -105,6 +132,10 @@ const PostComponent: FC<IPostProps> = ({ post }) => {
     return () => clearInterval(intervalID);
   });
 
+  useEffect(() => {
+    setFillColor(getStartFillColor());
+  }, [isLiked, getStartFillColor]);
+
   return (
     <Container data-testid='post'>
       <Avatar src={authorAvatar ?? userAvatar} />
@@ -115,7 +146,13 @@ const PostComponent: FC<IPostProps> = ({ post }) => {
             <UserContact data-testid='post-author-email'>{email} · </UserContact>
             <PostDate>{postDate}</PostDate>
           </HeaderContent>
-          {isUserPost && <XMarkIcon isActive={false} onClick={handlerOnRemovePost} />}
+          {isUserPost && (
+            <XMarkIcon
+              fill={removeIconFillColor}
+              onClick={handlerOnRemovePost}
+              data-testid='post-remove-button'
+            />
+          )}
         </Header>
         <Body>{body}</Body>
         {media && (
@@ -124,7 +161,9 @@ const PostComponent: FC<IPostProps> = ({ post }) => {
           </MediaContainer>
         )}
         <Likes>
-          <LikeIcon isActive={isLiked} onClick={handlerOnLikePost} />
+          <IconContainer onClick={handlerOnLikePost} data-testid='like-button'>
+            <LikeIcon fill={fillColor} />
+          </IconContainer>
           {postLikes > 0 && (
             <LikeCounter $isActive={isLiked} data-testid='like-counter'>
               {postLikes}
@@ -132,6 +171,9 @@ const PostComponent: FC<IPostProps> = ({ post }) => {
           )}
         </Likes>
       </Content>
+      {confirmPopup && willRemoved && (
+        <ConfirmPopup onConfirm={confirmRemovingPost} onReject={rejectRemovingPost} />
+      )}
     </Container>
   );
 };

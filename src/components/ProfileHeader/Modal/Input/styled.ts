@@ -1,14 +1,14 @@
-import { Viewposts } from '@appTypes/enums';
+import { Viewports } from '@appTypes/enums';
 import { InputTemplate, LabelTemplate } from '@styles';
 import styled, { css } from 'styled-components';
 
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  row-gap: 6px;
+  row-gap: ${({ theme }) => theme.spaces.gap.s};
 `;
 
-export const Label = styled(LabelTemplate)`
+export const Title = styled(LabelTemplate)`
   line-height: 120%;
   height: 14px;
   padding-left: 2px;
@@ -21,7 +21,7 @@ export const Inputelement = styled(InputTemplate).attrs(({ type }) => ({
 }))<{ $error: boolean }>`
   width: 100%;
   padding: 16px 12px;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.font.size.xs};
   transition: ${({ theme }) => theme.animations.transition};
   background: ${({ theme }) => theme.colors.inputBg};
 
@@ -31,7 +31,9 @@ export const Inputelement = styled(InputTemplate).attrs(({ type }) => ({
       border-color: ${({ theme }) => theme.colors.error};
     `}
 
-  @media (max-width: ${Viewposts.MOBILE}px) {
+  @media (max-width: ${Viewports.MOBILE}px) {
     padding: 12px 10px;
   }
 `;
+
+export const Label = styled(LabelTemplate)``;

@@ -2,7 +2,7 @@ import { BurgerMenu } from '@components/BurgerMenu';
 import { Feed } from '@components/Feed';
 import { Header } from '@components/Header';
 import { TweetArea } from '@components/TweetArea';
-import { AppRoutes } from '@constants/variables';
+import { AppRoutes } from '@constants';
 import { useDispatchTyped, useSelectorTyped } from '@hooks/redux';
 import { firebaseDB } from '@services/database';
 import { setUserPosts } from '@store/reducers/posts';
@@ -12,7 +12,7 @@ import { useNavigate } from 'react-router-dom';
 
 export const FeedPage: FC = () => {
   const { isAuthorized, uid } = useSelectorTyped((store) => store.user);
-  const { all: feedPosts } = useSelectorTyped((store) => store.posts);
+  const { posts } = useSelectorTyped((store) => store.posts);
   const { theme } = useSelectorTyped((store) => store.app);
   const navigate = useNavigate();
   const dispatch = useDispatchTyped();
@@ -30,13 +30,13 @@ export const FeedPage: FC = () => {
 
   useEffect(() => {
     getCurrentUserPosts();
-  }, [dispatch, uid, getCurrentUserPosts]);
+  }, [uid, getCurrentUserPosts]);
 
   return (
-    <PageContainer data-testid='feed-page' className={theme}>
+    <PageContainer data-testid='feed-page' data-theme={theme}>
       <Header title='Home' />
       <TweetArea />
-      <Feed posts={feedPosts} />
+      <Feed posts={posts} />
       <BurgerMenu />
     </PageContainer>
   );

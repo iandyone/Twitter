@@ -1,19 +1,18 @@
-import { Viewposts } from '@appTypes/enums';
-import { DEFAULT_GAP } from '@constants/variables';
+import { Viewports } from '@appTypes/enums';
 import { TitleTemplate, UserAvatar, UserContact } from '@styles';
 import styled, { css } from 'styled-components';
 
 export const Container = styled.article`
   display: flex;
   column-gap: 15px;
-  padding: ${DEFAULT_GAP} 0px;
+  padding: ${({ theme }) => theme.spaces.gap.ss} 0;
 
   &:not(:first-child) {
     border-top: 1px solid ${({ theme }) => theme.colors.border};
   }
 
-  @media (min-width: ${Viewposts.TABLET}px) {
-    padding: ${DEFAULT_GAP};
+  @media (min-width: ${Viewports.TABLET}px) {
+    padding: ${({ theme }) => theme.spaces.gap.ss};
   }
 `;
 
@@ -28,19 +27,19 @@ export const Content = styled.div`
 
 export const Header = styled.div`
   display: flex;
-  font-size: ${({ theme }) => theme.font.size};
+  font-size: ${({ theme }) => theme.font.size.sm};
   justify-content: space-between;
 `;
 
 export const HeaderContent = styled.div`
   display: flex;
   align-items: flex-end;
-  column-gap: 5px;
+  column-gap: ${({ theme }) => theme.spaces.gap.xs};
   margin-bottom: 5px;
 
-  @media (max-width: ${Viewposts.TABLET}px) {
+  @media (max-width: ${Viewports.TABLET}px) {
     flex-wrap: wrap;
-    row-gap: 6px;
+    row-gap: ${({ theme }) => theme.spaces.gap.s};
   }
 `;
 
@@ -49,24 +48,37 @@ export const User = styled(TitleTemplate)`
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  font-size: 16px;
+  font-size: ${({ theme }) => theme.font.size.s};
 `;
 
 export const PostDate = styled(UserContact)``;
 
 export const Body = styled.p`
-  font-size: ${({ theme }) => theme.font.size};
-  margin-bottom: ${DEFAULT_GAP};
+  font-size: ${({ theme }) => theme.font.size.sm};
+  margin-bottom: ${({ theme }) => theme.spaces.gap.ss};
   line-height: 110%;
 
-  @media (max-width: ${Viewposts.MOBILE}px) {
+  @media (max-width: ${Viewports.MOBILE}px) {
     margin-bottom: 10px;
+  }
+`;
+
+export const IconContainer = styled.div`
+  transition: ${({ theme }) => theme.animations.transition};
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:active {
+    transition: ${({ theme }) => theme.animations.transition};
+    transform: ${({ theme }) => theme.animations.transformActive};
   }
 `;
 
 export const Likes = styled.div`
   display: flex;
-  column-gap: 5px;
+  column-gap: ${({ theme }) => theme.spaces.gap.xs};
   align-items: flex-end;
   align-self: flex-start;
   user-select: none;
@@ -77,7 +89,7 @@ export const LikeCounter = styled.span<{ $isActive: boolean }>`
   height: 24px;
   line-height: 115%;
 
-  @media (max-width: ${Viewposts.MOBILE}px) {
+  @media (max-width: ${Viewports.MOBILE}px) {
     align-self: center;
   }
   ${({ $isActive }) =>
@@ -91,7 +103,7 @@ export const MediaContainer = styled.div`
   display: flex;
   flex-justify-content: center;
   align-items: center;
-  margin: 10px 0px;
+  margin: 10px 0;
 `;
 
 export const Media = styled.img`
@@ -99,7 +111,7 @@ export const Media = styled.img`
   max-height: 250px;
   object-fit: contain;
 
-  @media (max-width: ${Viewposts.MOBILE}px) {
+  @media (max-width: ${Viewports.MOBILE}px) {
     max-height: 200px;
   }
 `;

@@ -6,10 +6,10 @@ export interface IInputAuthProps {
   value: string;
   placeholder: string;
   onChange: handlerChange;
-  onBlur: handler;
+  onBlur?: handler;
   onFocus?: handler;
   $error: boolean;
   $isNotEmpty: boolean;
   required?: boolean;
-  testID?: string;
+  testID: string;
 }

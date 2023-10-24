@@ -1,4 +1,4 @@
-import { Viewposts } from '@appTypes/enums';
+import { Viewports } from '@appTypes/enums';
 import { useEffect, useState } from 'react';
 
 export const useMobile = () => {
@@ -14,5 +14,5 @@ export const useMobile = () => {
     };
   }, []);
 
-  return width < Viewposts.TABLET;
+  return width < Viewports.TABLET;
 };

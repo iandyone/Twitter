@@ -2,7 +2,7 @@ import { MobileMenu } from '@components/MobileMenu';
 import { useDispatchTyped, useSelectorTyped } from '@hooks/redux';
 import { useMobile } from '@hooks/window';
 import { setMobileMenu } from '@store/reducers/app';
-import { setPageScroll } from '@utils/helpers/common';
+import { setPageScroll } from '@utils/helpers/lists';
 import { FC, MouseEvent, useEffect } from 'react';
 
 import { BurgerButton, BurgerLine, MenuContainer } from './styled';

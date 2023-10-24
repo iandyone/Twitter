@@ -44,10 +44,10 @@ describe('Theme test', () => {
     cy.get('[data-testid=theme-toggler]').as('toggler');
     cy.get('[data-testid=feed-page]').as('page');
 
-    cy.get('@page').should('have.class', 'light');
+    cy.get('@page').should('have.attr', 'data-theme', 'light');
     cy.get('@switcher').click();
-    cy.get('@page').should('have.class', 'dark');
+    cy.get('@page').should('have.attr', 'data-theme', 'dark');
     cy.get('@toggler').click();
-    cy.get('@page').should('have.class', 'light');
+    cy.get('@page').should('have.attr', 'data-theme', 'light');
   });
 });

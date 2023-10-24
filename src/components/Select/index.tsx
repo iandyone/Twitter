@@ -1,4 +1,5 @@
-import { ArrowIcon } from '@components/SVG/Arrow';
+import ArrayIcon from '@assets/icons/arrow.svg?react';
+import { useFillColor } from '@hooks/animations';
 import { useDispatchTyped, useSelectorTyped } from '@hooks/redux';
 import { setSelectDay, setSelectGender, setSelectMonth, setSelectYear } from '@store/reducers/app';
 import { FC, memo, useMemo } from 'react';
@@ -11,6 +12,7 @@ const SelectComponent: FC<ISelectComponentProps> = ({ title, data, onClick, isVa
   const { selectDay, selectMonth, selectYear, selectGender } = useSelectorTyped((store) => store.app);
   const { action, isVisible } = useMemo(getControls, [type, getAction, getControls]);
   const dispatch = useDispatchTyped();
+  const arrowColor = useFillColor();
 
   function handlerOnClick() {
     dispatch(action());
@@ -56,7 +58,7 @@ const SelectComponent: FC<ISelectComponentProps> = ({ title, data, onClick, isVa
           {title}
         </Title>
         <IconContainer $isActive={isVisible}>
-          <ArrowIcon />
+          <ArrayIcon fill={arrowColor} />
         </IconContainer>
       </TitleContainer>
       {isVisible && (

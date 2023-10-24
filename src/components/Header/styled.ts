@@ -1,5 +1,4 @@
-import { Viewposts } from '@appTypes/enums';
-import { DEFAULT_GAP } from '@constants/variables';
+import { Viewports } from '@appTypes/enums';
 import { TitleTemplate } from '@styles';
 import styled from 'styled-components';
 
@@ -8,13 +7,13 @@ export const Container = styled.header`
   justify-content: space-between;
   align-items: center;
 
-  @media (min-width: ${Viewposts.TABLET}px) {
-    padding: 0px ${DEFAULT_GAP};
+  @media (min-width: ${Viewports.TABLET}px) {
+    padding: 0 ${({ theme }) => theme.spaces.gap.ss};
   }
 
-  @media (max-width: ${Viewposts.TABLET}px) {
+  @media (max-width: ${Viewports.TABLET}px) {
     padding-right: 40px;
-    padding-left: 0px;
+    padding-left: 0;
   }
 `;
 

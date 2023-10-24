@@ -1,5 +1,5 @@
 import { Gender, handler } from './types';
-import { NamedExoticComponent } from 'react';
+
 export interface ITheme {
   dark: IThemeStyles;
   light: IThemeStyles;
@@ -8,8 +8,8 @@ export interface ITheme {
 export interface IThemeStyles {
   font: IFont;
   colors: IColor;
-  spaces?: ISpace;
-  animations?: IAnimation;
+  spaces: ISpace;
+  animations: IAnimation;
 }
 
 export interface IUserProps {
@@ -26,10 +26,10 @@ export interface IColor {
 
   bgApp: string;
 
-  buttonBg: string;
-  buttonBg2: string;
-  buttonText: string;
-  buttonText2: string;
+  buttonBgPrimary: string;
+  buttonBgSecondary: string;
+  buttonTextPrimary: string;
+  buttonTextPrimarySecondary: string;
 
   error: string;
 
@@ -55,25 +55,45 @@ export interface IColor {
   popupBg: string;
 
   themeButtonBorder: string;
-  themeButtonBg: string;
+  themebuttonBgPrimary: string;
 }
 
 export interface IFont {
-  size: string;
   bold: number;
   regular: number;
   medium: number;
   light: number;
   family: string;
+  size: IFontSize;
+}
+
+export interface IFontSize {
+  xs: string;
+  s: string;
+  ss: string;
+  sm: string;
+  ml: string;
+  l: string;
+  sl: string;
+  vl: string;
+  xl1: string;
+  xl2: string;
+  xl3: string;
+  xl4: string;
 }
 
 export interface ISpace {
-  borderRadius?: string;
-  inputPadding?: string;
-  loaderSize?: string;
-  padding?: string;
-  height?: string;
-  width?: string;
+  gap: IGap;
+  avatarHeight: string;
+}
+
+export interface IGap {
+  xs: string;
+  s: string;
+  ss: string;
+  sm: string;
+  ml: string;
+  l: string;
 }
 
 export interface IAnimation {
@@ -104,8 +124,9 @@ export interface ISideMenuOption {
   title: string;
   path: string;
   onClick?: handler;
-  element: NamedExoticComponent<IIconComponentProps>;
-  testID?: string;
+  element: React.FunctionComponent<React.SVGProps<SVGSVGElement>>;
+  active: boolean;
+  testID: string;
 }
 
 export interface IPost {
@@ -126,4 +147,10 @@ export interface IPostDB extends IPost {
 export interface IIconComponentProps {
   isActive?: boolean;
   onClick?: handler;
+}
+
+export interface IFillColors {
+  light: string;
+  dark: string;
+  active?: string;
 }

@@ -1,7 +1,45 @@
-import { IFont, ITheme } from '@appTypes';
-import { colors } from '@constants/variables';
+import { IFont, IFontSize, IGap, ISpace, ITheme } from '@appTypes';
+import { colors } from '@constants';
 
-const { black, black2, blue, gray, gray2, gray3, gray4, white, white2, white3, white4, red, green } = colors;
+const {
+  black,
+  blackLight,
+  blue,
+  gray,
+  grayLight,
+  grayMedium,
+  grayDark,
+  white,
+  whiteLight,
+  whiteGray,
+  whiteDark,
+  red,
+  green,
+} = colors;
+
+const size: IFontSize = {
+  xs: '14px',
+  s: '16px',
+  sm: '18px',
+  ss: '20px',
+  ml: '22px',
+  l: '24px',
+  sl: '30px',
+  vl: '36px',
+  xl1: '40px',
+  xl2: '42px',
+  xl3: '60px',
+  xl4: '84px',
+};
+
+const gap: IGap = {
+  xs: '5px',
+  s: '6px',
+  sm: '10px',
+  ss: '20px',
+  ml: '30px',
+  l: '80px',
+};
 
 const font: IFont = {
   bold: 700,
@@ -9,7 +47,12 @@ const font: IFont = {
   regular: 400,
   light: 300,
   family: 'Roboto',
-  size: '18px',
+  size: size,
+};
+
+const spaces: ISpace = {
+  gap: gap,
+  avatarHeight: '52px',
 };
 
 export const theme: ITheme = {
@@ -21,10 +64,10 @@ export const theme: ITheme = {
       bgApp: white,
       border: gray,
       borderHover: blue,
-      buttonBg: blue,
-      buttonBg2: gray2,
-      buttonText: white,
-      buttonText2: white3,
+      buttonBgPrimary: blue,
+      buttonBgSecondary: grayLight,
+      buttonTextPrimary: white,
+      buttonTextPrimarySecondary: whiteGray,
       error: red,
 
       inputFocus: blue,
@@ -33,10 +76,10 @@ export const theme: ITheme = {
       inputValid: green,
       inputBg: white,
 
-      popupBg: black2,
+      popupBg: blackLight,
 
-      searchBg: gray3,
-      searchLink: gray4,
+      searchBg: grayMedium,
+      searchLink: grayDark,
       searchBorder: 'transparent',
 
       like: red,
@@ -45,7 +88,7 @@ export const theme: ITheme = {
       modalBorder: 'transparent',
 
       themeButtonBorder: gray,
-      themeButtonBg: blue,
+      themebuttonBgPrimary: blue,
 
       burgerLine: black,
       burgerBg: white,
@@ -55,20 +98,21 @@ export const theme: ITheme = {
       transition: 'all .3s ease',
       opacity: '0.7',
     },
+    spaces: spaces,
   },
 
   dark: {
     font,
     colors: {
-      text: white2,
+      text: whiteLight,
       link: blue,
       bgApp: black,
       border: gray,
       borderHover: blue,
-      buttonBg: blue,
-      buttonBg2: blue,
-      buttonText: white,
-      buttonText2: white,
+      buttonBgPrimary: blue,
+      buttonBgSecondary: blue,
+      buttonTextPrimary: white,
+      buttonTextPrimarySecondary: white,
       error: red,
 
       inputFocus: blue,
@@ -78,7 +122,7 @@ export const theme: ITheme = {
       inputBg: black,
 
       searchBg: black,
-      searchLink: gray4,
+      searchLink: grayDark,
       searchBorder: gray,
 
       like: red,
@@ -86,12 +130,12 @@ export const theme: ITheme = {
       modalText: black,
       modalBorder: gray,
 
-      popupBg: white4,
+      popupBg: whiteDark,
 
       themeButtonBorder: blue,
-      themeButtonBg: gray,
+      themebuttonBgPrimary: gray,
 
-      burgerLine: white2,
+      burgerLine: whiteLight,
       burgerBg: black,
     },
     animations: {
@@ -99,5 +143,6 @@ export const theme: ITheme = {
       transition: 'all .3s ease',
       opacity: '0.7',
     },
+    spaces: spaces,
   },
 };

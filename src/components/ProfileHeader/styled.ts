@@ -1,5 +1,4 @@
-import { Viewposts } from '@appTypes/enums';
-import { DEFAULT_GAP } from '@constants/variables';
+import { Viewports } from '@appTypes/enums';
 import { ButtonTemplate, UserAvatar, UserContact, UserName } from '@styles';
 import styled from 'styled-components';
 
@@ -8,13 +7,13 @@ export const Container = styled.div`
 `;
 
 export const TweetsCounter = styled.h3`
-  font-size: 16px;
+  font-size: ${({ theme }) => theme.font.size.s};
   opacity: ${({ theme }) => theme.animations.opacity};
   margin-bottom: 18px;
-  padding: 0px ${DEFAULT_GAP};
+  padding: 0 ${({ theme }) => theme.spaces.gap.ss};
 
-  @media (max-width: ${Viewposts.TABLET}px) {
-    padding: 0px;
+  @media (max-width: ${Viewports.TABLET}px) {
+    padding: 0;
   }
 `;
 
@@ -24,12 +23,12 @@ export const Banner = styled.img`
   height: 280px;
   object-fit: cover;
 
-  @media (max-width: ${Viewposts.DESKTOP}px) {
+  @media (max-width: ${Viewports.DESKTOP}px) {
     height: 200px;
   }
 
-  @media (max-width: ${Viewposts.TABLET}px) {
-    padding: 0px;
+  @media (max-width: ${Viewports.TABLET}px) {
+    padding: 0;
     width: calc(100% + 40px);
     transform: translatex(-20px);
   }
@@ -46,16 +45,16 @@ export const Header = styled.div`
   width: 100%;
   justify-content: space-between;
   align-items: center;
-  padding-right: ${DEFAULT_GAP};
+  padding-right: ${({ theme }) => theme.spaces.gap.ss};
   margin-bottom: 10px;
 
-  @media (max-width: ${Viewposts.TABLET}px) {
-    padding-right: 0px;
+  @media (max-width: ${Viewports.TABLET}px) {
+    padding-right: 0;
   }
 
-  @media (max-width: ${Viewposts.MOBILE}px) {
+  @media (max-width: ${Viewports.MOBILE}px) {
     flex-direction: column;
-    margin-bottom: ${DEFAULT_GAP};
+    margin-bottom: ${({ theme }) => theme.spaces.gap.ss};
   }
 `;
 
@@ -74,27 +73,27 @@ export const EditButton = styled(ButtonTemplate)`
   align-self: flex-end;
 
   &:hover {
-    color: ${({ theme }) => theme.colors.buttonBg};
+    color: ${({ theme }) => theme.colors.buttonBgPrimary};
     transition: ${({ theme }) => theme.animations.transition};
   }
 
-  @media (max-width: ${Viewposts.TABLET}px) {
+  @media (max-width: ${Viewports.TABLET}px) {
     align-self: flex-start;
   }
-  @media (max-width: ${Viewposts.MOBILE}px) {
+  @media (max-width: ${Viewports.MOBILE}px) {
     max-width: none;
   }
 `;
 
 export const Name = styled(UserName)`
-  font-size: 24px;
+  font-size: ${({ theme }) => theme.font.size.l};
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
   font-weight: ${({ theme }) => theme.font.bold};
   width: 100%;
 
-  @media (max-width: ${Viewposts.MOBILE}px) {
+  @media (max-width: ${Viewports.MOBILE}px) {
     text-align: center;
   }
 `;
@@ -102,14 +101,14 @@ export const Name = styled(UserName)`
 export const Body = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 0 ${DEFAULT_GAP};
+  padding: 0 ${({ theme }) => theme.spaces.gap.ss};
   row-gap: 8px;
 
-  @media (max-width: ${Viewposts.TABLET}px) {
-    padding: 0px;
+  @media (max-width: ${Viewports.TABLET}px) {
+    padding: 0;
   }
-  @media (max-width: ${Viewposts.MOBILE}px) {
-    padding: 0px;
+  @media (max-width: ${Viewports.MOBILE}px) {
+    padding: 0;
     align-items: center;
   }
 `;
@@ -117,8 +116,8 @@ export const Body = styled.div`
 export const Contact = styled(UserContact)``;
 
 export const TelegramLink = styled.a`
-  font-size: 16px;
-  margin-bottom: ${DEFAULT_GAP};
+  font-size: ${({ theme }) => theme.font.size.s};
+  margin-bottom: ${({ theme }) => theme.spaces.gap.ss};
 
   color: ${({ theme }) => theme.colors.link};
   transition: ${({ theme }) => theme.animations.transition};
@@ -131,11 +130,11 @@ export const TelegramLink = styled.a`
 
 export const Social = styled.div`
   display: flex;
-  column-gap: 30px;
-  font-size: ${({ theme }) => theme.font.size};
+  column-gap: ${({ theme }) => theme.spaces.gap.ml};
+  font-size: ${({ theme }) => theme.font.size.sm};
 
-  @media (max-width: ${Viewposts.TABLET}px) {
-    margin-bottom: ${DEFAULT_GAP};
+  @media (max-width: ${Viewports.TABLET}px) {
+    margin-bottom: ${({ theme }) => theme.spaces.gap.ss};
   }
 `;
 

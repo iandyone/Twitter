@@ -1,11 +1,10 @@
-import { DEFAULT_GAP } from '@constants/variables';
 import { Icon, TitleTemplate } from '@styles';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const Container = styled.div`
   display: flex;
   align-items: center;
-  column-gap: ${DEFAULT_GAP};
+  column-gap: ${({ theme }) => theme.spaces.gap.ss};
 
   &:hover {
     cursor: pointer;
@@ -15,9 +14,15 @@ export const Container = styled.div`
 
 export const OptionIcon = styled(Icon)``;
 
-export const OptionTitle = styled(TitleTemplate)`
-  font-size: ${({ theme }) => theme.font.size};
+export const OptionTitle = styled(TitleTemplate)<{ $isActive: boolean }>`
+  font-size: ${({ theme }) => theme.font.size.sm};
   font-weight: ${({ theme }) => theme.font.medium};
   transition: none;
   color: inherit;
+
+  ${({ $isActive }) =>
+    $isActive &&
+    css`
+      color: ${({ theme }) => theme.colors.link};
+    `}
 `;

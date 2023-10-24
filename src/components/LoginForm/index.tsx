@@ -1,30 +1,34 @@
 import { IUser } from '@appTypes';
 import twitterIcon from '@assets/icons/twitter.svg';
-import { InputAuth } from '@components/InputAuth';
-import { AppRoutes } from '@constants/variables';
+import { AppRoutes } from '@constants';
 import { useDispatchTyped } from '@hooks/redux';
 import { firebaseDB } from '@services/database';
 import { setUser } from '@store/reducers/user';
 import { AppContainer, PageWrapper } from '@styles';
 import { getEmailValidation, getPasswordValidation } from '@utils/helpers/validators';
-import { ChangeEvent, FC, FormEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { FC, useState } from 'react';
+import { FieldErrors, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
 import { data } from './config';
-import { Body, Button, Form, Link, Title, TwitterIcon } from './styled';
+import { Body, Button, Form, Input, InputContainer, Label, Link, Title, TwitterIcon } from './styled';
+import { ILoginForm } from './types';
 
 export const LoginForm: FC = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [emailError, setEmailError] = useState<string>(null);
-  const [passwordError, setPasswordError] = useState<string>(null);
+  const [isEmailError, setIsEmailError] = useState('');
+  const [isPasswordError, setIsPasswortError] = useState('');
+  const {
+    register,
+    handleSubmit,
+    resetField,
+    getValues,
+    formState: { errors },
+  } = useForm<ILoginForm>();
+  const { email: emailError, password: passwordError } = errors;
+  const { email, password } = getValues();
+
   const dispatch = useDispatchTyped();
   const navigate = useNavigate();
-
-  const emailRef = useRef(null);
-  const passwordRef = useRef(null);
-  const buttonRef = useRef(null);
-
   const {
     title,
     button,
@@ -34,78 +38,57 @@ export const LoginForm: FC = () => {
     emailPlaceholder,
     passwordPlaceholder,
     accountErrorMessage,
-  } = useMemo(getTextContent, []);
+    noEmailMessage,
+    noPasswordMessage,
+    invalidPasswordMessage,
+  } = data;
 
-  useEffect(() => {
-    if (emailRef) emailRef.current.disabled = false;
-    if (passwordRef) passwordRef.current.disabled = false;
-    if (buttonRef) buttonRef.current.disabled = false;
-  }, [emailRef, passwordRef, buttonRef]);
+  async function handlerOnSubmit({ email, password }: ILoginForm) {
+    try {
+      const { uid } = await firebaseDB.getSignInWithEmailAndPassword(email, password);
+      const { user } = await firebaseDB.getUserData(uid);
 
-  function getTextContent() {
-    return { ...data };
+      if (!uid) {
+        setIsEmailError(accountErrorMessage);
+        return;
+      }
+
+      dispatch(setUser(user as IUser));
+      setIsEmailError('');
+      setIsPasswortError('');
+      navigate(AppRoutes.page.FEED);
+    } catch (error) {
+      resetField('password');
+      setIsEmailError('');
+      setIsPasswortError(invalidPasswordMessage);
+    }
   }
 
-  const handlerOnChangeEmail = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setEmail(value);
-    setEmailError(null);
-  }, []);
-
-  const handlerOnChangePassword = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setPassword(value);
-    setPasswordError(null);
-  }, []);
-
-  const handlerOnBlurEmail = useCallback(() => {
-    const isEmailValid = getEmailValidation(email);
-    setEmailError(email && !isEmailValid ? emailErrorMessage : null);
-  }, [email, emailErrorMessage]);
-
-  const handlerOnBlurPassword = useCallback(() => {
-    const isPasswordValid = getPasswordValidation(password);
-    setPasswordError(password && !isPasswordValid ? passwordErrorMessage : null);
-  }, [password, passwordErrorMessage]);
-
-  function setInputsDisabled(status: boolean = true) {
-    emailRef.current.disabled = status;
-    passwordRef.current.disabled = status;
-    buttonRef.current.disabled = status;
-  }
-
-  async function handlerOnSubmit(e: FormEvent) {
-    e.preventDefault();
-    const isEmailValid = getEmailValidation(email);
-    const isPasswordValid = getPasswordValidation(password);
+  async function validateEmail(email: string) {
     const isAccountExist = await firebaseDB.getIsUserAlredyExist(email);
-    const isValidData = isEmailValid && isPasswordValid && isAccountExist;
-
-    if (!isEmailValid) {
-      setEmailError(emailErrorMessage);
-    }
-
-    if (!isPasswordValid) {
-      setPasswordError(passwordErrorMessage);
-    }
 
     if (!isAccountExist) {
-      setEmailError(accountErrorMessage);
-      return;
+      setIsEmailError(accountErrorMessage);
+      return false;
+    }
+    return getEmailValidation(email);
+  }
+
+  function handlerOnInvalid(errors: FieldErrors<ILoginForm>) {
+    const { email: emailError, password: passwordError } = errors;
+
+    if (emailError) {
+      const errorMessage = email?.length ? emailErrorMessage : noEmailMessage;
+      setIsEmailError(errorMessage);
+    } else {
+      setIsEmailError('');
     }
 
-    if (isValidData) {
-      try {
-        setInputsDisabled();
-        const { uid } = await firebaseDB.getSignInWithEmailAndPassword(email, password);
-        const { user } = await firebaseDB.getUserData(uid);
-
-        dispatch(setUser(user as IUser));
-        navigate(AppRoutes.page.FEED);
-      } catch (error) {
-        setPasswordError(passwordErrorMessage);
-        setInputsDisabled(false);
-      }
+    if (passwordError) {
+      const errorMessage = password?.length ? passwordErrorMessage : noPasswordMessage;
+      setIsPasswortError(errorMessage);
+    } else {
+      setIsPasswortError('');
     }
   }
 
@@ -115,36 +98,28 @@ export const LoginForm: FC = () => {
         <Body>
           <TwitterIcon src={twitterIcon} />
           <Title>{title}</Title>
-          <Form onSubmit={handlerOnSubmit}>
-            <InputAuth
-              type='text'
-              value={email}
-              placeholder={emailPlaceholder}
-              onChange={handlerOnChangeEmail}
-              onBlur={handlerOnBlurEmail}
-              $error={Boolean(emailError)}
-              $isNotEmpty={Boolean(email)}
-              required={true}
-              label={emailError}
-              ref={emailRef}
-              testID='login-form-email'
-            />
-            <InputAuth
-              type='password'
-              value={password}
-              placeholder={passwordPlaceholder}
-              onChange={handlerOnChangePassword}
-              onBlur={handlerOnBlurPassword}
-              $error={Boolean(passwordError)}
-              $isNotEmpty={Boolean(password)}
-              required={true}
-              label={passwordError}
-              ref={passwordRef}
-              testID='login-form-password'
-            />
-            <Button ref={buttonRef} data-testid='login-form-submit'>
-              {button}
-            </Button>
+          <Form onSubmit={handleSubmit(handlerOnSubmit, handlerOnInvalid)}>
+            <InputContainer>
+              <Label>{isEmailError}</Label>
+              <Input
+                type='email'
+                placeholder={emailPlaceholder}
+                $error={Boolean(emailError)}
+                data-testid='login-form-email'
+                {...register('email', { required: true, validate: validateEmail })}
+              />
+            </InputContainer>
+            <InputContainer>
+              <Label>{isPasswordError}</Label>
+              <Input
+                type='password'
+                placeholder={passwordPlaceholder}
+                $error={Boolean(passwordError)}
+                data-testid='login-form-password'
+                {...register('password', { required: true, validate: getPasswordValidation })}
+              />
+            </InputContainer>
+            <Button data-testid='login-form-submit'>{button}</Button>
           </Form>
           <Link to={AppRoutes.REGISTRATION}>{link}</Link>
         </Body>

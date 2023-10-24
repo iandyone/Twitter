@@ -1,5 +1,4 @@
-import { Viewposts } from '@appTypes/enums';
-import { DEFAULT_GAP } from '@constants/variables';
+import { Viewports } from '@appTypes/enums';
 import { TitleTemplate } from '@styles';
 import styled from 'styled-components';
 
@@ -9,12 +8,12 @@ export const Container = styled.article`
 `;
 
 export const Title = styled(TitleTemplate)`
-  font-size: 24px;
-  margin-bottom: ${DEFAULT_GAP};
+  font-size: ${({ theme }) => theme.font.size.l};
+  margin-bottom: ${({ theme }) => theme.spaces.gap.ss};
   text-align: center;
 
-  @media (max-width: ${Viewposts.MOBILE}px) {
-    font-size: 20px;
+  @media (max-width: ${Viewports.MOBILE}px) {
+    font-size: ${({ theme }) => theme.font.size.ss};
     margin-bottom: 6px;
   }
 `;

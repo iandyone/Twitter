@@ -3,12 +3,12 @@ import { Months } from '@appTypes/enums';
 import twitterIcon from '@assets/icons/twitter.svg';
 import { InputAuth } from '@components/InputAuth';
 import { Select } from '@components/Select';
-import { AppRoutes, PHONE_MASK } from '@constants/variables';
+import { AppRoutes, PHONE_MASK } from '@constants';
 import { useDispatchTyped } from '@hooks/redux';
 import { firebaseDB } from '@services/database';
 import { logoutUser, setUser } from '@store/reducers/user';
 import { AppContainer, PageWrapper } from '@styles';
-import { getDateData, getDaysAmountInAMonth } from '@utils/helpers/date';
+import { getSelectLists } from '@utils/helpers/lists';
 import { getEmailValidation, getPasswordValidation, getPhoneValidation } from '@utils/helpers/validators';
 import { ChangeEvent, FC, FormEvent, useCallback, useEffect, useMemo, useReducer, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -31,11 +31,10 @@ export const SignUpForm: FC = () => {
     phoneErrorMessage,
     passwordErrorMessage,
     emailWrongMessage,
-  } = useMemo(getTextContent, []);
+  } = data;
 
   const initialState: IReducerState = useMemo(getInitialState, []);
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { year: currentYear } = getDateData(new Date());
   const {
     day,
     month,
@@ -51,7 +50,7 @@ export const SignUpForm: FC = () => {
     phoneError,
   } = state;
 
-  const { daysList, monthList, yearList } = useMemo(getSelectLists, [currentYear, month]);
+  const { daysList, monthList, yearList } = useMemo(getLists, [month]);
   const dispatchRedux = useDispatchTyped();
   const navigate = useNavigate();
 
@@ -66,6 +65,10 @@ export const SignUpForm: FC = () => {
     if (buttonRef) buttonRef.current.disabled = false;
     if (phoneRef) phoneRef.current.disabled = false;
   }, [emailRef, passwordRef, buttonRef, phoneRef]);
+
+  function getLists() {
+    return getSelectLists(month);
+  }
 
   function reducer(state = initialState, action: Action) {
     switch (action.type) {
@@ -99,25 +102,6 @@ export const SignUpForm: FC = () => {
     }
   }
 
-  function getSelectLists() {
-    const legalAge = 18;
-
-    const daysList = [];
-    const yearList = [];
-    const monthList = Object.keys(Months).filter((month) => month.length > 2);
-    const daysInAMonth = getDaysAmountInAMonth(new Date(currentYear, Months[month as keyof typeof Months]));
-
-    for (let day = 1; day <= daysInAMonth; ++day) {
-      daysList.push(String(day));
-    }
-
-    for (let year = currentYear - legalAge; year >= 1950; --year) {
-      yearList.push(String(year));
-    }
-
-    return { daysList, monthList, yearList };
-  }
-
   function getInitialState(): IReducerState {
     const state: IReducerState = {
       day: null,
@@ -135,10 +119,6 @@ export const SignUpForm: FC = () => {
     };
 
     return state;
-  }
-
-  function getTextContent() {
-    return { ...data };
   }
 
   const handlerOnChangeEmail = useCallback(

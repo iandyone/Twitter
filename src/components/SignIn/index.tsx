@@ -2,12 +2,12 @@ import { IUser } from '@appTypes';
 import googleIcon from '@assets/icons/google.svg';
 import twitterIcon from '@assets/icons/twitter.svg';
 import preview from '@assets/images/preview.webp';
-import { AppRoutes } from '@constants/variables';
+import { AppRoutes } from '@constants';
 import { useDispatchTyped } from '@hooks/redux';
 import { firebaseDB } from '@services/database';
 import { logoutUser, setUser } from '@store/reducers/user';
 import { PageBody, PageWrapper } from '@styles';
-import { FC, MouseEvent, useMemo } from 'react';
+import { FC, MouseEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { data, footerLinks } from './config';
@@ -30,13 +30,9 @@ import {
 } from './styled';
 
 export const SignIn: FC = () => {
-  const { title, subtitle, withEmailButton, withGoogleButton } = useMemo(getTextContent, []);
+  const { title, subtitle, withEmailButton, withGoogleButton } = data;
   const dispatch = useDispatchTyped();
   const navigate = useNavigate();
-
-  function getTextContent() {
-    return { ...data };
-  }
 
   async function handlerOnClickGoogle(e: MouseEvent<HTMLElement>) {
     e.preventDefault();
