@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 export const Container = styled.form`
   display: flex;
+  flex-direction: row;
   position: relative;
   padding: ${({ theme }) => theme.spaces.gap.ss} 0;
   border-bottom: 1px solid ${({ theme }) => theme.colors.border};
