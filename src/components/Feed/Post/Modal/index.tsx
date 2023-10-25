@@ -8,9 +8,10 @@ import { data } from './config';
 import { Button, Buttons, Container, Title } from './styled';
 import { IConfirmPopupProps } from './types';
 
+const { confirmMessage, confirmButtonText, rejectButtonText } = data;
+
 const ConfirmPopupComponent: FC<IConfirmPopupProps> = ({ onConfirm, onReject }) => {
   const dispatch = useDispatchTyped();
-  const { confirmMessage, confirmButtonText, rejectButtonText } = data;
 
   function handlerOnConfirm() {
     onConfirm();

@@ -6,8 +6,10 @@ import { TweetArea } from '@components/TweetArea';
 import { AppRoutes } from '@constants';
 import { useSelectorTyped } from '@hooks/redux';
 import { PageContainer, SubHeader } from '@styles';
-import { FC, useCallback, useEffect, useState } from 'react';
+import { FC, useCallback, useEffect, useLayoutEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
+const { HOME } = AppRoutes;
 
 export const ProfilePage: FC = () => {
   const { isAuthorized, uid } = useSelectorTyped((store) => store.user);
@@ -19,8 +21,8 @@ export const ProfilePage: FC = () => {
   const navigate = useNavigate();
   const [feed, setFeed] = useState(getUserPosts);
 
-  useEffect(() => {
-    if (!isAuthorized) navigate(AppRoutes.HOME);
+  useLayoutEffect(() => {
+    if (!isAuthorized) navigate(HOME);
   });
 
   useEffect(() => {

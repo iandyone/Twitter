@@ -1,6 +1,8 @@
 import { IFooterLink } from '@appTypes';
 import { AppRoutes } from '@constants';
 
+const { HOME } = AppRoutes;
+
 export const data = {
   title: 'Happening now',
   subtitle: 'Join Twitter today',
@@ -9,21 +11,21 @@ export const data = {
 };
 
 export const footerLinks: IFooterLink[] = [
-  { text: 'About', to: AppRoutes.HOME },
-  { text: 'Help Center', to: AppRoutes.HOME },
-  { text: 'Terms of Service', to: AppRoutes.HOME },
-  { text: 'Privacy Policy', to: AppRoutes.HOME },
-  { text: 'Cookie Policy', to: AppRoutes.HOME },
-  { text: 'Ads info', to: AppRoutes.HOME },
-  { text: 'Blog', to: AppRoutes.HOME },
-  { text: 'Status', to: AppRoutes.HOME },
-  { text: 'Carrres', to: AppRoutes.HOME },
-  { text: 'Brand Resources', to: AppRoutes.HOME },
-  { text: 'Advertsing', to: AppRoutes.HOME },
-  { text: 'Marketing', to: AppRoutes.HOME },
-  { text: 'Twitter for Business', to: AppRoutes.HOME },
-  { text: 'Developers', to: AppRoutes.HOME },
-  { text: 'Directory', to: AppRoutes.HOME },
-  { text: 'Settings', to: AppRoutes.HOME },
-  { text: `© ${new Date().getFullYear()} Twitter, Inc.`, to: AppRoutes.HOME },
+  { text: 'About', to: HOME },
+  { text: 'Help Center', to: HOME },
+  { text: 'Terms of Service', to: HOME },
+  { text: 'Privacy Policy', to: HOME },
+  { text: 'Cookie Policy', to: HOME },
+  { text: 'Ads info', to: HOME },
+  { text: 'Blog', to: HOME },
+  { text: 'Status', to: HOME },
+  { text: 'Carrres', to: HOME },
+  { text: 'Brand Resources', to: HOME },
+  { text: 'Advertsing', to: HOME },
+  { text: 'Marketing', to: HOME },
+  { text: 'Twitter for Business', to: HOME },
+  { text: 'Developers', to: HOME },
+  { text: 'Directory', to: HOME },
+  { text: 'Settings', to: HOME },
+  { text: `© ${new Date().getFullYear()} Twitter, Inc.`, to: HOME },
 ];

@@ -18,7 +18,6 @@ import {
   Content,
   Footer,
   FooterLink,
-  GoogleIcon,
   Image,
   Link,
   Links,
@@ -29,8 +28,11 @@ import {
   TwitterIcon,
 } from './styled';
 
+const { title, subtitle, withEmailButton, withGoogleButton } = data;
+const { HOME, REGISTRATION, LOGIN, page } = AppRoutes;
+const { FEED } = page;
+
 export const SignIn: FC = () => {
-  const { title, subtitle, withEmailButton, withGoogleButton } = data;
   const dispatch = useDispatchTyped();
   const navigate = useNavigate();
 
@@ -49,7 +51,7 @@ export const SignIn: FC = () => {
       if (!isUserAlredyExist) await firebaseDB.addUser(userData);
 
       dispatch(setUser(userData));
-      navigate(AppRoutes.page.FEED);
+      navigate(FEED);
     } catch (error) {
       dispatch(logoutUser());
     }
@@ -67,26 +69,23 @@ export const SignIn: FC = () => {
             <Title>{title}</Title>
             <Subtitle>{subtitle}</Subtitle>
             <Buttons>
-              <Button
-                to={AppRoutes.REGISTRATION}
-                onClick={handlerOnClickGoogle}
-                data-testid='auth-button-google'>
-                <GoogleIcon src={googleIcon} />
+              <Button to={REGISTRATION} onClick={handlerOnClickGoogle} data-testid='auth-button-google'>
+                <img src={googleIcon} />
                 {withGoogleButton}
               </Button>
-              <Button to={AppRoutes.REGISTRATION} data-testid='auth-button-email'>
+              <Button to={REGISTRATION} data-testid='auth-button-email'>
                 {withEmailButton}
               </Button>
             </Buttons>
             <Links>
               <Text>
-                By singing up you agree to the <Link to={AppRoutes.HOME}>Terms of Service</Link> and
-                <Link to={AppRoutes.HOME}> Privacy Policy</Link>, including
-                <Link to={AppRoutes.HOME}> Cookie Use</Link>.
+                By singing up you agree to the <Link to={HOME}>Terms of Service</Link> and
+                <Link to={HOME}> Privacy Policy</Link>, including
+                <Link to={HOME}> Cookie Use</Link>.
               </Text>
               <Text>
                 Already have an account?{' '}
-                <Link to={AppRoutes.LOGIN} data-testid='auth-button-login'>
+                <Link to={LOGIN} data-testid='auth-button-login'>
                   Log in
                 </Link>
               </Text>

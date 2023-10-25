@@ -18,10 +18,11 @@ export const Title = styled(LabelTemplate)`
 
 export const Inputelement = styled(InputTemplate).attrs(({ type }) => ({
   type,
+  autoComplete: 'on',
 }))<{ $error: boolean }>`
   width: 100%;
   padding: 16px 12px;
-  font-size: ${({ theme }) => theme.font.size.xs};
+  font-size: ${({ theme }) => theme.font.size.sm};
   transition: ${({ theme }) => theme.animations.transition};
   background: ${({ theme }) => theme.colors.inputBg};
 
@@ -31,9 +32,7 @@ export const Inputelement = styled(InputTemplate).attrs(({ type }) => ({
       border-color: ${({ theme }) => theme.colors.error};
     `}
 
-  @media (max-width: ${Viewports.MOBILE}px) {
+  @media (max-width: ${Viewports.MOBILE}) {
     padding: 12px 10px;
   }
 `;
-
-export const Label = styled(LabelTemplate)``;

@@ -16,6 +16,7 @@
   "plugins": ["react-refresh", "simple-import-sort"],
   "rules": {
     "react-refresh/only-export-components": "off",
+    "react-hooks/exhaustive-deps": "off",
     "indent": ["error", 2],
     "linebreak-style": ["error", "windows"],
     "quotes": ["error", "single"],
@@ -30,10 +31,10 @@
     "simple-import-sort/exports": "error",
     "import/first": "error",
     "import/newline-after-import": "error",
+    "import/named": "off",
     "import/no-duplicates": "error",
-    "import/no-named-as-default": "off",
     "import/no-unresolved": "off",
-    "import/named": "off"
+    "import/no-named-as-default": "off"
   },
   "settings": {
     "import/resolver": {

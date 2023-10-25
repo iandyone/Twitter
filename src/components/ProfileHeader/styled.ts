@@ -2,6 +2,8 @@ import { Viewports } from '@appTypes/enums';
 import { ButtonTemplate, UserAvatar, UserContact, UserName } from '@styles';
 import styled from 'styled-components';
 
+const { TABLET, MOBILE, DESKTOP } = Viewports;
+
 export const Container = styled.div`
   padding-bottom: 20px;
 `;
@@ -9,10 +11,10 @@ export const Container = styled.div`
 export const TweetsCounter = styled.h3`
   font-size: ${({ theme }) => theme.font.size.s};
   opacity: ${({ theme }) => theme.animations.opacity};
-  margin-bottom: 18px;
   padding: 0 ${({ theme }) => theme.spaces.gap.ss};
+  margin-bottom: 18px;
 
-  @media (max-width: ${Viewports.TABLET}px) {
+  @media (max-width: ${TABLET}) {
     padding: 0;
   }
 `;
@@ -23,11 +25,11 @@ export const Banner = styled.img`
   height: 280px;
   object-fit: cover;
 
-  @media (max-width: ${Viewports.DESKTOP}px) {
+  @media (max-width: ${DESKTOP}) {
     height: 200px;
   }
 
-  @media (max-width: ${Viewports.TABLET}px) {
+  @media (max-width: ${TABLET}) {
     padding: 0;
     width: calc(100% + 40px);
     transform: translatex(-20px);
@@ -48,11 +50,11 @@ export const Header = styled.div`
   padding-right: ${({ theme }) => theme.spaces.gap.ss};
   margin-bottom: 10px;
 
-  @media (max-width: ${Viewports.TABLET}px) {
+  @media (max-width: ${TABLET}) {
     padding-right: 0;
   }
 
-  @media (max-width: ${Viewports.MOBILE}px) {
+  @media (max-width: ${MOBILE}) {
     flex-direction: column;
     margin-bottom: ${({ theme }) => theme.spaces.gap.ss};
   }
@@ -77,10 +79,10 @@ export const EditButton = styled(ButtonTemplate)`
     transition: ${({ theme }) => theme.animations.transition};
   }
 
-  @media (max-width: ${Viewports.TABLET}px) {
+  @media (max-width: ${TABLET}) {
     align-self: flex-start;
   }
-  @media (max-width: ${Viewports.MOBILE}px) {
+  @media (max-width: ${MOBILE}) {
     max-width: none;
   }
 `;
@@ -93,7 +95,7 @@ export const Name = styled(UserName)`
   font-weight: ${({ theme }) => theme.font.bold};
   width: 100%;
 
-  @media (max-width: ${Viewports.MOBILE}px) {
+  @media (max-width: ${MOBILE}) {
     text-align: center;
   }
 `;
@@ -104,16 +106,14 @@ export const Body = styled.div`
   padding: 0 ${({ theme }) => theme.spaces.gap.ss};
   row-gap: 8px;
 
-  @media (max-width: ${Viewports.TABLET}px) {
+  @media (max-width: ${TABLET}) {
     padding: 0;
   }
-  @media (max-width: ${Viewports.MOBILE}px) {
+  @media (max-width: ${MOBILE}) {
     padding: 0;
     align-items: center;
   }
 `;
-
-export const Contact = styled(UserContact)``;
 
 export const TelegramLink = styled.a`
   font-size: ${({ theme }) => theme.font.size.s};
@@ -133,7 +133,7 @@ export const Social = styled.div`
   column-gap: ${({ theme }) => theme.spaces.gap.ml};
   font-size: ${({ theme }) => theme.font.size.sm};
 
-  @media (max-width: ${Viewports.TABLET}px) {
+  @media (max-width: ${TABLET}) {
     margin-bottom: ${({ theme }) => theme.spaces.gap.ss};
   }
 `;

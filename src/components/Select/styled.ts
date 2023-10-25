@@ -1,4 +1,4 @@
-import { Viewports } from '@appTypes/enums';
+import { LabelTemplate } from '@styles';
 import styled, { css } from 'styled-components';
 
 export const Container = styled.div`
@@ -13,7 +13,7 @@ export const TitleContainer = styled.div`
 
 export const Title = styled.h3<{ $isActive?: boolean; $isValid?: boolean }>`
   width: 100%;
-  padding: 24px ${({ theme }) => theme.spaces.gap.ss};
+  padding: 16px 12px;
   border-radius: 6px;
   position: relative;
   font-size: ${({ theme }) => theme.font.size.sm};
@@ -61,9 +61,15 @@ export const Options = styled.ul`
   width: 100%;
   background: ${({ theme }) => theme.colors.bgApp};
   max-height: 250px;
-  overflow-y: auto;
+  max-height: 100px;
+`;
 
-  @media (max-width: ${Viewports.TABLET_MEDIUM}px) {
-    position: static;
-  }
+export const Label = styled(LabelTemplate)`
+  margin-bottom: 6px;
+  line-height: 120%;
+  height: 14px;
+  padding-left: 2px;
+  color: ${({ theme }) => theme.colors.text};
+  transition: ${({ theme }) => theme.animations.transition};
+  display: block;
 `;

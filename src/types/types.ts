@@ -1,4 +1,5 @@
 import { ChangeEvent } from 'react';
+import { Months } from './enums';
 
 export type handlerChange = (e: ChangeEvent<HTMLInputElement>) => void;
 
@@ -15,3 +16,5 @@ export type DataSelect = 'day' | 'month' | 'year' | 'gender';
 export type Gender = 'male' | 'female';
 
 export type IFile = string | readonly string[] | number;
+
+export type Month = keyof typeof Months;

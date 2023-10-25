@@ -23,6 +23,10 @@ import {
 } from './styled';
 import { Users } from './Users';
 
+const { placeholderPosts, placeholderUsers, titleWithNoResult, titleWithResult } = data;
+const { HOME, page } = AppRoutes;
+const { PROFILE, FEED } = page;
+
 export const SearchBar: FC = () => {
   const isMobileView = useMobile();
   const links = useMemo(getLinks, []);
@@ -33,7 +37,10 @@ export const SearchBar: FC = () => {
   const { gray, white } = colors;
   const fillColor = useFillColor({ dark: gray, light: white });
   const location = useLocation();
-  const { placeholderPosts, placeholderUsers } = data;
+  const isSearchHasResults = useMemo(
+    () => users.length > 0 || posts.length > 0,
+    [users.length, posts.length],
+  );
 
   const pathname = useMemo(() => {
     return location.pathname;
@@ -43,20 +50,21 @@ export const SearchBar: FC = () => {
     const currentYear = new Date().getFullYear();
 
     return [
-      { text: 'Terms of Service', to: AppRoutes.HOME },
-      { text: 'Cookie Policy', to: AppRoutes.HOME },
-      { text: 'Imprint', to: AppRoutes.HOME },
-      { text: 'Ads Info', to: AppRoutes.HOME },
-      { text: 'Vacancy', to: AppRoutes.HOME },
-      { text: 'About Twitter', to: AppRoutes.HOME },
-      { text: 'Privacy Policy', to: AppRoutes.HOME },
-      { text: `© ${currentYear} Twitter, Inc.`, to: AppRoutes.HOME },
+      { text: 'Terms of Service', to: HOME },
+      { text: 'Cookie Policy', to: HOME },
+      { text: 'Imprint', to: HOME },
+      { text: 'Ads Info', to: HOME },
+      { text: 'Vacancy', to: HOME },
+      { text: 'About Twitter', to: HOME },
+      { text: 'Privacy Policy', to: HOME },
+      { text: `© ${currentYear} Twitter, Inc.`, to: HOME },
     ];
   }
 
   const findUsers = useCallback(async () => {
     if (searchData.length > 0 && debouncedValue.length >= 2) {
       const users = await firebaseDB.getUsers(debouncedValue);
+
       if (users) {
         const userList: IUser[] = Object.values(users);
         setUsers(userList);
@@ -69,6 +77,7 @@ export const SearchBar: FC = () => {
   const findPosts = useCallback(async () => {
     if (searchData.length > 0 && debouncedValue.length >= 2) {
       const posts = await firebaseDB.getPosts(searchData);
+
       if (posts) {
         const postsList: IPostDB[] = Object.values(posts);
         setPosts(postsList);
@@ -84,10 +93,10 @@ export const SearchBar: FC = () => {
   }, []);
 
   useEffect(() => {
-    if (pathname === AppRoutes.page.FEED) {
+    if (pathname === FEED) {
       findUsers();
     }
-    if (pathname === AppRoutes.page.PROFILE) {
+    if (pathname === PROFILE) {
       findPosts();
     }
   }, [debouncedValue, findUsers, findPosts, pathname]);
@@ -109,14 +118,19 @@ export const SearchBar: FC = () => {
             <Input
               value={searchData}
               onChange={handlerOnChangeSearch}
-              placeholder={pathname === AppRoutes.page.FEED ? placeholderUsers : placeholderPosts}
+              placeholder={pathname === FEED ? placeholderUsers : placeholderPosts}
             />
           </Search>
-          {(users.length > 0 || posts.length > 0) && (
+          {isSearchHasResults && (
             <Results>
-              <Title>Search results</Title>
+              <Title>{titleWithResult}</Title>
               <Users users={users} />
               <Posts posts={posts} />
+            </Results>
+          )}
+          {searchData && !isSearchHasResults && (
+            <Results>
+              <Title>{titleWithNoResult}</Title>
             </Results>
           )}
         </SearchContainer>

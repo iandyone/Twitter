@@ -1,47 +1,30 @@
 import { NAME_MAX_LENGTH } from '@constants';
+import { LabelTemplate } from '@styles';
 import { ChangeEvent, FC, memo, useMemo } from 'react';
 
 import { data } from './config';
-import { Container, Inputelement, Label, Title } from './styled';
+import { Container, Inputelement, Title } from './styled';
 import { IInputProps } from './types';
 
+const { emailErrorMessage, passwordErrorMessage, phoneErrorMessage } = data;
+
 export const InputComponent: FC<IInputProps> = ({ type, label, onChange, value, error, testID }) => {
-  const { emailErrorMessage, passwordErrorMessage, phoneErrorMessage } = data;
-  const errorMessage = useMemo(getErrorMessage, [
-    type,
-    emailErrorMessage,
-    passwordErrorMessage,
-    phoneErrorMessage,
-  ]);
+  const errorMessage = useMemo(() => {
+    if (type === 'password') return passwordErrorMessage;
+    if (type === 'tel') return phoneErrorMessage;
+    if (type === 'email') return emailErrorMessage;
+    return '';
+  }, [type]);
 
   function handlerOnChange(e: ChangeEvent<HTMLInputElement>) {
     const value = e.target.value;
-
-    if (value.length < NAME_MAX_LENGTH) {
-      onChange(value);
-    }
-  }
-
-  function getErrorMessage() {
-    if (type === 'password') {
-      return passwordErrorMessage;
-    }
-
-    if (type === 'tel') {
-      return phoneErrorMessage;
-    }
-
-    if (type === 'email') {
-      return emailErrorMessage;
-    }
-
-    return '';
+    if (value.length < NAME_MAX_LENGTH) onChange(value);
   }
 
   return (
     <Container>
       {!error && <Title>{label}</Title>}
-      {error && <Label>{errorMessage}</Label>}
+      {error && <LabelTemplate>{errorMessage}</LabelTemplate>}
       <Inputelement
         type={type}
         onChange={handlerOnChange}

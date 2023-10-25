@@ -1,13 +1,14 @@
 import { ThemeButton } from '@components/ThemeButton';
+import { TitleTemplate } from '@styles';
 import { FC, memo } from 'react';
 
-import { Container, Title } from './styled';
+import { Container } from './styled';
 import { IHeaderProps } from './types';
 
 export const HeaderComponent: FC<IHeaderProps> = ({ title }) => {
   return (
     <Container>
-      <Title>{title}</Title>
+      <TitleTemplate>{title}</TitleTemplate>
       <ThemeButton />
     </Container>
   );

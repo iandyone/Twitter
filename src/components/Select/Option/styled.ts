@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const OptionElement = styled.li`
-  padding: 16px ${({ theme }) => theme.spaces.gap.ss};
+  padding: 16px 12px;
   width: 100%;
   background: ${({ theme }) => theme.colors.bgApp};
   border: 1px solid ${({ theme }) => theme.colors.border};

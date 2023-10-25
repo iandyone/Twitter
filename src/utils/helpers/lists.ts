@@ -1,4 +1,6 @@
 import { Months } from '@appTypes/enums';
+import { Month } from '@appTypes/types';
+import { USER_MAX_BORN_YEAR } from '@constants';
 
 import { getDaysAmountInAMonth } from './date';
 
@@ -9,13 +11,13 @@ export function getSelectLists(month: string) {
   const daysList = [];
   const yearList = [];
   const monthList = Object.keys(Months).filter((month) => month.length > 2);
-  const daysInAMonth = getDaysAmountInAMonth(new Date(currentYear, Months[month as keyof typeof Months]));
+  const daysInAMonth = getDaysAmountInAMonth(new Date(currentYear, Months[month as Month]));
 
   for (let day = 1; day <= daysInAMonth; ++day) {
     daysList.push(String(day));
   }
 
-  for (let year = currentYear - legalAge; year >= 1950; --year) {
+  for (let year = currentYear - legalAge; year >= USER_MAX_BORN_YEAR; --year) {
     yearList.push(String(year));
   }
 

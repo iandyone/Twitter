@@ -167,18 +167,17 @@ export const AppContainer = styled.div`
   margin: 0 auto;
   box-sizing: content-box;
   padding: 0 ${({ theme }) => theme.spaces.gap.ss};
-  overflow-x: hidden;
-  min-height: 100vh;
+  overflow: hidden;
 `;
 
 export const PageWrapper = styled.div`
-  min-height: 100vh;
   transition: ${({ theme }) => theme.animations.transition};
   background-color: ${({ theme }) => theme.colors.bgApp};
+  min-height: 100vh;
 `;
 
 export const Icon = styled.img`
-  @media (max-width: ${Viewports.DESKTOP}px) {
+  @media (max-width: ${Viewports.DESKTOP}) {
     margin-bottom: 0;
   }
 `;
@@ -272,13 +271,13 @@ export const SidesTemplate = styled.div`
   padding: ${({ theme }) => theme.spaces.gap.ss};
   width: 100%;
   margin: 0 auto;
-  min-height: 100vh;
+  min-height: 100%;
 
-  @media (max-width: ${Viewports.DESKTOP}px) {
+  @media (max-width: ${Viewports.DESKTOP}) {
     padding: ${({ theme }) => theme.spaces.gap.ss} ${({ theme }) => theme.spaces.gap.ss};
   }
 
-  @media (max-width: ${Viewports.TABLET}px) {
+  @media (max-width: ${Viewports.TABLET}) {
     min-height: auto;
   }
 `;
@@ -326,7 +325,7 @@ export const PageContainer = styled.section`
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  min-height: 100%;
   padding: ${({ theme }) => theme.spaces.gap.ss} 0;
 `;
 
@@ -343,10 +342,10 @@ export const SubHeader = styled(TitleTemplate)`
   align-self: flex-start;
   margin-bottom: 40px;
 
-  @media (max-width: ${Viewports.TABLET}px) {
+  @media (max-width: ${Viewports.TABLET}) {
     margin-bottom: ${({ theme }) => theme.spaces.gap.ss};
   }
-  @media (max-width: ${Viewports.MOBILE}px) {
+  @media (max-width: ${Viewports.MOBILE}) {
     align-self: center;
     width: 100%;
     text-align: center;

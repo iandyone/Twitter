@@ -10,7 +10,7 @@ export const Wrapper = styled.aside`
   display: flex;
   justify-content: flex-end;
 
-  @media (max-width: ${Viewports.DESKTOP_MEDIUM}px) {
+  @media (max-width: ${Viewports.DESKTOP_MEDIUM}) {
     width: 100%;
     max-width: none;
   }
@@ -23,18 +23,17 @@ export const Container = styled(SidesTemplate)`
   justify-content: space-between;
   padding: ${({ theme }) => theme.spaces.gap.ss} ${({ theme }) => theme.spaces.gap.ss}
     ${({ theme }) => theme.spaces.gap.ss} 0;
-  height: 100vh;
   position: fixed;
 
-  @media (max-width: ${Viewports.DESKTOP}px) {
+  @media (max-width: ${Viewports.DESKTOP}) {
     max-width: none;
     width: 250px;
     align-items: flex-start;
   }
-  @media (max-width: ${Viewports.DESKTOP_MEDIUM}px) {
+  @media (max-width: ${Viewports.DESKTOP_MEDIUM}) {
     width: 200px;
   }
-  @media (max-width: ${Viewports.TABLET}px) {
+  @media (max-width: ${Viewports.TABLET}) {
     position: static;
     height: auto;
     justify-content: initial;
@@ -44,7 +43,7 @@ export const Container = styled(SidesTemplate)`
     padding-right: 10px;
     width: 100%;
   }
-  @media (max-width: ${Viewports.MOBILE}px) {
+  @media (max-width: ${Viewports.MOBILE}) {
     padding: 0;
   }
 `;
@@ -55,7 +54,7 @@ export const Navigation = styled.nav`
   width: 100%;
   row-gap: 36px;
 
-  @media (max-width: ${Viewports.TABLET}px) {
+  @media (max-width: ${Viewports.TABLET}) {
     row-gap: ${({ theme }) => theme.spaces.gap.ss};
   }
 `;
@@ -65,7 +64,7 @@ export const TwitterIcon = styled(Icon)`
   width: 50px;
   height: 40px;
 
-  @media (max-width: ${Viewports.MOBILE}px) {
+  @media (max-width: ${Viewports.MOBILE}) {
     margin-bottom: 0;
   }
 `;

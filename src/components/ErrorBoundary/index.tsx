@@ -1,7 +1,7 @@
 import { ErrorBoundaryProps, ErrorBoundaryState } from '@components/ErrorBoundary/types';
 import React, { Suspense } from 'react';
 
-import { Message, Spinner } from './styled';
+import { Spinner } from './styled';
 
 class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
   constructor(props: ErrorBoundaryProps) {
@@ -19,7 +19,7 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
     if (error) {
       return (
         <Suspense fallback={<Spinner />}>
-          <Message>{error}</Message>
+          <p>{error}</p>
         </Suspense>
       );
     }

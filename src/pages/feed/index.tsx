@@ -7,8 +7,10 @@ import { useDispatchTyped, useSelectorTyped } from '@hooks/redux';
 import { firebaseDB } from '@services/database';
 import { setUserPosts } from '@store/reducers/posts';
 import { PageContainer } from '@styles';
-import { FC, useCallback, useEffect } from 'react';
+import { FC, useCallback, useEffect, useLayoutEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+
+const { HOME } = AppRoutes;
 
 export const FeedPage: FC = () => {
   const { isAuthorized, uid } = useSelectorTyped((store) => store.user);
@@ -23,9 +25,11 @@ export const FeedPage: FC = () => {
   }, [dispatch, uid]);
 
   useEffect(() => {
-    if (!isAuthorized) {
-      navigate(AppRoutes.HOME);
-    }
+    if (!isAuthorized) navigate(HOME);
+  });
+
+  useLayoutEffect(() => {
+    if (!isAuthorized) navigate(HOME);
   });
 
   useEffect(() => {

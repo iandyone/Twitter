@@ -14,5 +14,5 @@ export const useMobile = () => {
     };
   }, []);
 
-  return width < Viewports.TABLET;
+  return width < parseInt(Viewports.TABLET);
 };

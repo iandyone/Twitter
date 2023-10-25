@@ -23,11 +23,12 @@ import {
   SubmitButton,
 } from './styled';
 
+const { buttonSubmitText } = data;
+
 export const TweetArea: FC = () => {
   const [tweet, setTweet] = useState('');
   const { email, uid, avatar, name } = useSelectorTyped((store) => store.user);
   const [media, setMedia] = useState<File>(null);
-  const { buttonSubmitText } = data;
   const dispatch = useDispatchTyped();
   const inputFileRef = useRef(null);
 

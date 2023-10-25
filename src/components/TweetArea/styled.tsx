@@ -2,6 +2,8 @@ import { Viewports } from '@appTypes/enums';
 import { ButtonTemplate, Icon, UserAvatar } from '@styles';
 import styled from 'styled-components';
 
+const { TABLET, MOBILE } = Viewports;
+
 export const Container = styled.form`
   display: flex;
   flex-direction: row;
@@ -9,7 +11,7 @@ export const Container = styled.form`
   padding: ${({ theme }) => theme.spaces.gap.ss} 0;
   border-bottom: 1px solid ${({ theme }) => theme.colors.border};
 
-  @media (min-width: ${Viewports.TABLET}px) {
+  @media (min-width: ${TABLET}) {
     padding: ${({ theme }) => theme.spaces.gap.ss};
   }
 `;
@@ -23,7 +25,7 @@ export const Content = styled.div`
 export const Avatar = styled(UserAvatar)`
   transform: translateY(-10px);
 
-  @media (max-width: ${Viewports.MOBILE}px) {
+  @media (max-width: ${MOBILE}) {
     display: none;
   }
 `;
@@ -41,7 +43,7 @@ export const Input = styled.textarea`
   background: ${({ theme }) => theme.colors.inputBg};
   color: ${({ theme }) => theme.colors.text};
 
-  @media (max-width: ${Viewports.MOBILE}px) {
+  @media (max-width: ${MOBILE}) {
     font-size: ${({ theme }) => theme.font.size.s};
   }
 `;

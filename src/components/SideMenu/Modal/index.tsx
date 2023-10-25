@@ -5,9 +5,9 @@ import { FC } from 'react';
 import { data } from './config';
 import { Container, Title } from './styled';
 
-export const TweetPopup: FC = () => {
-  const { title } = data;
+const { title } = data;
 
+export const TweetPopup: FC = () => {
   return (
     <Popup>
       <Container data-testid='tweet-popup'>

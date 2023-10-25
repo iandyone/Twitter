@@ -2,19 +2,17 @@ import userAvatar from '@assets/icons/avatar.svg';
 import LikeIcon from '@assets/icons/like.svg?react';
 import XMarkIcon from '@assets/icons/xMark.svg?react';
 import { colors } from '@constants';
-// import { colors } from '@constants';
 import { useFillColor } from '@hooks/animations';
 import { useDispatchTyped, useSelectorTyped } from '@hooks/redux';
 import { firebaseDB } from '@services/database';
 import { setConfirmPopup } from '@store/reducers/app';
 import { updatePostLikes } from '@store/reducers/posts';
-import { UserContact } from '@styles';
+import { UserAvatar, UserContact } from '@styles';
 import { getDateData, getFormattedPostDate } from '@utils/helpers/date';
 import { FC, memo, useCallback, useEffect, useMemo, useState } from 'react';
 
 import { ConfirmPopup } from './Modal';
 import {
-  Avatar,
   Body,
   Container,
   Content,
@@ -25,7 +23,6 @@ import {
   Likes,
   Media,
   MediaContainer,
-  PostDate,
   User,
 } from './styled';
 import { IPostProps } from './types';
@@ -138,13 +135,13 @@ const PostComponent: FC<IPostProps> = ({ post }) => {
 
   return (
     <Container data-testid='post'>
-      <Avatar src={authorAvatar ?? userAvatar} />
+      <UserAvatar src={authorAvatar ?? userAvatar} />
       <Content>
         <Header>
           <HeaderContent>
             <User data-testid='post-author-name'>{authName ?? user}</User>
             <UserContact data-testid='post-author-email'>{email} · </UserContact>
-            <PostDate>{postDate}</PostDate>
+            <UserContact>{postDate}</UserContact>
           </HeaderContent>
           {isUserPost && (
             <XMarkIcon

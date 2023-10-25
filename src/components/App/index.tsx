@@ -1,13 +1,5 @@
-import { Layout } from '@components/Layout';
 import { databaseRefs } from '@config/firebase';
-import { AppRoutes } from '@constants';
 import { useDispatchTyped, useSelectorTyped } from '@hooks/redux';
-import { FeedPage } from '@pages/feed';
-import { HomePage } from '@pages/home';
-import { LoginPage } from '@pages/login';
-import { ProfilePage } from '@pages/profile';
-import { SignInPage } from '@pages/signIn';
-import { SignUpPage } from '@pages/signUp/index';
 import { setMobileMenu, setSelectDay, setSelectMonth, setSelectYear } from '@store/reducers/app';
 import { removePost, setFeedPosts } from '@store/reducers/posts';
 import { GlobalStyles } from '@styles';
@@ -16,6 +8,8 @@ import { DataSnapshot, onChildAdded, onChildRemoved } from 'firebase/database';
 import { FC, useCallback, useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
+
+import { routes } from './config';
 
 export const App: FC = () => {
   const {
@@ -36,20 +30,14 @@ export const App: FC = () => {
     if (selectYear) dispatch(setSelectYear(false));
   }
 
-  const handlerChildAddedPosts = useCallback(
-    (data: DataSnapshot) => {
-      dispatch(setFeedPosts(data.val()));
-    },
-    [dispatch],
-  );
+  const handlerChildAddedPosts = useCallback((data: DataSnapshot) => {
+    dispatch(setFeedPosts(data.val()));
+  }, []);
 
-  const handlerOnPostRemoved = useCallback(
-    (data: DataSnapshot) => {
-      const removedPost = data.val();
-      dispatch(removePost(removedPost));
-    },
-    [dispatch],
-  );
+  const handlerOnPostRemoved = useCallback((data: DataSnapshot) => {
+    const removedPost = data.val();
+    dispatch(removePost(removedPost));
+  }, []);
 
   useEffect(() => {
     const { posts } = databaseRefs;
@@ -62,15 +50,14 @@ export const App: FC = () => {
       <ThemeProvider theme={theme[currentTheme]}>
         <GlobalStyles />
         <Routes>
-          <Route path={AppRoutes.HOME} element={<HomePage />} />
-          <Route path={AppRoutes.SIGNIN} element={<SignInPage />} />
-          <Route path={AppRoutes.LOGIN} element={<LoginPage />} />
-          <Route path={AppRoutes.REGISTRATION} element={<SignUpPage />} />
-          <Route path='/page' element={<Layout />}>
-            <Route path={AppRoutes.page.FEED} element={<FeedPage />} />
-            <Route path={AppRoutes.page.PROFILE} element={<ProfilePage />} />
-          </Route>
-          <Route path={AppRoutes.UNKNOWN} element={<HomePage />} />
+          {routes.map(({ element, path, children }, index) => (
+            <Route key={index} path={path} element={element}>
+              {children &&
+                children.map(({ element: childrenElement, path: childrenPath }, childIndex) => (
+                  <Route key={childIndex} path={childrenPath} element={childrenElement} />
+                ))}
+            </Route>
+          ))}
         </Routes>
       </ThemeProvider>
     </div>

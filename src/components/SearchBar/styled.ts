@@ -2,6 +2,8 @@ import { Viewports } from '@appTypes/enums';
 import { InputTemplate, LinkTemplate, SidesTemplate, TitleTemplate } from '@styles';
 import styled from 'styled-components';
 
+const { TABLET, DESKTOP, DESKTOP_MEDIUM } = Viewports;
+
 export const Wrapper = styled.aside`
   position: relative;
   width: 100%;
@@ -16,17 +18,17 @@ export const Container = styled(SidesTemplate)`
   overflow: hidden;
   width: 300px;
 
-  @media (max-width: ${Viewports.DESKTOP}px) {
+  @media (max-width: ${DESKTOP}) {
     width: 270px;
   }
-  @media (max-width: ${Viewports.DESKTOP_MEDIUM}px) {
+  @media (max-width: ${DESKTOP_MEDIUM}) {
     max-width: none;
     min-width: none;
     width: 270px;
     align-items: flex-start;
   }
 
-  @media (max-width: ${Viewports.TABLET}px) {
+  @media (max-width: ${TABLET}) {
     row-gap: ${({ theme }) => theme.spaces.gap.ss};
     padding: ${({ theme }) => theme.spaces.gap.ss} 0;
     position: static;
@@ -44,7 +46,7 @@ export const SearchContainer = styled.div`
 export const Search = styled.div`
   position: relative;
 
-  @media (max-width: ${Viewports.TABLET}px) {
+  @media (max-width: ${TABLET}) {
     max-width: none;
     width: 100%;
   }
@@ -72,7 +74,7 @@ export const SearchIconContainer = styled.div`
 export const Results = styled.div`
   display: flex;
   flex-direction: column;
-  row-gap: 32px;
+  row-gap: 26px;
   background: ${({ theme }) => theme.colors.searchBg};
   transition: ${({ theme }) => theme.animations.transition};
   border: 1px solid ${({ theme }) => theme.colors.searchBorder};
@@ -81,7 +83,7 @@ export const Results = styled.div`
   width: 100%;
 `;
 export const Title = styled(TitleTemplate)`
-  font-size: ${({ theme }) => theme.font.size.l};
+  font-size: ${({ theme }) => theme.font.size.ss};
   font-weight: ${({ theme }) => theme.font.bold};
 `;
 
@@ -91,7 +93,7 @@ export const Footer = styled.div`
   justify-content: space-between;
   gap: ${({ theme }) => theme.spaces.gap.sm};
 
-  @media (max-width: ${Viewports.DESKTOP}px) {
+  @media (max-width: ${DESKTOP}) {
     flex-direction: column;
   }
 `;

@@ -3,7 +3,6 @@ import HomeIcon from '@assets/icons/home.svg?react';
 import ProfileIcon from '@assets/icons/profile.svg?react';
 import twitterIcon from '@assets/icons/twitter.svg';
 import { Account } from '@components/Account';
-// import { ProfileIcon } from '@components/SVG/Profile';
 import { AppRoutes } from '@constants';
 import { useDispatchTyped, useSelectorTyped } from '@hooks/redux';
 import { useMobile } from '@hooks/window';
@@ -15,6 +14,9 @@ import { TweetPopup } from './Modal';
 import { Option } from './Option';
 import { Container, Menu, Navigation, TweetButton, TwitterIcon, User, Wrapper } from './styled';
 
+const { HOME, page } = AppRoutes;
+const { PROFILE, FEED } = page;
+
 export const SideMenu: FC = () => {
   const { uid, email, name, avatar } = useSelectorTyped((store) => store.user);
   const { tweetPopup } = useSelectorTyped((store) => store.app);
@@ -25,16 +27,16 @@ export const SideMenu: FC = () => {
   const sideMenuOptions: ISideMenuOption[] = [
     {
       title: 'Home',
-      path: AppRoutes.HOME,
       testID: 'route-button-home',
-      active: location.pathname === AppRoutes.page.FEED,
+      path: HOME,
+      active: location.pathname === FEED,
       element: HomeIcon,
     },
     {
       title: 'Profile',
-      path: AppRoutes.page.PROFILE,
       testID: 'route-button-profile',
-      active: location.pathname === AppRoutes.page.PROFILE,
+      path: PROFILE,
+      active: location.pathname === PROFILE,
       element: ProfileIcon,
     },
   ];
@@ -42,11 +44,11 @@ export const SideMenu: FC = () => {
   const handlerOnClickTweet = useCallback(() => {
     dispatch(setTweetPopup(true));
     dispatch(setMobileMenu(false));
-  }, [dispatch]);
+  }, []);
 
   const handlerOnClickOption = useCallback(() => {
     dispatch(setMobileMenu(false));
-  }, [dispatch]);
+  }, []);
 
   return (
     <Wrapper>

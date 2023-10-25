@@ -1,4 +1,4 @@
-import { Icon, TitleTemplate } from '@styles';
+import { TitleTemplate } from '@styles';
 import styled, { css } from 'styled-components';
 
 export const Container = styled.div`
@@ -11,8 +11,6 @@ export const Container = styled.div`
     color: ${({ theme }) => theme.colors.link};
   }
 `;
-
-export const OptionIcon = styled(Icon)``;
 
 export const OptionTitle = styled(TitleTemplate)<{ $isActive: boolean }>`
   font-size: ${({ theme }) => theme.font.size.sm};

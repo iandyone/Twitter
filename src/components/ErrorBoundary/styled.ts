@@ -9,5 +9,3 @@ export const Spinner = styled.div`
   align-self: center;
   animation: spinAnimation 1s linear infinite;
 `;
-
-export const Message = styled.p``;
