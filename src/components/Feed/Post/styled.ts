@@ -1,6 +1,8 @@
 import { Viewports } from '@appTypes/enums';
-import { TitleTemplate, UserAvatar, UserContact } from '@styles';
+import { TitleTemplate, UserAvatar } from '@styles';
 import styled, { css } from 'styled-components';
+
+const { TABLET, MOBILE } = Viewports;
 
 export const Container = styled.article`
   display: flex;
@@ -11,7 +13,7 @@ export const Container = styled.article`
     border-top: 1px solid ${({ theme }) => theme.colors.border};
   }
 
-  @media (min-width: ${Viewports.TABLET}px) {
+  @media (min-width: ${TABLET}) {
     padding: ${({ theme }) => theme.spaces.gap.ss};
   }
 `;
@@ -37,7 +39,7 @@ export const HeaderContent = styled.div`
   column-gap: ${({ theme }) => theme.spaces.gap.xs};
   margin-bottom: 5px;
 
-  @media (max-width: ${Viewports.TABLET}px) {
+  @media (max-width: ${TABLET}) {
     flex-wrap: wrap;
     row-gap: ${({ theme }) => theme.spaces.gap.s};
   }
@@ -51,14 +53,12 @@ export const User = styled(TitleTemplate)`
   font-size: ${({ theme }) => theme.font.size.s};
 `;
 
-export const PostDate = styled(UserContact)``;
-
 export const Body = styled.p`
   font-size: ${({ theme }) => theme.font.size.sm};
   margin-bottom: ${({ theme }) => theme.spaces.gap.ss};
   line-height: 110%;
 
-  @media (max-width: ${Viewports.MOBILE}px) {
+  @media (max-width: ${MOBILE}) {
     margin-bottom: 10px;
   }
 `;
@@ -89,7 +89,7 @@ export const LikeCounter = styled.span<{ $isActive: boolean }>`
   height: 24px;
   line-height: 115%;
 
-  @media (max-width: ${Viewports.MOBILE}px) {
+  @media (max-width: ${MOBILE}) {
     align-self: center;
   }
   ${({ $isActive }) =>
@@ -111,7 +111,7 @@ export const Media = styled.img`
   max-height: 250px;
   object-fit: contain;
 
-  @media (max-width: ${Viewports.MOBILE}px) {
+  @media (max-width: ${MOBILE}) {
     max-height: 200px;
   }
 `;

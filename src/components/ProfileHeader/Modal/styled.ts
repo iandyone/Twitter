@@ -1,4 +1,4 @@
-import { ButtonTemplate, TitleTemplate } from '@styles';
+import { ButtonTemplate, LabelTemplate, TitleTemplate } from '@styles';
 import styled from 'styled-components';
 
 export const Container = styled.form`
@@ -27,4 +27,14 @@ export const Body = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: ${({ theme }) => theme.spaces.gap.sm};
+`;
+
+export const Label = styled(LabelTemplate)`
+  margin-bottom: 6px;
+  display: block;
+  line-height: 120%;
+  height: 14px;
+  padding-left: 2px;
+  color: ${({ theme }) => theme.colors.text};
+  transition: ${({ theme }) => theme.animations.transition};
 `;

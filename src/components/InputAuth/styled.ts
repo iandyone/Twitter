@@ -2,6 +2,8 @@ import { Viewports } from '@appTypes/enums';
 import { InputTemplate } from '@styles';
 import styled from 'styled-components';
 
+const size = '100%';
+
 export const Label = styled.label`
   color: ${({ theme }) => theme.colors.error};
   transition: ${({ theme }) => theme.animations.transition};
@@ -11,7 +13,7 @@ export const Label = styled.label`
 `;
 
 export const InputContainer = styled.div`
-  width: 100%;
+  width: ${size};
   display: flex;
   flex-direction: column;
   row-gap: ${({ theme }) => theme.spaces.gap.xs};
@@ -20,11 +22,11 @@ export const InputContainer = styled.div`
 export const Input = styled(InputTemplate).attrs(({ type }) => ({
   type,
 }))`
-  width: 100%;
+  width: ${size};
   padding: 24px ${({ theme }) => theme.spaces.gap.ss};
   background: ${({ theme }) => theme.colors.inputBg};
 
-  @media (max-width: ${Viewports.MOBILE}px) {
+  @media (max-width: ${Viewports.MOBILE}) {
     padding: 12px 10px;
   }
 `;

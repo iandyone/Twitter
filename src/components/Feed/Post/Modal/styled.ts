@@ -2,9 +2,12 @@ import { Viewports } from '@appTypes/enums';
 import { ButtonTemplate, TitleTemplate } from '@styles';
 import styled from 'styled-components';
 
+const { MOBILE } = Viewports;
+const size = '100%';
+
 export const Container = styled.div`
-  width: 100%;
-  height: 100%;
+  width: ${size};
+  height: ${size};
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -15,7 +18,7 @@ export const Title = styled(TitleTemplate)`
   font-size: ${({ theme }) => theme.font.size.ml};
   text-align: center;
 
-  @media (max-width: ${Viewports.MOBILE}px) {
+  @media (max-width: ${MOBILE}) {
     font-size: ${({ theme }) => theme.font.size.sm};
   }
 `;
@@ -23,20 +26,20 @@ export const Title = styled(TitleTemplate)`
 export const Buttons = styled.div`
   display: flex;
   justify-content: center;
-  width: 100%;
+  width: ${size};
   column-gap: ${({ theme }) => theme.spaces.gap.ss};
 
-  @media (max-width: ${Viewports.MOBILE}px) {
+  @media (max-width: ${MOBILE}) {
     max-width: none;
   }
 `;
 
 export const Button = styled(ButtonTemplate)`
   height: 46px;
-  width: 100%;
+  width: ${size};
   max-width: 185px;
 
-  @media (max-width: ${Viewports.MOBILE}px) {
+  @media (max-width: ${MOBILE}) {
     max-width: none;
     height: 38px;
   }

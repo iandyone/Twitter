@@ -8,6 +8,8 @@ import { data } from './config';
 import { Container, LogOutButton } from './styled';
 import { IAccountProps } from './types';
 
+const { logoutButtonText } = data;
+
 const AccountComponent: FC<IAccountProps> = ({
   userName,
   userEmail,
@@ -16,7 +18,6 @@ const AccountComponent: FC<IAccountProps> = ({
   post = null,
 }) => {
   const dispatch = useDispatchTyped();
-  const { logoutButtonText } = data;
 
   function handlerOnLogOut() {
     dispatch(logoutUser());
@@ -31,7 +32,7 @@ const AccountComponent: FC<IAccountProps> = ({
           <UserEmail data-testid='account-email'>{userEmail}</UserEmail>
         </UserInfo>
       </UserData>
-      {post && <div>{post}</div>}
+      {post}
       {withLogout && (
         <LogOutButton onClick={handlerOnLogOut} data-testid='account-button-logout'>
           {logoutButtonText}

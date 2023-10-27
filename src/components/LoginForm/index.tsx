@@ -14,6 +14,22 @@ import { data } from './config';
 import { Body, Button, Form, Input, InputContainer, Label, Link, Title, TwitterIcon } from './styled';
 import { ILoginForm } from './types';
 
+const { REGISTRATION, page } = AppRoutes;
+const { FEED } = page;
+const {
+  title,
+  button,
+  link,
+  emailErrorMessage,
+  passwordErrorMessage,
+  emailPlaceholder,
+  passwordPlaceholder,
+  accountErrorMessage,
+  noEmailMessage,
+  noPasswordMessage,
+  invalidPasswordMessage,
+} = data;
+
 export const LoginForm: FC = () => {
   const [isEmailError, setIsEmailError] = useState('');
   const [isPasswordError, setIsPasswortError] = useState('');
@@ -29,22 +45,11 @@ export const LoginForm: FC = () => {
 
   const dispatch = useDispatchTyped();
   const navigate = useNavigate();
-  const {
-    title,
-    button,
-    link,
-    emailErrorMessage,
-    passwordErrorMessage,
-    emailPlaceholder,
-    passwordPlaceholder,
-    accountErrorMessage,
-    noEmailMessage,
-    noPasswordMessage,
-    invalidPasswordMessage,
-  } = data;
 
   async function handlerOnSubmit({ email, password }: ILoginForm) {
     try {
+      setIsEmailError('');
+      setIsPasswortError('');
       const { uid } = await firebaseDB.getSignInWithEmailAndPassword(email, password);
       const { user } = await firebaseDB.getUserData(uid);
 
@@ -54,9 +59,8 @@ export const LoginForm: FC = () => {
       }
 
       dispatch(setUser(user as IUser));
-      setIsEmailError('');
       setIsPasswortError('');
-      navigate(AppRoutes.page.FEED);
+      navigate(FEED);
     } catch (error) {
       resetField('password');
       setIsEmailError('');
@@ -74,8 +78,18 @@ export const LoginForm: FC = () => {
     return getEmailValidation(email);
   }
 
-  function handlerOnInvalid(errors: FieldErrors<ILoginForm>) {
+  async function handlerOnInvalid(errors: FieldErrors<ILoginForm>) {
     const { email: emailError, password: passwordError } = errors;
+    if (!email) {
+      setIsEmailError(emailErrorMessage);
+      return false;
+    }
+
+    const isAccountExist = await firebaseDB.getIsUserAlredyExist(email);
+    if (!isAccountExist) {
+      setIsEmailError(accountErrorMessage);
+      return false;
+    }
 
     if (emailError) {
       const errorMessage = email?.length ? emailErrorMessage : noEmailMessage;
@@ -121,7 +135,7 @@ export const LoginForm: FC = () => {
             </InputContainer>
             <Button data-testid='login-form-submit'>{button}</Button>
           </Form>
-          <Link to={AppRoutes.REGISTRATION}>{link}</Link>
+          <Link to={REGISTRATION}>{link}</Link>
         </Body>
       </AppContainer>
     </PageWrapper>

@@ -5,6 +5,7 @@ import { useDispatchTyped, useSelectorTyped } from '@hooks/redux';
 import { useMobile } from '@hooks/window';
 import { firebaseDB } from '@services/database';
 import { setProfilePopup } from '@store/reducers/app';
+import { UserContact } from '@styles';
 import { FC, memo, useEffect, useMemo, useState } from 'react';
 
 import { data } from './config';
@@ -13,7 +14,6 @@ import {
   Avatar,
   Banner,
   Body,
-  Contact,
   Container,
   EditButton,
   Header,
@@ -21,19 +21,19 @@ import {
   ProfileElement,
   Social,
   SubCounter,
-  Subscribes,
   TelegramLink,
   TweetsCounter,
 } from './styled';
 
+const { tweetCounterText, editButton } = data;
+
 const ProfileComponent: FC = () => {
   const { uid, email, name, avatar, telegram } = useSelectorTyped((state) => state.user);
   const { profilePopup } = useSelectorTyped((store) => store.app);
-  const { tweetCounterText, editButton } = useMemo(getTextContent, []);
   const { posts } = useSelectorTyped((store) => store.posts);
   const dispatch = useDispatchTyped();
   const isMobile = useMobile();
-  const tweetCounter = useMemo(getUserPosts, [posts, uid]);
+  const tweetCounter = useMemo(() => posts.filter((post) => post.user === uid).length, [posts, uid]);
   const [followings, setFollowings] = useState(0);
   const userName = useMemo(getUserName, [uid, name]);
   const telegramURL = import.meta.env.VITE_TG;
@@ -41,14 +41,6 @@ const ProfileComponent: FC = () => {
   function getUserName() {
     const user = name ?? uid;
     return user ? user.slice(0, NAME_MAX_LENGTH) : null;
-  }
-
-  function getUserPosts() {
-    return posts.filter((post) => post.user === uid).length;
-  }
-
-  function getTextContent() {
-    return { ...data };
   }
 
   function handlerOnClickEditButton() {
@@ -81,7 +73,7 @@ const ProfileComponent: FC = () => {
         </Header>
         <Body>
           <Name data-testid='profile-user-name'>{userName}</Name>
-          <Contact data-testid='profile-user-email'>{email}</Contact>
+          <UserContact data-testid='profile-user-email'>{email}</UserContact>
           {telegram && (
             <TelegramLink
               href={telegramURL + telegram}
@@ -89,12 +81,12 @@ const ProfileComponent: FC = () => {
               data-testid='profile-user-telegram'>{`@${telegram}`}</TelegramLink>
           )}
           <Social>
-            <Subscribes data-testid='profile-user-subs'>
+            <UserContact data-testid='profile-user-subs'>
               <SubCounter>{followings}</SubCounter> followers
-            </Subscribes>
-            <Subscribes>
+            </UserContact>
+            <UserContact>
               <SubCounter>{followings}</SubCounter> following
-            </Subscribes>
+            </UserContact>
           </Social>
           {isMobile && (
             <EditButton onClick={handlerOnClickEditButton} data-testid='profile-edit-button'>

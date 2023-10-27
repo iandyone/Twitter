@@ -12,7 +12,7 @@ export const Title = styled(TitleTemplate)`
   margin-bottom: ${({ theme }) => theme.spaces.gap.ss};
   text-align: center;
 
-  @media (max-width: ${Viewports.MOBILE}px) {
+  @media (max-width: ${Viewports.MOBILE}) {
     font-size: ${({ theme }) => theme.font.size.ss};
     margin-bottom: 6px;
   }

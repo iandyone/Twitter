@@ -2,6 +2,7 @@ import { IFillColors } from '@appTypes';
 
 export const PHONE_MASK = '+375';
 export const NAME_MAX_LENGTH = 20;
+export const USER_MAX_BORN_YEAR = 1950;
 
 export const colors = {
   black: '#272727',
@@ -21,18 +22,20 @@ export const colors = {
 
 export const AppRoutes = {
   HOME: '/',
-  UNKNOWN: '*',
   SIGNIN: '/signin',
   LOGIN: '/login',
   REGISTRATION: '/registration',
+  UNKNOWN: '/*',
   page: {
     FEED: '/page/feed',
     PROFILE: '/page/profile',
   },
 };
 
+const { black, white, blue } = colors;
+
 export const defaultColors: IFillColors = {
-  dark: colors.black,
-  light: colors.white,
-  active: colors.blue,
+  dark: black,
+  light: white,
+  active: blue,
 };

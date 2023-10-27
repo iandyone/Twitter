@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components';
 export const MenuContainer = styled.div`
   display: none;
 
-  @media (max-width: ${Viewports.TABLET}px) {
+  @media (max-width: ${Viewports.TABLET}) {
     display: block;
     position: absolute;
     top: 22px;
@@ -14,7 +14,7 @@ export const MenuContainer = styled.div`
 
 export const BurgerButton = styled.button`
   position: relative;
-  z-index: 160;
+  z-index: 25;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
