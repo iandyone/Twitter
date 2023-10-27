@@ -1,0 +1,10 @@
+dist
+public
+node_modules
+eslintrc.json
+.prettierignore
+global.d.tsx
+**/types.ts
+global.d.tsx
+env.d.ts
+enums.ts
